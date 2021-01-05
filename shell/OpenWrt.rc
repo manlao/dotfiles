@@ -1,0 +1,15 @@
+# shellcheck shell=bash
+
+export PATHS=(
+  "/usr/sbin"
+  "/usr/bin"
+  "/sbin"
+  "/bin"
+)
+
+# opkg
+export PATHS=(
+  "/opt/sbin"
+  "/opt/bin"
+  "${PATHS[@]}"
+)

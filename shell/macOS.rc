@@ -1,0 +1,133 @@
+# shellcheck shell=bash
+export PATHS=(
+  "/usr/sbin"
+  "/usr/bin"
+  "/sbin"
+  "/bin"
+)
+
+# homebrew
+HOMEBREW_PREFIX=$(brew --prefix)
+export HOMEBREW_PREFIX
+export PATHS=(
+  "$HOMEBREW_PREFIX/sbin"
+  "$HOMEBREW_PREFIX/bin"
+  "${PATHS[@]}"
+)
+export HOMEBREW_GITHUB_API_TOKEN="$GITHUB_TOKEN"
+export HOMEBREW_CASK_OPTS="--no-quarantine"
+export HOMEBREW_NO_AUTO_UPDATE=true
+
+# go
+export GOROOT="$HOMEBREW_PREFIX/opt/go"
+export GOPATH="$HOME/.go"
+
+# rust
+PATHS+=("$HOME/.cargo/bin")
+
+# composer
+PATHS+=("$HOME/.composer/vendor/bin")
+
+# flutter
+export PUB_HOSTED_URL="https://pub.flutter-io.cn"
+export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+
+# android studio
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+PATHS+=(
+  "$ANDROID_HOME/emulator"
+  "$ANDROID_HOME/tools"
+  "$ANDROID_HOME/tools/bin"
+  "$ANDROID_HOME/platform-tools"
+)
+
+# iterm2
+if [ -f "$HOME/.iterm2_shell_integration.${SHELL##*/}" ]; then
+  # shellcheck disable=SC1090
+  source "$HOME/.iterm2_shell_integration.${SHELL##*/}"
+  alias imgcat="~/.iterm2/imgcat"
+  alias imgls="~/.iterm2/imgls"
+  alias it2attention="~/.iterm2/it2attention"
+  alias it2check="~/.iterm2/it2check"
+  alias it2copy="~/.iterm2/it2copy"
+  alias it2dl="~/.iterm2/it2dl"
+  alias it2getvar="~/.iterm2/it2getvar"
+  alias it2git="~/.iterm2/it2git"
+  alias it2setcolor="~/.iterm2/it2setcolor"
+  alias it2setkeylabel="~/.iterm2/it2setkeylabel"
+  alias it2ul="~/.iterm2/it2ul"
+  alias it2universion="~/.iterm2/it2universion"
+  export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
+fi
+
+# npm
+# shellcheck disable=SC2139
+alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
+
+# z
+# shellcheck disable=SC1090
+source "$HOMEBREW_PREFIX/etc/profile.d/z.sh"
+
+install-command-line-tools() {
+  "$DOTFILES_HOME/install" macos_install_command_line_tools
+}
+
+reset-launch-pad() {
+  defaults write com.apple.dock ResetLaunchPad -bool true
+  killall Dock
+}
+
+build-image() {
+  if [ -z "$1" ]; then
+    hdiutil create -o /tmp/macOS -size 20000m -volname macOS -layout SPUD -fs HFS+J
+    hdiutil attach /tmp/macOS.dmg -noverify -mountpoint /Volumes/macOS
+  fi
+
+  local OS_VERSION_NAME
+  OS_VERSION_NAME=$("$DOTFILES_HOME/install" get_os_version_name)
+
+  if [ ! -f "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" ]; then
+    rm -rf "/Applications/Install macOS $OS_VERSION_NAME.app"
+    softwareupdate --fetch-full-installer
+  fi
+
+  sudo "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" --volume "/Volumes/${1:-macOS}" --nointeraction
+
+  if [ -z "$1" ]; then
+    hdiutil detach "/Volumes/Install macOS $OS_VERSION_NAME"
+    hdiutil convert /tmp/macOS.dmg -format UDTO -o /tmp/macOS.cdr
+
+    mv /tmp/macOS.cdr "$HOME/Downloads/macOS.iso"
+    rm -rf /tmp/macOS.dmg
+  fi
+}
+
+change-git-user() {
+  local ENV_FILTER
+  # https://github.com/newren/git-filter-repo/
+  read -r -d '' ENV_FILTER <<EOF || true
+OLD_EMAIL="$1"
+CORRECT_NAME="$2"
+CORRECT_EMAIL="$3"
+if [ "\$GIT_COMMITTER_EMAIL" = "\$OLD_EMAIL" ]; then
+    export GIT_COMMITTER_NAME="\$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="\$CORRECT_EMAIL"
+fi
+if [ "\$GIT_AUTHOR_EMAIL" = "\$OLD_EMAIL" ]; then
+    export GIT_AUTHOR_NAME="\$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="\$CORRECT_EMAIL"
+fi
+EOF
+  FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --env-filter "$ENV_FILTER" --tag-name-filter cat -- --branches --tags
+}
+
+custom-standard-version() {
+  local LATEST_NODE_VERSION STANDARD_VERSION_BIN VERSION_TAG_PREFIX
+  LATEST_NODE_VERSION=$(nvm version default)
+  STANDARD_VERSION_BIN="$HOME/.nvm/versions/node/$LATEST_NODE_VERSION/bin/standard-version"
+  VERSION_TAG_PREFIX=$(git config --get --system gitflow.prefix.versionTag || git config --get --global gitflow.prefix.versionTag || echo "v")
+
+  "$STANDARD_VERSION_BIN" -t "$VERSION_TAG_PREFIX" "$@"
+}
+
+alias standard-version="custom-standard-version"

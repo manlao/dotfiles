@@ -1,0 +1,45 @@
+# shellcheck shell=bash
+
+set -e
+
+main() {
+  case "$1" in
+    install | setup | update | sync )
+      "$@"
+      ;;
+  esac
+}
+
+install() {
+  return
+}
+
+setup() {
+  return
+}
+
+update() {
+  return
+}
+
+sync() {
+  return
+}
+
+# shellcheck disable=SC1090
+source "$DOTFILES_HOME/helper.rc"
+
+if [ -z "$DOTFILES_HOME" ]; then
+  message --error "DOTFILES_HOME not set"
+  exit 1
+fi
+
+if [ -z "$OS_NAME" ]; then
+  message --error "OS_NAME not set"
+  exit 1
+fi
+
+if [ -f "$DOTFILES_HOME/.env" ]; then
+  # shellcheck disable=SC1090
+  source "$DOTFILES_HOME/.env"
+fi

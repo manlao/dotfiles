@@ -1,0 +1,183 @@
+# shellcheck shell=bash
+
+#=======================================================================#
+# os                                                                    #
+#=======================================================================#
+
+OS_NAME=$("$DOTFILES_HOME/install" get_os_name)
+OS_VERSION=$("$DOTFILES_HOME/install" get_os_version)
+ARCHITECTURE=$("$DOTFILES_HOME/install" get_architecture)
+
+export OS_NAME
+export OS_VERSION
+export ARCHITECTURE
+export PATHS=()
+
+#=======================================================================#
+# variables, sources, aliases                                           #
+#=======================================================================#
+
+export PAGER="${PAGER:-less}"
+
+export LESS_TERMCAP_mb=$'\E[1;31m'
+export LESS_TERMCAP_md=$'\E[1;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[1;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[1;32m'
+
+alias ...="../.."
+alias ....="../../.."
+alias .....="../../../.."
+alias ......="../../../../.."
+
+alias -- -="cd -"
+alias 1="cd -"
+alias 2="cd -2"
+alias 3="cd -3"
+alias 4="cd -4"
+alias 5="cd -5"
+alias 6="cd -6"
+alias 7="cd -7"
+alias 8="cd -8"
+alias 9="cd -9"
+
+alias md="mkdir -p"
+
+alias rd="rmdir"
+
+#=======================================================================#
+# ls                                                                    #
+#=======================================================================#
+
+declare -ga LS_OPTIONS
+
+if ls --color=auto 1>/dev/null 2>&1; then
+  # GNU ls
+  # shellcheck disable=SC2034
+  export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+
+  LS_OPTIONS+=("--color=auto")
+
+  if dircolors --version 1>/dev/null 2>&1; then
+    eval "$(dircolors -b)"
+  fi
+elif ls -G 1>/dev/null 2>&1; then
+  # FreeBSD / macOS ls
+  # shellcheck disable=SC2034
+  export LSCOLORS="Gxfxcxdxbxegedabagacad"
+  export CLICOLOR=1
+
+  LS_OPTIONS+=("-G")
+fi
+
+# shellcheck disable=SC2139
+alias ls="ls ${LS_OPTIONS[*]}"
+alias lsa="ls -lah"
+alias l="ls -lah"
+alias ll="ls -lh"
+alias la="ls -lAh"
+
+#=======================================================================#
+# grep                                                                  #
+#=======================================================================#
+
+declare -ga GREP_OPTIONS
+
+# Color on GNU and FreeBSD grep
+if grep --color=auto -q "a" <<< "a" 1>/dev/null 2>&1; then
+  GREP_OPTIONS+=("--color=auto")
+fi
+
+# ignore VCS folders (if the necessary grep flags are available)
+VCS_FOLDERS="{.bzr,CVS,.git,.hg,.svn}"
+
+if grep --exclude-dir=.cvs -q "a" <<< "a" 1>/dev/null 2>&1; then
+  GREP_OPTIONS+=("--exclude-dir=$VCS_FOLDERS")
+elif grep --exclude=.cvs -q "a" <<< "a" 1>/dev/null 2>&1; then
+  GREP_OPTIONS+=("--exclude=$VCS_FOLDERS")
+fi
+
+unset VCS_FOLDERS
+
+# shellcheck disable=SC2139
+alias grep="grep ${GREP_OPTIONS[*]}"
+
+#=======================================================================#
+# read                                                                  #
+#=======================================================================#
+
+READ_ARRAY_OPTION=
+
+case "$SH" in
+  sh | bash )
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION="-a"
+    ;;
+  zsh )
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION="-A"
+    ;;
+  * )
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION=""
+    ;;
+esac
+
+export READ_ARRAY_OPTION
+
+#=======================================================================#
+# functions                                                             #
+#=======================================================================#
+
+d() {
+  if [ -n "$1" ]; then
+    dirs "$@"
+  else
+    dirs -v | head -10
+  fi
+}
+
+take() {
+  mkdir -p "$@" && cd "${@:$#}" || return
+}
+
+join-by() {
+  local IFS="$1"
+  shift
+  echo "$*"
+}
+
+test-load-time() {
+  local I
+  # shellcheck disable=SC2034
+  for I in $(seq 1 10); do /usr/bin/time "$SH" -i -c exit; done
+}
+
+suit() {
+  "$DOTFILES_HOME/suit" "$@"
+
+  case "$SH" in
+    bash )
+      # shellcheck disable=SC1090
+      source "$HOME/.bashrc"
+      ;;
+    zsh )
+      # shellcheck disable=SC1090
+      source "$HOME/.zshrc"
+      ;;
+  esac
+}
+
+#=======================================================================#
+# os.rc                                                                 #
+#=======================================================================#
+
+if [ -f "$DOTFILES_HOME/shell/$OS_NAME.rc" ]; then
+  # shellcheck disable=SC1090
+  source "$DOTFILES_HOME/shell/$OS_NAME.rc"
+fi
+
+PATH=$(join-by ":" "${PATHS[@]}")
+export PATH

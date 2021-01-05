@@ -1,0 +1,27 @@
+# always expand `~` to user's directory full path
+set expand-tilde on
+
+# show extra information in the output, similar to `ls -F`
+set visible-stats on
+
+# make autocomplete case-insensitive
+set completion-ignore-case on
+
+# immediately show the completions list
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# add a trailing slash to symlinked directories
+set mark-symlinked-directories on
+
+# disable the "-- more --" prompt for long lists
+set page-completions off
+
+# show the "Display (...) possibilities?" prompt only for long lists
+set completion-query-items 400
+
+# disable the sound bell
+set bell-style none
+
+# edit a long command line in a single screen line
+set horizontal-scroll-mode on

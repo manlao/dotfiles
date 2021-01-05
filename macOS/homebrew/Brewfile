@@ -1,0 +1,247 @@
+#=======================================================================#
+# Taps                                                                  #
+#=======================================================================#
+
+# Taps
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/cask-fonts"
+
+#=======================================================================#
+# App Store                                                             #
+#=======================================================================#
+
+# Xcode
+mas "Xcode", id: 497799835
+
+# Keynote, Numbers, Pages
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+
+# Others
+mas "Microsoft To Do", id: 1274495053
+
+#=======================================================================#
+# Casks                                                                 #
+#=======================================================================#
+
+# Terminal
+cask "iterm2"
+# cask "hyper"
+
+# Browser
+cask "google-chrome"
+cask "chromedriver"
+cask "firefox"
+cask "microsoft-edge"
+# cask "tor-browser"
+
+# Editor
+cask "visual-studio-code"
+# cask "atom"
+# cask "boostnote"
+# cask "mathpix-snipping-tool"
+
+# Git
+# cask "fork"
+# cask "sourcetree"
+# cask "github"
+
+# IM
+# cask "aliwangwang"
+cask "wechat"
+# cask "qq"
+cask "slack"
+
+# Work
+cask "wechatwork"
+# cask "dingtalk"
+
+# Music
+cask "qqmusic"
+cask "neteasemusic"
+
+# Proxy
+cask "lantern"
+# cask "v2rayu"
+# cask "shadowsocksx-ng"
+cask "openvpn-connect"
+cask "tunnelblick"
+
+# Dev Tools
+# cask "insomnia"
+# cask "postman"
+# cask "wireshark"
+# cask "sequel-pro"
+# cask "dash"
+# cask "wechatwebdevtools"
+# cask "switchhosts"
+
+# Menu Bar
+# cask "itsycal"
+# cask "bitbar"
+
+# Docker
+cask "docker"
+# cask "kitematic"
+
+# Video Player
+# cask "mpv"
+# cask "iina"
+
+# Audio Player
+# cask "vox"
+
+# Others
+# cask "appcleaner"
+
+# Compression
+cask "the-unarchiver"
+
+# Productivity
+# cask "alfred"
+cask "rectangle"
+# cask "cheatsheet"
+
+# Settings
+# cask "onyx"
+
+# Screen Recorder
+# cask "kap"
+
+# Adobe
+# cask "adobe-creative-cloud"
+# cask "adobe-creative-cloud-cleaner-tool"
+
+# Android
+cask "android-studio"
+
+# Virtual Machine
+# cask "virtualbox"
+# cask "vagrant"
+
+# Office
+# cask "microsoft-office"
+
+# Fonts
+cask "font-meslo-lg-nerd-font"
+
+#=======================================================================#
+# Formulae                                                              #
+#=======================================================================#
+
+# Mac App Store
+brew "mas"
+
+# Shell
+brew "bash"
+brew "zsh"
+brew "zplug"
+# brew "fish"
+
+# Pager
+brew "less"
+
+# Git
+brew "git"
+# brew "git-flow"
+brew "git-flow-avh"
+brew "git-lfs"
+brew "git-extras"
+
+# GitHub
+brew "gh"
+brew "hub"
+
+# GitLab
+brew "lab"
+
+# Editor
+brew "vim"
+brew "neovim"
+# brew "bat"
+
+# Multiplexer
+brew "tmux"
+brew "screen"
+
+# Network Tools
+brew "httpie"
+brew "curl"
+brew "wget"
+
+# Text Finder
+brew "ack"
+brew "the_silver_searcher"
+
+# Fuzzy Finder
+brew "fzf"
+
+# Navigation
+brew "autojump"
+brew "z"
+brew "fasd"
+
+# JSON
+brew "jq"
+
+# HTML
+brew "recode"
+
+# Command Correction
+brew "thefuck"
+
+# Defaults
+brew "duti"
+
+# Proxy
+brew "mitmproxy"
+
+# Encryption
+brew "gnupg"
+
+# Kubernets
+brew "kubernetes-cli"
+
+# Ctags
+brew "ctags"
+
+# Version Manager
+brew "asdf"
+
+# Shell Script
+brew "shellcheck"
+
+# Node
+brew "nvm"
+
+# Deno
+
+# Python
+brew "pyenv"
+
+# Ruby
+brew "rbenv"
+
+# Java
+brew "jenv"
+
+# Rust
+
+# Go
+
+# PHP
+
+# Kotlin
+
+# Scala
+
+# Flutter
+
+# Julia
+
+# Dev Tools
+brew "watchman"

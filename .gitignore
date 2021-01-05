@@ -1,0 +1,4 @@
+.env
+.zcompdump
+*.lock
+*.lock.json

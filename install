@@ -1,0 +1,195 @@
+#!/usr/bin/env sh
+
+set -e
+
+info() {
+  printf "%b\n" "\033[34m🚜 $* \033[0m"
+}
+
+error() {
+  printf "%b\n" "\033[31m💊 $* \033[0m"
+}
+
+set_variable() {
+  eval "VALUE=\"\$$1\""
+
+  if [ -n "$VALUE" ]; then
+    return
+  fi
+
+  if [ "$QUIET" = true ]; then
+    eval "$1=\"$3\""
+  else
+    # shellcheck disable=SC2059
+    printf "🎨 \033[1;37m$2 (%s): \033[0m" "$3"
+    read -r VAR
+    eval "$1=\"${VAR:-$3}\""
+  fi
+}
+
+install() {
+  for I in "$@"; do
+    case "$I" in
+      --dotfiles-repo=* )
+        DOTFILES_REPO="${I#*=}"
+        ;;
+      --dotfiles-home=* )
+        DOTFILES_HOME="${I#*=}"
+        ;;
+      --dotenv-file=* )
+        DOTENV_FILE="${I#*=}"
+        ;;
+      --quiet )
+        QUIET=true
+        ;;
+    esac
+  done
+
+  OS_NAME=$(get_os_name)
+
+  if [ -z "$OS_NAME" ]; then
+    error "NOT supported operation system"
+    exit 1
+  fi
+
+  set_variable DOTFILES_REPO "Dotfiles repo" "https://github.com/manlao/dotfiles.git"
+  set_variable DOTFILES_HOME "Dotfiles home" "$HOME/.dotfiles"
+
+  if [ -e "$DOTFILES_HOME" ]; then
+    error "$DOTFILES_HOME existed"
+    exit 1
+  fi
+
+  case "$OS_NAME" in
+    macOS )
+      set_variable DOTENV_FILE "Location of .env file" "$HOME/Documents/.env"
+
+      if [ ! -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then
+        info "Install Xcode Command Line Tools"
+        macos_install_command_line_tools
+      fi
+      ;;
+    OpenWrt )
+      set_variable DOTENV_FILE "Location of .env file" "$HOME/.Documents/.env"
+
+      info "Install packages: bash, git, git-http, curl"
+      openwrt_install_packages
+      ;;
+  esac
+
+  info "Clone dotfiles"
+  git clone "$DOTFILES_REPO" "$DOTFILES_HOME"
+
+  ln -sf "$DOTENV_FILE" "$DOTFILES_HOME/.env"
+
+  "$DOTFILES_HOME/suit" install --retry=5 "$([ "$QUIET" = true ] && echo "--quiet")"
+}
+
+get_os_name() {
+  UNAME=$(uname)
+
+  case "$UNAME" in
+    Darwin )
+      echo "macOS"
+      ;;
+    Linux )
+      if grep "OpenWrt" "/proc/version" 1>/dev/null 2>&1; then
+        echo "OpenWrt"
+      fi
+      ;;
+  esac
+}
+
+get_os_version() {
+  OS_NAME=$(get_os_name)
+
+  case "$OS_NAME" in
+    macOS )
+      sw_vers -productVersion
+      ;;
+    OpenWrt )
+      # . "/etc/os-release" && echo "$VERSION_ID"
+      # shellcheck disable=SC1091
+      . "/etc/openwrt_release"
+      echo "$DISTRIB_RELEASE"
+      ;;
+  esac
+}
+
+get_os_major_version() {
+  get_os_version | cut -d "." -f 1
+}
+
+get_os_minor_version() {
+  get_os_version | cut -d "." -f 2
+}
+
+get_os_patch_version() {
+  get_os_version | cut -d "." -f 3
+}
+
+get_os_version_name() {
+  OS_NAME=$(get_os_name)
+
+  case "$OS_NAME" in
+    macOS )
+      if [ "$(get_os_major_version)" -ge 11 ]; then
+        awk "/SOFTWARE LICENSE AGREEMENT FOR macOS/" "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf" | awk -F "macOS " '{print $NF}' | awk '{print substr($0, 0, length($0)-1)}'
+      fi
+      ;;
+  esac
+}
+
+get_architecture() {
+  OS_NAME=$(get_os_name)
+
+  case "$OS_NAME" in
+    macOS )
+      # https://www.ohanaware.com/blog/202032/macOS-CPU-Architecture.html
+      uname -m
+      ;;
+    OpenWrt )
+      # uname -m ?
+      # opkg print-architecture | awk '{print $2}' | grep -v all | grep -v noarch
+      # . /etc/os-release && echo "$OPENWRT_ARCH"
+      # shellcheck disable=SC1091
+      . "/etc/openwrt_release"
+      echo "$DISTRIB_ARCH"
+      ;;
+  esac
+}
+
+macos_install_command_line_tools() {
+  # https://github.com/Homebrew/install/blob/f2dffc45211d44804bb4e629a3c145d693fc4324/install.sh#L524
+  # https://github.com/timsutton/osx-vm-templates/blob/81fe5d20b48e040c1cac3a66f4eeb846f244d85e/scripts/xcode-cli-tools.sh#L11
+  # Set placeholder file
+  PLACEHOLDER_FILE="/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress"
+  # Create the placeholder file that's checked by CLI updates' .dist code in
+  # Apple's SUS catalog
+  touch "$PLACEHOLDER_FILE"
+  # Find the CLI Tools update
+  # softwareupdate -l | grep -B 1 -E 'Command Line Tools' | awk -F'*' '/^ *\*/ {print $2}' | sed -e 's/^ *Label: //' -e 's/^ *//' | sort -V | tail -n 1
+  XCODE_COMMAND_LINE_TOOLS=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ * Label: //' | tr -d '\n')
+  # Install it
+  softwareupdate -i "$XCODE_COMMAND_LINE_TOOLS"
+  # Delete the placeholder file
+  rm -rf "$PLACEHOLDER_FILE"
+}
+
+openwrt_install_packages() {
+  opkg update
+  opkg install bash git git-http curl
+}
+
+main() {
+  case "$1" in
+    install | get_os_name | get_os_version_name | get_os_version | get_architecture | macos_install_command_line_tools | openwrt_install_packages )
+      "$@"
+      ;;
+    * )
+      install "$@"
+      ;;
+  esac
+}
+
+main "$@"

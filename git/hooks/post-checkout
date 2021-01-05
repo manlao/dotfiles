@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+echo "$PWD"
+
+get_url() {
+  local REMOTE
+  REMOTE=$(git remote | grep "^${1:-origin}$")
+
+  if [ -n "$REMOTE" ]; then
+    git config --local --get "remote.$REMOTE.url"
+  fi
+}
+
+get_domain() {
+  local HOST
+
+  if [[ "$1" =~ ^.*@([A-Za-z0-9\.]+):.*$ ]] || [[ "$1" =~ ^.*//([A-Za-z0-9\.]+)/.*$ ]]; then
+    HOST="${BASH_REMATCH[1]}"
+  fi
+
+  echo "${HOST,,}"
+}
+
+main() {
+  if [ "$1" = "0000000000000000000000000000000000000000" ]; then
+    if [[ "$PWD" =~ ^$HOME/Repositories ]]; then
+      local HOST
+      HOST=$(get_domain "$(get_url origin)")
+
+      if [ -n "$HOST" ]; then
+        local H
+
+        for H in "${GIT_HOSTS[@]}"; do
+          if echo "$H" | grep -E "^$HOST," 1>/dev/null 2>&1; then
+            local SEGMENTS
+            IFS="," read -r -a SEGMENTS <<< "$H"
+
+            if [ -n "${SEGMENTS[4]}" ] && [ -n "${SEGMENTS[5]}" ]; then
+              echo "Set Email: ${SEGMENTS[4]}"
+              git config --local user.email "${SEGMENTS[4]}"
+              echo "Set User: ${SEGMENTS[5]}"
+              git config --local user.name "${SEGMENTS[5]}"
+            fi
+          fi
+        done
+      fi
+    fi
+  fi
+}
+
+main "$@"

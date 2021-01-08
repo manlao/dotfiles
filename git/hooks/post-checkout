@@ -30,16 +30,19 @@ main() {
       if [ -n "$HOST" ]; then
         local H
 
-        for H in "${GIT_HOSTS[@]}"; do
-          if echo "$H" | grep -E "^$HOST," 1>/dev/null 2>&1; then
+        for U in "${GIT_HOSTS_USERS[@]}"; do
+          if echo "$U" | grep -E "^$HOST," 1>/dev/null 2>&1; then
             local SEGMENTS
-            IFS="," read -r -a SEGMENTS <<< "$H"
+            IFS="," read -r -a SEGMENTS <<< "$U"
 
-            if [ -n "${SEGMENTS[4]}" ] && [ -n "${SEGMENTS[5]}" ]; then
-              echo "Set Email: ${SEGMENTS[4]}"
-              git config --local user.email "${SEGMENTS[4]}"
-              echo "Set User: ${SEGMENTS[5]}"
-              git config --local user.name "${SEGMENTS[5]}"
+            if [ -n "${SEGMENTS[1]}" ]; then
+              echo "Set Email: ${SEGMENTS[1]}"
+              git config --local user.email "${SEGMENTS[1]}"
+            fi
+
+            if [ -n "${SEGMENTS[2]}" ]; then
+              echo "Set User: ${SEGMENTS[2]}"
+              git config --local user.name "${SEGMENTS[2]}"
             fi
           fi
         done

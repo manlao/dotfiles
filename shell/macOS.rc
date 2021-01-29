@@ -19,7 +19,8 @@ export HOMEBREW_CASK_OPTS="--no-quarantine"
 export HOMEBREW_NO_AUTO_UPDATE=true
 
 # go
-export GOROOT="$HOMEBREW_PREFIX/opt/go"
+PATHS+=("$HOMEBREW_PREFIX/opt/go/bin")
+export GOROOT="$HOMEBREW_PREFIX/opt/go/libexec"
 export GOPATH="$HOME/.go"
 export GOPROXY=https://goproxy.io,direct
 

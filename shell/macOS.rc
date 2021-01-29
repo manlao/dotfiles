@@ -21,6 +21,7 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 # go
 export GOROOT="$HOMEBREW_PREFIX/opt/go"
 export GOPATH="$HOME/.go"
+export GOPROXY=https://goproxy.io,direct
 
 # rust
 PATHS+=("$HOME/.cargo/bin")

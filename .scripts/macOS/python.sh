@@ -33,6 +33,7 @@ install_global_packages() {
   local PKGS=(
     "neovim"
     "pynvim"
+    "poetry"
   )
   local P
 

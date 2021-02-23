@@ -18,15 +18,6 @@ install_bash() {
         brew install bash
       fi
       ;;
-    OpenWrt )
-      local STATUS
-      STATUS=$(opkg status bash)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: bash"
-        opkg install bash
-      fi
-      ;;
   esac
 }
 
@@ -52,20 +43,11 @@ setup_bash() {
     macOS )
       BASH_BIN="$(brew --prefix)/bin/bash"
       ;;
-    OpenWrt )
-      BASH_BIN="/bin/bash"
   esac
 
   if [ -n "$BASH_BIN" ] && ! grep "^$BASH_BIN" "/etc/shells" 1>/dev/null 2>&1; then
     echo "$BASH_BIN" | sudo tee -a "/etc/shells"
   fi
-
-  case "$OS_NAME" in
-    OpenWrt )
-      message --info "Change default shell to: $BASH_BIN"
-      sed -i -r "s/^($USER.*):([^:]*)/\1:${BASH_BIN//\//\\\/}/" /etc/passwd
-      ;;
-  esac
 
   ln -sf "$DOTFILES_HOME/shell/bash/.inputrc" "$HOME/.inputrc"
   ln -sf "$DOTFILES_HOME/shell/bash/.bashrc" "$HOME/.bashrc"

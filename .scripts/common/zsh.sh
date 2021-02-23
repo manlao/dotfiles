@@ -20,15 +20,6 @@ install_zsh() {
         brew install zsh
       fi
       ;;
-    OpenWrt )
-      local STATUS
-      STATUS=$(opkg status zsh)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: zsh"
-        opkg install zsh
-      fi
-      ;;
   esac
 }
 
@@ -56,21 +47,6 @@ install_zplug() {
         brew install zplug
       fi
       ;;
-    OpenWrt )
-      STATUS=$(opkg status curl)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: curl"
-        opkg install curl
-      fi
-
-      if [ ! -d "$HOME/.zplug" ]; then
-        message --info "Install zplug"
-
-        rm -rf "$HOME/.zplug"
-        curl -sL --proto-redir -all,https "https://raw.githubusercontent.com/zplug/installer/master/installer.zsh" | zsh
-      fi
-      ;;
   esac
 }
 
@@ -91,9 +67,6 @@ setup_zsh() {
   case "$OS_NAME" in
     macOS )
       ZSH_BIN="$(brew --prefix)/bin/zsh"
-      ;;
-    OpenWrt )
-      ZSH_BIN="/bin/zsh"
       ;;
   esac
 

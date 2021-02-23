@@ -16,23 +16,6 @@ install_git() {
         brew install git
       fi
       ;;
-    OpenWrt )
-      local STATUS
-
-      STATUS=$(opkg status git)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: git"
-        opkg install git
-      fi
-
-      STATUS=$(opkg status git-http)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: git-http"
-        opkg install git-http
-      fi
-      ;;
   esac
 }
 

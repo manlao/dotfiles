@@ -89,7 +89,7 @@ selfupdate() {
 
 main() {
   case "$OS_NAME" in
-    macOS | OpenWrt )
+    macOS )
       case $1 in
         install | setup | update | sync | selfupdate )
           "$@"

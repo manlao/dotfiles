@@ -2,9 +2,6 @@ case "$OS_NAME" in
   macOS )
     export ZPLUG_HOME="$HOMEBREW_PREFIX/opt/zplug"
     ;;
-  OpenWrt )
-    export ZPLUG_HOME="$HOME/.zplug"
-    ;;
 esac
 
 source "$ZPLUG_HOME/init.zsh"

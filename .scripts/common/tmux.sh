@@ -15,15 +15,6 @@ install_tmux() {
         brew install tmux
       fi
       ;;
-    OpenWrt )
-      local STATUS
-      STATUS=$(opkg status tmux)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: tmux"
-        opkg install tmux
-      fi
-      ;;
   esac
 }
 

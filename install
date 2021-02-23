@@ -69,12 +69,6 @@ install() {
         macos_install_command_line_tools
       fi
       ;;
-    OpenWrt )
-      set_variable DOTENV_FILE "Location of .env file" "$HOME/.Documents/.env"
-
-      info "Install packages: bash, git, git-http, curl"
-      openwrt_install_packages
-      ;;
   esac
 
   info "Clone dotfiles"
@@ -92,19 +86,6 @@ get_os_name() {
     Darwin )
       sw_vers -productName
       ;;
-    Linux )
-      if [ -f "/etc/os-release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/os-release"
-        # shellcheck disable=SC2153
-        echo "$NAME"
-      elif [ -f "/etc/openwrt_release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/openwrt_release"
-        # shellcheck disable=SC2153
-        echo "$DISTRIB_ID"
-      fi
-      ;;
   esac
 }
 
@@ -114,19 +95,6 @@ get_os_version() {
   case "$OS_NAME" in
     macOS )
       sw_vers -productVersion
-      ;;
-    OpenWrt )
-      if [ -f "/etc/os-release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/os-release"
-        # shellcheck disable=SC2153
-        echo "$VERSION_ID"
-      elif [ -f "/etc/openwrt_release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/openwrt_release"
-        # shellcheck disable=SC2153
-        echo "$DISTRIB_RELEASE"
-      fi
       ;;
   esac
 }
@@ -163,21 +131,6 @@ get_architecture() {
       # https://www.ohanaware.com/blog/202032/macOS-CPU-Architecture.html
       uname -m
       ;;
-    OpenWrt )
-      if [ -f "/etc/os-release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/os-release"
-        # shellcheck disable=SC2153
-        echo "$OPENWRT_ARCH"
-      elif [ -f "/etc/openwrt_release" ]; then
-        # shellcheck disable=SC1091
-        . "/etc/openwrt_release"
-        # shellcheck disable=SC2153
-        echo "$DISTRIB_ARCH"
-      else
-        opkg print-architecture | awk '{print $2}' | grep -v all | grep -v noarch || uname -m
-      fi
-      ;;
   esac
 }
 
@@ -198,14 +151,9 @@ macos_install_command_line_tools() {
   rm -rf "$PLACEHOLDER_FILE"
 }
 
-openwrt_install_packages() {
-  opkg update
-  opkg install bash git git-http curl
-}
-
 main() {
   case "$1" in
-    install | get_os_name | get_os_version_name | get_os_version | get_architecture | macos_install_command_line_tools | openwrt_install_packages )
+    install | get_os_name | get_os_version_name | get_os_version | get_architecture | macos_install_command_line_tools )
       "$@"
       ;;
     * )

@@ -21,23 +21,6 @@ install_vim() {
         brew install vim
       fi
       ;;
-    OpenWrt )
-      local STATUS
-
-      STATUS=$(opkg status vim-fuller)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: vim-fuller"
-        opkg install vim-fuller
-      fi
-
-      STATUS=$(opkg status vim-help)
-
-      if [ -z "$STATUS" ]; then
-        message --info "Install opkg package: vim-help"
-        opkg install vim-help
-      fi
-      ;;
   esac
 }
 

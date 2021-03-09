@@ -132,39 +132,7 @@ setup_terminal() {
 }
 
 setup_dock() {
-  local PLIST="$HOME/Library/Preferences/com.apple.dock.plist"
-
-  /usr/libexec/PlistBuddy -c "Delete :persistent-apps" "${PLIST}"
-  /usr/libexec/PlistBuddy -c "Add :persistent-apps array" "${PLIST}"
-
-  local I APPS=(
-    "169,启动台,/System/Applications/Launchpad.app"
-    "41,iTerm,/Applications/iTerm.app"
-    "41,Visual Studio Code,/Applications/Visual Studio Code.app"
-    "41,Google Chrome,/Applications/Google Chrome.app"
-    "41,微信,/Applications/WeChat.app"
-    "41,企业微信,/Applications/企业微信.app"
-    "41,邮件,/System/Applications/Mail.app"
-    "41,App Store,/System/Applications/App Store.app"
-    "41,系统偏好设置,/System/Applications/System Preferences.app"
-  )
-
-  for I in "${!APPS[@]}"; do
-    local SEGMENTS
-    IFS="," read -r -a SEGMENTS <<< "${APPS[I]}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:GUID string $(uuidgen)" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-type string file-tile" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-type integer ${SEGMENTS[0]}" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-label string '${SEGMENTS[1]}'" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLStringType integer 15" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLString string 'file://${SEGMENTS[2]}/'" "${PLIST}"
-  done
-
-  defaults write com.apple.dock ResetLaunchPad -bool true
-  killall Dock
+  configure_dock
 }
 
 setup_finder() {
@@ -179,6 +147,7 @@ update() {
   update_system
   update_homebrew
   update_packages
+  update_dock
 
   run_directory "$DOTFILES_HOME/.scripts/common" update
   run_directory "$DOTFILES_HOME/.scripts/macOS" update
@@ -213,6 +182,10 @@ update_packages() {
   fi
 }
 
+update_dock() {
+  configure_dock
+}
+
 sync() {
   sync_packages
 
@@ -225,6 +198,43 @@ sync_packages() {
 
   brew bundle cleanup --verbose
   brew autoremove
+}
+
+configure_dock() {
+  local PLIST="$HOME/Library/Preferences/com.apple.dock.plist"
+
+  /usr/libexec/PlistBuddy -c "Delete :persistent-apps" "${PLIST}"
+  /usr/libexec/PlistBuddy -c "Add :persistent-apps array" "${PLIST}"
+
+  local I APPS=(
+    "169,启动台,/System/Applications/Launchpad.app"
+    "41,iTerm,/Applications/iTerm.app"
+    "41,Visual Studio Code,/Applications/Visual Studio Code.app"
+    "41,Google Chrome,/Applications/Google Chrome.app"
+    "41,Slack,/Applications/Slack.app"
+    "41,微信,/Applications/WeChat.app"
+    "41,企业微信,/Applications/企业微信.app"
+    "41,邮件,/System/Applications/Mail.app"
+    "41,App Store,/System/Applications/App Store.app"
+    "41,系统偏好设置,/System/Applications/System Preferences.app"
+  )
+
+  for I in "${!APPS[@]}"; do
+    local SEGMENTS
+    IFS="," read -r -a SEGMENTS <<< "${APPS[I]}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I dict" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:GUID string $(uuidgen)" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-type string file-tile" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data dict" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-type integer ${SEGMENTS[0]}" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-label string '${SEGMENTS[1]}'" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data dict" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLStringType integer 15" "${PLIST}"
+    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLString string 'file://${SEGMENTS[2]}/'" "${PLIST}"
+  done
+
+  defaults write com.apple.dock ResetLaunchPad -bool true
+  killall Dock
 }
 
 main "$@"

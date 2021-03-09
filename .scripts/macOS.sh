@@ -3,7 +3,11 @@
 # shellcheck disable=SC1090
 source "$DOTFILES_HOME/trait.rc"
 
+export XCODE_APP_ID="497799835"
 export HOMEBREW_BUNDLE_FILE="$DOTFILES_HOME/macOS/homebrew/Brewfile"
+export HOMEBREW_BUNDLE_MAS_SKIP="$XCODE_APP_ID"
+export HOMEBREW_NO_AUTO_UPDATE=true
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 SUDOERS="$DOTFILES_HOME/macOS/sudoers"
 
 install() {
@@ -52,12 +56,6 @@ install_taps() {
 
 install_packages() {
   message --info "Install packages"
-
-  local XCODE_APP_ID="497799835"
-
-  export HOMEBREW_NO_AUTO_UPDATE=true
-  export HOMEBREW_CASK_OPTS="--no-quarantine"
-  export HOMEBREW_BUNDLE_MAS_SKIP="$XCODE_APP_ID"
 
   brew bundle install --verbose
 
@@ -167,9 +165,6 @@ update_homebrew() {
 
 update_packages() {
   message --info "Update packages"
-
-  export HOMEBREW_NO_AUTO_UPDATE=true
-  export HOMEBREW_CASK_OPTS="--no-quarantine"
 
   brew upgrade --greedy
 

@@ -307,7 +307,7 @@ Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-dispatch'
 
 " interface
-" Plug '/usr/local/opt/fzf'
+" Plug '$HOMEBREW_PREFIX/opt/fzf'
 " Plug 'junegunn/fzf.vim'
 " Plug 'wincent/command-t'
 

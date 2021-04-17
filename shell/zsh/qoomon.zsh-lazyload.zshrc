@@ -2,7 +2,7 @@ case "$OS_NAME" in
   macOS )
     # asdf
     load:asdf() {
-      source "$(brew --prefix asdf)/asdf.sh"
+      source "$HOMEBREW_PREFIX/opt/asdf/asdf.sh"
     }
 
     lazyload asdf -- load:asdf
@@ -10,11 +10,10 @@ case "$OS_NAME" in
     # nvm
     load:nvm() {
       export NVM_DIR="$HOME/.nvm"
-      # shellcheck disable=SC1090
-      source "$(brew --prefix nvm)/nvm.sh"
+      source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
     }
 
-    lazyload nvm node npm npx yarn cz git-cz commitizen standard-version -- load:nvm
+    lazyload nvm -- load:nvm
 
     # pyenv
     load:pyenv() {
@@ -22,7 +21,7 @@ case "$OS_NAME" in
       eval "$(pyenv init -)"
     }
 
-    lazyload pyenv python python3 pip pip3 pipenv -- load:pyenv
+    lazyload pyenv -- load:pyenv
 
     # rbenv
     load:rbenv() {
@@ -30,14 +29,14 @@ case "$OS_NAME" in
       eval "$(rbenv init -)"
     }
 
-    lazyload rbenv ruby -- load:rbenv
+    lazyload rbenv -- load:rbenv
 
     # jenv
     load:jenv() {
       eval "$(jenv init -)"
     }
 
-    lazyload jenv java -- load:jenv
+    lazyload jenv -- load:jenv
 
     # docker
     load:docker() {

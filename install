@@ -76,7 +76,7 @@ install() {
 
   ln -sf "$DOTENV_FILE" "$DOTFILES_HOME/.env"
 
-  "$DOTFILES_HOME/suit" install --retry=5 "$([ "$QUIET" = true ] && echo "--quiet")"
+  caffeinate -i "$DOTFILES_HOME/suit" install --retry=5 "$([ "$QUIET" = true ] && echo "--quiet")"
 }
 
 get_os_name() {

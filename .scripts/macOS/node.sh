@@ -124,7 +124,8 @@ update_ltses() {
 initialize_nvm() {
   export NVM_DIR="$HOME/.nvm"
   # shellcheck disable=SC1090
-  source "$(brew --prefix nvm)/nvm.sh"
+  # https://github.com/nvm-sh/nvm/issues/1985
+  source "$(brew --prefix nvm)/nvm.sh" --no-use
 }
 
 main "$@"

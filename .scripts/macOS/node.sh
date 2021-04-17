@@ -3,6 +3,8 @@
 # shellcheck disable=SC1090
 source "$DOTFILES_HOME/trait.rc"
 
+DEFAULT_NODE_VERSION="lts/*"
+
 install() {
   install_nvm
   initialize_nvm
@@ -15,17 +17,19 @@ install_nvm() {
     message --info "Install homebrew formula: nvm"
     brew install nvm
   fi
+
+  nvm alias default "$DEFAULT_NODE_VERSION"
 }
 
 install_node() {
-  if [ "$(nvm version node)" = "N/A" ]; then
-    message --info "Install node"
-    nvm install node
+  if [ "$(nvm version "$DEFAULT_NODE_VERSION")" = "N/A" ]; then
+    message --info "Install $DEFAULT_NODE_VERSION"
+    nvm install "$DEFAULT_NODE_VERSION"
   fi
 }
 
 install_global_packages() {
-  nvm use node 1>/dev/null 2>&1
+  nvm use "$DEFAULT_NODE_VERSION" 1>/dev/null 2>&1
 
   # prettier plugins
   # @prettier/plugin-php
@@ -73,8 +77,8 @@ update() {
 
 update_node() {
   local LOCAL_VERSION REMOTE_VERSION
-  LOCAL_VERSION=$(nvm version node)
-  REMOTE_VERSION=$(nvm version-remote node)
+  LOCAL_VERSION=$(nvm version "$DEFAULT_NODE_VERSION")
+  REMOTE_VERSION=$(nvm version-remote "$DEFAULT_NODE_VERSION")
 
   if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
     message --info "Update node"
@@ -87,7 +91,7 @@ update_node() {
 update_global_packages() {
   message --info "Update global node packages"
 
-  nvm use node
+  nvm use "$DEFAULT_NODE_VERSION"
   npm update -g
 }
 

@@ -17,11 +17,11 @@ install_nvm() {
     message --info "Install homebrew formula: nvm"
     brew install nvm
   fi
-
-  nvm alias default "$DEFAULT_NODE_VERSION"
 }
 
 install_node() {
+  nvm alias default "$DEFAULT_NODE_VERSION"
+
   if [ "$(nvm version "$DEFAULT_NODE_VERSION")" = "N/A" ]; then
     message --info "Install $DEFAULT_NODE_VERSION"
     nvm install "$DEFAULT_NODE_VERSION"

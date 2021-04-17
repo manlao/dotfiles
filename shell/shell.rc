@@ -156,7 +156,7 @@ test-load-time() {
 }
 
 suit() {
-  caffeinate -i "$DOTFILES_HOME/suit" "$@"
+  caffeinate -u "$DOTFILES_HOME/suit" "$@"
 
   case "$SH" in
     bash )

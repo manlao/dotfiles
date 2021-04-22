@@ -226,6 +226,7 @@ brew "bats-core"
 
 # Node
 brew "nodenv"
+brew "nodenv/nodenv/node-build-update-defs"
 brew "nodenv/nodenv/nodenv-npm-migrate"
 brew "nodenv/nodenv/nodenv-nvmrc"
 brew "nodenv/nodenv/nodenv-package-json-engine"

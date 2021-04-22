@@ -36,6 +36,11 @@ install_nodenv() {
 }
 
 install_nodenv_plugins() {
+  if ! brew list nodenv/nodenv/node-build-update-defs 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: nodenv/nodenv/node-build-update-defs"
+    brew install nodenv/nodenv/node-build-update-defs
+  fi
+
   if ! brew list nodenv/nodenv/nodenv-npm-migrate 1>/dev/null 2>&1; then
     message --info "Install homebrew formula: nodenv/nodenv/nodenv-npm-migrate"
     brew install nodenv/nodenv/nodenv-npm-migrate
@@ -97,6 +102,7 @@ initialize_nodenv() {
 }
 
 install_or_update_node() {
+  nodenv update-version-defs
   nodenv aliases --update --upgrade
 
   if [ -n "$DEFAULT_NODE_VERSION" ]; then

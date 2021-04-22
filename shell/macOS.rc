@@ -74,6 +74,7 @@ PATHS+=("$HOME/.composer/vendor/bin")
 #=======================================================================#
 # nodenv
 eval "$(nodenv init -)"
+PATHS+=("$HOME/.nodenv/shims")
 # npm
 # shellcheck disable=SC2139
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
@@ -83,18 +84,21 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.c
 #=======================================================================#
 # pyenv
 eval "$(pyenv init -)"
+PATHS+=("$HOME/.pyenv/shims")
 
 #=======================================================================#
 # ruby                                                                  #
 #=======================================================================#
 # rbenv
 eval "$(rbenv init -)"
+PATHS+=("$HOME/.rbenv/shims")
 
 #=======================================================================#
 # java                                                                  #
 #=======================================================================#
 # jenv
 eval "$(jenv init -)"
+PATHS+=("$HOME/.jenv/shims")
 
 #=======================================================================#
 # flutter                                                               #

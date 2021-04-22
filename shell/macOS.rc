@@ -1,12 +1,19 @@
 # shellcheck shell=bash
+
+#=======================================================================#
+# basic variables                                                       #
+#=======================================================================#
 export PATHS=(
   "/usr/sbin"
   "/usr/bin"
   "/sbin"
   "/bin"
 )
+export DEFAULT_NODE_VERSION="lts/*"
 
-# homebrew
+#=======================================================================#
+# homebrew                                                              #
+#=======================================================================#
 HOMEBREW_PREFIX=$(brew --prefix)
 export HOMEBREW_PREFIX
 export PATHS=(
@@ -17,32 +24,15 @@ export PATHS=(
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 export HOMEBREW_NO_AUTO_UPDATE=true
 
-# go
-PATHS+=("$HOMEBREW_PREFIX/opt/go/bin")
-export GOROOT="$HOMEBREW_PREFIX/opt/go/libexec"
-export GOPATH="$HOME/.go"
-export GOPROXY=https://goproxy.io,direct
+#=======================================================================#
+# z                                                                     #
+#=======================================================================#
+# shellcheck disable=SC1090
+source "$HOMEBREW_PREFIX/etc/profile.d/z.sh"
 
-# rust
-PATHS+=("$HOME/.cargo/bin")
-
-# composer
-PATHS+=("$HOME/.composer/vendor/bin")
-
-# flutter
-export PUB_HOSTED_URL="https://pub.flutter-io.cn"
-export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
-
-# android studio
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-PATHS+=(
-  "$ANDROID_HOME/emulator"
-  "$ANDROID_HOME/tools"
-  "$ANDROID_HOME/tools/bin"
-  "$ANDROID_HOME/platform-tools"
-)
-
-# iterm2
+#=======================================================================#
+# iterm2                                                                #
+#=======================================================================#
 if [ -f "$HOME/.iterm2_shell_integration.${SHELL##*/}" ]; then
   # shellcheck disable=SC1090
   source "$HOME/.iterm2_shell_integration.${SHELL##*/}"
@@ -61,49 +51,77 @@ if [ -f "$HOME/.iterm2_shell_integration.${SHELL##*/}" ]; then
   export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 fi
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
+#=======================================================================#
+# go                                                                    #
+#=======================================================================#
+export GOPROXY=https://goproxy.io,direct
+# goenv
+export GOENV_GOPATH_PREFIX="$HOME/.go"
+eval "$(goenv init -)"
 
-# node
-NVM_DEFAULT_NODE_VERSION=$(< "$NVM_DIR/alias/default")
+#=======================================================================#
+# rust                                                                  #
+#=======================================================================#
+PATHS+=("$HOME/.cargo/bin")
 
-while [ -s "$NVM_DIR/alias/$NVM_DEFAULT_NODE_VERSION" ] && [ -n "$NVM_DEFAULT_NODE_VERSION" ]; do
-  NVM_DEFAULT_NODE_VERSION="$(<"$NVM_DIR/alias/$NVM_DEFAULT_NODE_VERSION")"
-done
+#=======================================================================#
+# php                                                                   #
+#=======================================================================#
+PATHS+=("$HOME/.composer/vendor/bin")
 
-if [ -n "$NVM_DEFAULT_NODE_VERSION" ]; then
-  export NVM_DEFAULT_NODE_VERSION;
-  PATHS=(
-    "$NVM_DIR/versions/node/$NVM_DEFAULT_NODE_VERSION/bin"
-    "${PATHS[@]}"
-  )
-fi
-
+#=======================================================================#
+# node                                                                  #
+#=======================================================================#
+# nodenv
+eval "$(nodenv init -)"
 # npm
 # shellcheck disable=SC2139
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
 
+#=======================================================================#
+# python                                                                #
+#=======================================================================#
 # pyenv
-PATHS=(
-  "$HOME/.pyenv/shims"
-  "${PATHS[@]}"
-)
+eval "$(pyenv init -)"
 
+#=======================================================================#
+# ruby                                                                  #
+#=======================================================================#
 # rbenv
-PATHS=(
-  "$HOME/.rbenv/shims"
-  "${PATHS[@]}"
-)
+eval "$(rbenv init -)"
 
+#=======================================================================#
+# java                                                                  #
+#=======================================================================#
 # jenv
-PATHS=(
-  "$HOME/.jenv/shims"
-  "${PATHS[@]}"
+eval "$(jenv init -)"
+
+#=======================================================================#
+# flutter                                                               #
+#=======================================================================#
+export PUB_HOSTED_URL="https://pub.flutter-io.cn"
+export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+
+#=======================================================================#
+# android studio                                                        #
+#=======================================================================#
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+PATHS+=(
+  "$ANDROID_HOME/emulator"
+  "$ANDROID_HOME/tools"
+  "$ANDROID_HOME/tools/bin"
+  "$ANDROID_HOME/platform-tools"
 )
 
-# z
+#=======================================================================#
+# asdf                                                                  #
+#=======================================================================#
 # shellcheck disable=SC1090
-source "$HOMEBREW_PREFIX/etc/profile.d/z.sh"
+source "$HOMEBREW_PREFIX/opt/asdf/asdf.sh"
+
+#=======================================================================#
+# functions                                                             #
+#=======================================================================#
 
 install-command-line-tools() {
   "$DOTFILES_HOME/install" macos_install_command_line_tools
@@ -139,32 +157,28 @@ build-image() {
   fi
 }
 
+# https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi
 change-git-user() {
-  local ENV_FILTER
-  # https://github.com/newren/git-filter-repo/
-  read -r -d '' ENV_FILTER <<EOF || true
-OLD_EMAIL="$1"
-CORRECT_NAME="$2"
-CORRECT_EMAIL="$3"
-if [ "\$GIT_COMMITTER_EMAIL" = "\$OLD_EMAIL" ]; then
-    export GIT_COMMITTER_NAME="\$CORRECT_NAME"
-    export GIT_COMMITTER_EMAIL="\$CORRECT_EMAIL"
-fi
-if [ "\$GIT_AUTHOR_EMAIL" = "\$OLD_EMAIL" ]; then
-    export GIT_AUTHOR_NAME="\$CORRECT_NAME"
-    export GIT_AUTHOR_EMAIL="\$CORRECT_EMAIL"
-fi
+  local CALLBACK
+  read -r -d '' CALLBACK <<EOF || true
+old_email = b"$1"
+new_name = b"$2"
+new_email = b"$3"
+
+if commit.committer_email == old_email:
+  commit.committer_name = new_name
+  commit.committer_email = new_email
+
+if commit.author_email == old_email:
+  commit.author_name = new_name
+  commit.author_email = new_email
 EOF
-  FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --env-filter "$ENV_FILTER" --tag-name-filter cat -- --branches --tags
+  git filter-repo --commit-callback "$CALLBACK"
 }
 
-custom-standard-version() {
-  local LATEST_NODE_VERSION STANDARD_VERSION_BIN VERSION_TAG_PREFIX
-  LATEST_NODE_VERSION=$(nvm version default)
-  STANDARD_VERSION_BIN="$HOME/.nvm/versions/node/$LATEST_NODE_VERSION/bin/standard-version"
+standard-version() {
+  local VERSION_TAG_PREFIX
   VERSION_TAG_PREFIX=$(git config --get --system gitflow.prefix.versionTag || git config --get --global gitflow.prefix.versionTag || echo "v")
 
-  "$STANDARD_VERSION_BIN" -t "$VERSION_TAG_PREFIX" "$@"
+  "${NODENV_ROOT:-$HOME/.nodenv}/shims/standard-version" -t "$VERSION_TAG_PREFIX" "$@"
 }
-
-alias standard-version="custom-standard-version"

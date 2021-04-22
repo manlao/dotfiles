@@ -25,14 +25,10 @@ zinit light "qoomon/zsh-lazyload"
 # zinit light "shihyuho/zsh-jenv-lazy"
 # zinit light "supercrabtree/k"
 # zinit light "gko/listbox"
-# zinit light "dijitalmunky/nvm-auto"
-# zinit light "tomsquest/nvm-auto-use.zsh"
 # zinit light "iboyperson/zsh-pipenv"
 # zinit light "laggardkernel/zsh-thefuck"
 # zinit light "sinetoami/web-search"
 # zinit light "agkozak/zsh-z"
-zinit ice atload"zsh-auto-nvm"
-zinit light "manlao/zsh-auto-nvm"
 
 # plugins by os
 # case "$OS_NAME" in

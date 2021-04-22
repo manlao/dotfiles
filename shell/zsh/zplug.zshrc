@@ -31,13 +31,10 @@ zplug "qoomon/zsh-lazyload", hook-load:"source $ZSH_DIR/qoomon.zsh-lazyload.zshr
 # zplug "shihyuho/zsh-jenv-lazy"
 # zplug "supercrabtree/k"
 # zplug "gko/listbox"
-# zplug "dijitalmunky/nvm-auto"
-# zplug "tomsquest/nvm-auto-use.zsh"
 # zplug "iboyperson/zsh-pipenv"
 # zplug "laggardkernel/zsh-thefuck"
 # zplug "sinetoami/web-search"
 # zplug "agkozak/zsh-z"
-zplug "manlao/zsh-auto-nvm", hook-load:"zsh-auto-nvm"
 
 # plugins by os
 # case "$OS_NAME" in

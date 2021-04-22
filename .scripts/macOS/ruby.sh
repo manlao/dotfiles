@@ -17,13 +17,7 @@ install_rbenv() {
 }
 
 install_ruby() {
-  local LATEST
-  LATEST=$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
-
-  if ! rbenv versions --bare | grep "$LATEST" 1>/dev/null 2>&1; then
-    message --info "Install ruby"
-    rbenv install -s "$LATEST"
-  fi
+  install_or_update_ruby
 }
 
 update() {
@@ -32,23 +26,30 @@ update() {
 }
 
 update_ruby() {
-  local LOCAL_VERSION REMOTE_VERSION
-  LOCAL_VERSION=$(rbenv versions --bare | tail -n 1)
-  REMOTE_VERSION=$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
-
-  if ! rbenv versions --bare | grep "$REMOTE_VERSION" 1>/dev/null 2>&1; then
-    message --info "Update ruby"
-
-    rbenv install -s "$REMOTE_VERSION"
-    rbenv global "$REMOTE_VERSION"
-    rbenv uninstall -f "$LOCAL_VERSION"
-  fi
+  install_or_update_ruby
 }
 
 initialize_rbenv() {
-  export RBENV_ROOT="$HOME/.rbenv"
-  export PATH="$HOME/.rbenv/shims:$PATH"
   eval "$(rbenv init -)"
+}
+
+install_or_update_ruby() {
+  local NEXT="${DEFAULT_RUBY_VERSION:-$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+
+  if ! rbenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+    message --info "Install ruby $NEXT"
+
+    rbenv install -s "$NEXT"
+    rbenv global "$NEXT"
+
+    local CURRENT
+    CURRENT=$(rbenv versions --bare | tail -n 1)
+
+    if [ -n "$CURRENT" ]; then
+      # TODO: migrate packages
+      rbenv uninstall -f "$CURRENT"
+    fi
+  fi
 }
 
 main "$@"

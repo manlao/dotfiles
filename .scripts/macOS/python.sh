@@ -3,11 +3,18 @@
 # shellcheck disable=SC1090
 source "$DOTFILES_HOME/trait.rc"
 
+PKGS=(
+  "neovim"
+  "pynvim"
+  "poetry"
+)
+
 install() {
   install_pyenv
+  install_pyenv_plugins
   initialize_pyenv
   install_python
-  install_global_packages
+  install_packages
 }
 
 install_pyenv() {
@@ -17,81 +24,58 @@ install_pyenv() {
   fi
 }
 
-install_python() {
-  local LATEST
-  LATEST=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
-
-  if ! pyenv versions --bare | grep "$LATEST" 1>/dev/null 2>&1; then
-    message --info "Install python"
-    pyenv install -s "$LATEST"
+install_pyenv_plugins() {
+  if ! brew list pyenv-pip-migrate 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: pyenv-pip-migrate"
+    brew install pyenv-pip-migrate
   fi
 }
 
-install_global_packages() {
-  pyenv global "$(pyenv versions --bare | tail -n 1)"
+install_python() {
+  install_or_update_python
+}
 
-  local PKGS=(
-    "neovim"
-    "pynvim"
-    "poetry"
-  )
-  local P
-
-  for P in "${PKGS[@]}"; do
-    if ! pip show "$P" 1>/dev/null 2>&1; then
-      message --info "Install global python package: $P"
-      pip install "$P"
-    fi
-  done
-
-  message --info "Install homebrew python packages"
-
-  # homebrew vim
-  local HOMEBREW_PIP
-  HOMEBREW_PIP="$(brew --prefix python)/bin/pip3"
-  "$HOMEBREW_PIP" install neovim pynvim --no-warn-script-location
+install_packages() {
+  message --info "Install python packages: ${PKGS[*]}"
+  pip install "${PKGS[@]}"
 }
 
 update() {
   initialize_pyenv
   update_python
-  update_global_package
+  update_packages
 }
 
 update_python() {
-  local LOCAL_VERSION REMOTE_VERSION PKGS
-  LOCAL_VERSION=$(pyenv versions --bare | tail -n 1)
-  REMOTE_VERSION=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
-  PKGS=$(pyenv global "$LOCAL_VERSION" 1>/dev/null 2>&1; pip --disable-pip-version-check list --format freeze | cut -f 1 -d '=')
-
-  if ! pyenv versions --bare | grep "$REMOTE_VERSION" 1>/dev/null 2>&1; then
-    message --info "Update python"
-
-    pyenv install -s "$REMOTE_VERSION"
-    pyenv global "$REMOTE_VERSION"
-    echo "$PKGS" | xargs pip install --upgrade
-    pyenv uninstall -f "$LOCAL_VERSION"
-  fi
+  install_or_update_python
 }
 
-update_global_package() {
-  message --info "Update global python packages"
-
-  pyenv global "$(pyenv versions --bare | tail -n 1)"
+update_packages() {
+  message --info "Update python packages"
   pip --disable-pip-version-check list --format freeze | cut -f 1 -d '=' | xargs pip install --upgrade
-
-  message --info "Update homebrew python packages"
-
-  # homebrew vim
-  local HOMEBREW_PIP
-  HOMEBREW_PIP="$(brew --prefix python)/bin/pip3"
-  "$HOMEBREW_PIP" --disable-pip-version-check list --format freeze | cut -f 1 -d '=' | xargs "$HOMEBREW_PIP" install --upgrade --no-warn-script-location
 }
 
 initialize_pyenv() {
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$HOME/.pyenv/shims:$PATH"
   eval "$(pyenv init -)"
+}
+
+install_or_update_python() {
+  local NEXT="${DEFAULT_PYTHON_VERSION:-$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+
+  if ! pyenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+    message --info "Install python $NEXT"
+
+    pyenv install -s "$NEXT"
+    pyenv global "$NEXT"
+
+    local CURRENT
+    CURRENT=$(pyenv versions --bare | tail -n 1)
+
+    if [ -n "$CURRENT" ]; then
+      pyenv migrate "$CURRENT" "$NEXT"
+      pyenv uninstall -f "$CURRENT"
+    fi
+  fi
 }
 
 main "$@"

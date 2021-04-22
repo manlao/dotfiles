@@ -9,6 +9,7 @@ VIM_PLUGIN_MANAGER="${VIM_PLUGIN_MANAGER:-vim-plug}"
 install() {
   install_vim
   install_neovim
+  install_neovim_dependencies
   "install_${VIM_PLUGIN_MANAGER//-/_}"
   "install_${VIM_PLUGIN_MANAGER//-/_}_plugins"
 }
@@ -33,6 +34,11 @@ install_neovim() {
       fi
       ;;
   esac
+}
+
+install_neovim_dependencies() {
+  message --info "Install neovim dependencies"
+  "$(brew --prefix python)/bin/pip3" install neovim pynvim --no-warn-script-location
 }
 
 install_vim_plug() {
@@ -83,7 +89,16 @@ setup_vim() {
 }
 
 update() {
+  update_neovim_dependencies
   "update_${VIM_PLUGIN_MANAGER//-/_}_plugins"
+}
+
+update_neovim_dependencies() {
+  message --info "Update neovim dependencies"
+
+  local PIP
+  PIP="$(brew --prefix python)/bin/pip3"
+  "$PIP" --disable-pip-version-check list --format freeze | cut -f 1 -d '=' | xargs "$PIP" install --upgrade --no-warn-script-location
 }
 
 update_vim_plug_plugins() {

@@ -149,6 +149,7 @@ brew "less"
 
 # Git
 brew "git"
+brew "git-filter-repo"
 # brew "git-flow"
 brew "git-flow-avh"
 brew "git-lfs"
@@ -221,14 +222,20 @@ brew "asdf"
 
 # Shell Script
 brew "shellcheck"
+brew "bats-core"
 
 # Node
-brew "nvm"
+brew "nodenv"
+brew "nodenv/nodenv/nodenv-npm-migrate"
+brew "nodenv/nodenv/nodenv-nvmrc"
+brew "nodenv/nodenv/nodenv-package-json-engine"
+brew "manlao/tap/node-build-aliases"
 
 # Deno
 
 # Python
 brew "pyenv"
+brew "pyenv-pip-migrate"
 
 # Ruby
 brew "rbenv"
@@ -239,6 +246,7 @@ brew "jenv"
 # Rust
 
 # Go
+brew "goenv"
 
 # PHP
 

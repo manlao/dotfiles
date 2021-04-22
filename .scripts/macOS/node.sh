@@ -1,131 +1,120 @@
 #!/usr/bin/env bash
-
+# TODO: nodenv (lts: node-build-update-defs / alias / install --list)
 # shellcheck disable=SC1090
 source "$DOTFILES_HOME/trait.rc"
 
-DEFAULT_NODE_VERSION="lts/*"
+# prettier plugins
+# @prettier/plugin-php
+# @prettier/plugin-ruby
+# @prettier/plugin-swift
+# @prettier/plugin-xml
+# prettier-plugin-java
+# prettier-plugin-kotlin
+# prettier-plugin-sh
+PKGS=(
+  "nrm"
+  "yarn"
+  "yrm"
+  "commitizen"
+  "cz-conventional-changelog"
+  "standard-version"
+)
 
 install() {
-  install_nvm
-  initialize_nvm
+  install_nodenv
+  install_nodenv_plugins
+  initialize_nodenv
   install_node
-  install_global_packages
+  install_packages
 }
 
-install_nvm() {
-  if ! brew list nvm 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nvm"
-    brew install nvm
+install_nodenv() {
+  if ! brew list nodenv 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: nodenv"
+    brew install nodenv
+  fi
+}
+
+install_nodenv_plugins() {
+  if ! brew list nodenv/nodenv/nodenv-npm-migrate 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: nodenv/nodenv/nodenv-npm-migrate"
+    brew install nodenv/nodenv/nodenv-npm-migrate
+  fi
+
+  if ! brew list nodenv/nodenv/nodenv-nvmrc 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: nodenv/nodenv/nodenv-nvmrc"
+    brew install nodenv/nodenv/nodenv-nvmrc
+  fi
+
+  if ! brew list nodenv/nodenv/nodenv-package-json-engine 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: nodenv/nodenv/nodenv-package-json-engine"
+    brew install nodenv/nodenv/nodenv-package-json-engine
+  fi
+
+  if ! brew list manlao/tap/node-build-aliases 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: manlao/tap/node-build-aliases"
+    brew install manlao/tap/node-build-aliases
   fi
 }
 
 install_node() {
-  nvm alias default "$DEFAULT_NODE_VERSION"
-
-  if [ "$(nvm version "$DEFAULT_NODE_VERSION")" = "N/A" ]; then
-    message --info "Install $DEFAULT_NODE_VERSION"
-    nvm install "$DEFAULT_NODE_VERSION"
-  fi
+  install_or_update_node
 }
 
-install_global_packages() {
-  nvm use "$DEFAULT_NODE_VERSION" 1>/dev/null 2>&1
-
-  # prettier plugins
-  # @prettier/plugin-php
-  # @prettier/plugin-ruby
-  # @prettier/plugin-swift
-  # @prettier/plugin-xml
-  # prettier-plugin-java
-  # prettier-plugin-kotlin
-  # prettier-plugin-sh
-  local PKGS=(
-    "nrm"
-    "yarn"
-    "yrm"
-    "commitizen"
-    "cz-conventional-changelog"
-    "standard-version"
-  )
-  local P
-
-  for P in "${PKGS[@]}"; do
-    if ! npm list -g "$P" 1>/dev/null 2>&1; then
-      message --info "Install global node package: $P"
-      npm install -g "$P"
-    fi
-  done
+install_packages() {
+  message --info "Install node packages: ${PKGS[*]}"
+  npm install -g "${PKGS[@]}"
 }
 
 setup() {
-  setup_global_packages
+  setup_packages
 }
 
-setup_global_packages() {
-  message --info "Set up global node packages"
+setup_packages() {
+  message --info "Set up node packages"
 
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
   ln -sf "$DOTFILES_HOME/macOS/node/.versionrc.js" "$HOME/.versionrc.js"
 }
 
 update() {
-  initialize_nvm
+  initialize_nodenv
   update_node
-  update_global_packages
-  update_ltses
+  update_packages
 }
 
 update_node() {
-  local LOCAL_VERSION REMOTE_VERSION
-  LOCAL_VERSION=$(nvm version "$DEFAULT_NODE_VERSION")
-  REMOTE_VERSION=$(nvm version-remote "$DEFAULT_NODE_VERSION")
-
-  if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
-    message --info "Update node"
-
-    nvm install "$REMOTE_VERSION" --reinstall-packages-from="$LOCAL_VERSION" --latest-npm
-    nvm uninstall "$LOCAL_VERSION"
-  fi
+  install_or_update_node
 }
 
-update_global_packages() {
-  message --info "Update global node packages"
-
-  nvm use "$DEFAULT_NODE_VERSION"
+update_packages() {
+  message --info "Update node packages"
   npm update -g
 }
 
-update_ltses() {
-  local LTSES=(
-    "argon"
-    "boron"
-    "carbon"
-    "dubnium"
-    "erbium"
-    "fermium"
-  )
-  local L LOCAL_VERSION REMOTE_VERSION
-
-  for L in "${LTSES[@]}"; do
-    if nvm version "lts/$L" 1>/dev/null 2>&1; then
-      LOCAL_VERSION=$(nvm version "lts/$L")
-      REMOTE_VERSION=$(nvm version-remote "lts/$L")
-
-      if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
-        message --info "Update lts/$L"
-
-        nvm install "$REMOTE_VERSION"
-        nvm uninstall "$LOCAL_VERSION"
-      fi
-    fi
-  done
+initialize_nodenv() {
+  eval "$(nodenv init -)"
 }
 
-initialize_nvm() {
-  export NVM_DIR="$HOME/.nvm"
-  # shellcheck disable=SC1090
-  # https://github.com/nvm-sh/nvm/issues/1985
-  source "$(brew --prefix nvm)/nvm.sh" --no-use
+install_or_update_node() {
+  nodenv lts --update
+
+  local NEXT="${DEFAULT_NODE_VERSION:-$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+
+  if ! nodenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+    message --info "Install node $NEXT"
+
+    nodenv install -s "$NEXT"
+    nodenv global "$NEXT"
+
+    local CURRENT
+    CURRENT=$(nodenv versions --bare | tail -n 1)
+
+    if [ -n "$CURRENT" ]; then
+      nodenv migrate "$CURRENT" "$NEXT"
+      nodenv uninstall -f "$CURRENT"
+    fi
+  fi
 }
 
 main "$@"

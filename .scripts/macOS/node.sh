@@ -108,11 +108,11 @@ install_or_update_node() {
   if ! nodenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install node $NEXT"
 
-    nodenv install -s "$NEXT"
-    nodenv global "$NEXT"
-
     local CURRENT
     CURRENT=$(nodenv versions --bare | tail -n 1)
+
+    nodenv install -s "$NEXT"
+    nodenv global "$NEXT"
 
     if [ -n "$CURRENT" ]; then
       nodenv migrate "$CURRENT" "$NEXT"

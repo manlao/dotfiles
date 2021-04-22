@@ -39,11 +39,11 @@ install_or_update_go() {
   if ! goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install go $NEXT"
 
-    goenv install -s "$NEXT"
-    goenv global "$NEXT"
-
     local CURRENT
     CURRENT=$(goenv versions --bare | tail -n 1)
+
+    goenv install -s "$NEXT"
+    goenv global "$NEXT"
 
     if [ -n "$CURRENT" ]; then
       # TODO: migrate packages

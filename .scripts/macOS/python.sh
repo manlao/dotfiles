@@ -65,11 +65,11 @@ install_or_update_python() {
   if ! pyenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install python $NEXT"
 
-    pyenv install -s "$NEXT"
-    pyenv global "$NEXT"
-
     local CURRENT
     CURRENT=$(pyenv versions --bare | tail -n 1)
+
+    pyenv install -s "$NEXT"
+    pyenv global "$NEXT"
 
     if [ -n "$CURRENT" ]; then
       pyenv migrate "$CURRENT" "$NEXT"

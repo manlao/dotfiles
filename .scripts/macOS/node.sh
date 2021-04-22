@@ -97,7 +97,7 @@ initialize_nodenv() {
 }
 
 install_or_update_node() {
-  nodenv lts --update
+  nodenv aliases --update --upgrade
 
   local NEXT="${DEFAULT_NODE_VERSION:-$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
 

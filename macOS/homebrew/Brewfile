@@ -121,6 +121,12 @@ cask "rectangle"
 # Android
 cask "android-studio"
 
+# Flutter
+# cask "flutter"
+
+# Julia
+# cask "julia"
+
 # Virtual Machine
 # cask "virtualbox"
 # cask "vagrant"
@@ -225,6 +231,7 @@ brew "shellcheck"
 brew "bats-core"
 
 # Node
+brew "node"
 brew "nodenv"
 brew "nodenv/nodenv/node-build-update-defs"
 brew "nodenv/nodenv/nodenv-npm-migrate"
@@ -233,31 +240,36 @@ brew "nodenv/nodenv/nodenv-package-json-engine"
 brew "manlao/tap/node-build-aliases"
 
 # Deno
+# brew "deno"
 
 # Python
+brew "python"
 brew "pyenv"
 brew "pyenv-pip-migrate"
 
 # Ruby
+brew "ruby"
 brew "rbenv"
 
 # Java
+# brew "openjdk"
 brew "jenv"
 
 # Rust
+# brew "rust"
 
 # Go
+brew "go"
 brew "goenv"
 
 # PHP
+# brew "php"
 
 # Kotlin
+# brew "kotlin"
 
 # Scala
-
-# Flutter
-
-# Julia
+# brew "scala"
 
 # Dev Tools
 brew "watchman"

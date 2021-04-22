@@ -16,7 +16,7 @@ export DOTFILES_HOME
 export OS_NAME
 export OS_VERSION
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 source "$DOTFILES_HOME/helper.rc"
 
 help() {

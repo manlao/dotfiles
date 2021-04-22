@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# TODO: nodenv (lts: node-build-update-defs / alias / install --list)
-# shellcheck disable=SC1090
+
+# shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
 # prettier plugins
@@ -98,6 +98,10 @@ initialize_nodenv() {
 
 install_or_update_node() {
   nodenv aliases --update --upgrade
+
+  if [ -n "$DEFAULT_NODE_VERSION" ]; then
+    DEFAULT_NODE_VERSION=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
+  fi
 
   local NEXT="${DEFAULT_NODE_VERSION:-$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
 

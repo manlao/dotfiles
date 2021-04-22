@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
 ITERM2_WEBSITE_FOLDER="$HOME/.iterm2-website"

@@ -20,11 +20,11 @@ export BASH_DIR
 export DOTFILES_HOME
 
 if [ -f "$DOTFILES_HOME/.env" ]; then
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1091
   source "$DOTFILES_HOME/.env"
 fi
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 source "$DOTFILES_HOME/shell/shell.rc"
 
 #=======================================================================#
@@ -89,5 +89,5 @@ export SCM_CHECK=true
 # export BASH_IT_RELOAD_LEGACY=1
 
 # Load Bash It
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 source "$BASH_IT/bash_it.sh"

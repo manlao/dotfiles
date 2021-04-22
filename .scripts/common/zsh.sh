@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
 DOTZSHRC="$DOTFILES_HOME/shell/zsh/.zshrc"

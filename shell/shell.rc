@@ -160,11 +160,11 @@ suit() {
 
   case "$SH" in
     bash )
-      # shellcheck disable=SC1090
+      # shellcheck disable=SC1091
       source "$HOME/.bashrc"
       ;;
     zsh )
-      # shellcheck disable=SC1090
+      # shellcheck disable=SC1091
       source "$HOME/.zshrc"
       ;;
   esac

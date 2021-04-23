@@ -102,6 +102,8 @@ initialize_nodenv() {
 }
 
 install_or_update_node() {
+  message --info "Check node versions"
+
   nodenv prune-version-defs -f
   nodenv update-version-defs
   nodenv aliases --update --upgrade

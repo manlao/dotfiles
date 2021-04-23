@@ -28,6 +28,7 @@ mas "Amphetamine", id: 937984704
 #=======================================================================#
 # Casks                                                                 #
 #=======================================================================#
+cask_args no_quarantine: true
 
 # Terminal
 cask "iterm2"
@@ -260,7 +261,8 @@ brew "jenv"
 
 # Go
 brew "go"
-brew "goenv"
+# https://github.com/syndbg/goenv/issues/80
+brew "goenv", args: ["HEAD"]
 
 # PHP
 # brew "php"

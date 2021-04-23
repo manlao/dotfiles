@@ -1,4 +1,5 @@
 .env
 .zcompdump
+.zsh_sessions/
 *.lock
 *.lock.json

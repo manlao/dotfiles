@@ -34,7 +34,8 @@ initialize_rbenv() {
 }
 
 install_or_update_ruby() {
-  local NEXT="${DEFAULT_RUBY_VERSION:-$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+  local NEXT
+  NEXT=$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
   if ! rbenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install ruby $NEXT"

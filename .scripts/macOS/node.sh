@@ -104,21 +104,28 @@ initialize_nodenv() {
 install_or_update_node() {
   message --info "Check node versions"
 
+  local CURRENT
+
+  if [ -n "$DEFAULT_NODE_VERSION" ]; then
+    CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
+  else
+    CURRENT=$(nodenv versions --bare --skip-aliases | tail -n 1)
+  fi
+
   nodenv prune-version-defs -f
   nodenv update-version-defs
   nodenv aliases --update --upgrade
 
+  local NEXT
+
   if [ -n "$DEFAULT_NODE_VERSION" ]; then
-    DEFAULT_NODE_VERSION=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
+    NEXT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
+  else
+    NEXT=$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
   fi
 
-  local NEXT="${DEFAULT_NODE_VERSION:-$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
-
-  if ! nodenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+  if ! nodenv versions --bare --skip-aliases | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install node $NEXT"
-
-    local CURRENT
-    CURRENT=$(nodenv versions --bare | tail -n 1)
 
     nodenv install -s "$NEXT"
     nodenv global "$NEXT"

@@ -60,7 +60,8 @@ initialize_pyenv() {
 }
 
 install_or_update_python() {
-  local NEXT="${DEFAULT_PYTHON_VERSION:-$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+  local NEXT
+  NEXT=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
   if ! pyenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install python $NEXT"

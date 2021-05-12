@@ -34,7 +34,8 @@ initialize_goenv() {
 }
 
 install_or_update_go() {
-  local NEXT="${DEFAULT_GO_VERSION:-$(goenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')}"
+  local NEXT
+  NEXT=$(goenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
   if ! goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install go $NEXT"

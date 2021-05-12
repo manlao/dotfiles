@@ -112,7 +112,7 @@ install_or_update_node() {
     CURRENT=$(nodenv versions --bare --skip-aliases | tail -n 1)
   fi
 
-  nodenv aliases --update --upgrade
+  nodenv aliases --update --upgrade --uninstall
 
   local NEXT
 

@@ -109,7 +109,7 @@ install_or_update_node() {
   if [ -n "$DEFAULT_NODE_VERSION" ]; then
     CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
   else
-    CURRENT=$(nodenv versions --bare --skip-aliases | tail -n 1)
+    CURRENT=$(nodenv versions --bare --skip-aliases | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
   fi
 
   nodenv aliases --update --upgrade --uninstall

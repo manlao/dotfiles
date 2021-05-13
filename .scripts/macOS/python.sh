@@ -67,7 +67,7 @@ install_or_update_python() {
     message --info "Install python $NEXT"
 
     local CURRENT
-    CURRENT=$(pyenv versions --bare | tail -n 1)
+    CURRENT=$(pyenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
     pyenv install -s "$NEXT"
     pyenv global "$NEXT"

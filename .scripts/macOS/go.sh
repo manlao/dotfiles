@@ -41,7 +41,7 @@ install_or_update_go() {
     message --info "Install go $NEXT"
 
     local CURRENT
-    CURRENT=$(goenv versions --bare | tail -n 1)
+    CURRENT=$(goenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
     goenv install -s "$NEXT"
     goenv global "$NEXT"

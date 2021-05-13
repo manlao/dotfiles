@@ -128,7 +128,7 @@ install_or_update_node() {
     nodenv install -s "$NEXT"
     nodenv global "$NEXT"
 
-    if [ -n "$CURRENT" ]; then
+    if [ -n "$CURRENT" ] && [ "$CURRENT" != "$NEXT" ]; then
       nodenv migrate "$CURRENT" "$NEXT"
       nodenv uninstall -f "$CURRENT"
     fi

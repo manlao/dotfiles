@@ -3,12 +3,6 @@
 #=======================================================================#
 # basic variables                                                       #
 #=======================================================================#
-export PATHS=(
-  "/usr/sbin"
-  "/usr/bin"
-  "/sbin"
-  "/bin"
-)
 export DEFAULT_NODE_VERSION="lts/*"
 
 #=======================================================================#
@@ -16,11 +10,6 @@ export DEFAULT_NODE_VERSION="lts/*"
 #=======================================================================#
 HOMEBREW_PREFIX=$(brew --prefix)
 export HOMEBREW_PREFIX
-export PATHS=(
-  "$HOMEBREW_PREFIX/sbin"
-  "$HOMEBREW_PREFIX/bin"
-  "${PATHS[@]}"
-)
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 export HOMEBREW_NO_AUTO_UPDATE=true
 
@@ -92,7 +81,8 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.c
 # python                                                                #
 #=======================================================================#
 # pyenv
-eval "$(pyenv init -)"
+# https://github.com/pyenv/pyenv/issues/1649
+eval "$(pyenv init -)" 1>/dev/null 2>&1
 export PATHS=(
   "$HOME/.pyenv/shims"
   "${PATHS[@]}"

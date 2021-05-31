@@ -11,7 +11,6 @@ ARCHITECTURE=$("$DOTFILES_HOME/install" get_architecture)
 export OS_NAME
 export OS_VERSION
 export ARCHITECTURE
-export PATHS=()
 
 #=======================================================================#
 # variables, sources, aliases                                           #
@@ -173,6 +172,10 @@ suit() {
 #=======================================================================#
 # os.rc                                                                 #
 #=======================================================================#
+
+# shellcheck disable=SC2229
+IFS=":" read -r "$READ_ARRAY_OPTION" PATHS <<< "$PATH"
+export PATHS
 
 if [ -f "$DOTFILES_HOME/shell/$OS_NAME.rc" ]; then
   # shellcheck disable=SC1090

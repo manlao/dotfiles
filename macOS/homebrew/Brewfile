@@ -36,7 +36,6 @@ cask "iterm2"
 
 # Browser
 cask "google-chrome"
-cask "chromedriver"
 cask "firefox"
 cask "microsoft-edge"
 # cask "tor-browser"

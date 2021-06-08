@@ -1,5 +1,7 @@
-.env
-.zcompdump
+
+.vagrant/
 .zsh_sessions/
+.zcompdump
+.env
 *.lock
 *.lock.json

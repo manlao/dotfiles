@@ -32,7 +32,6 @@ cask_args no_quarantine: true
 
 # Terminal
 cask "iterm2"
-# cask "hyper"
 
 # Browser
 cask "google-chrome"
@@ -88,7 +87,6 @@ cask "tunnelblick"
 
 # Docker
 cask "docker"
-# cask "kitematic"
 
 # Video Player
 # cask "mpv"
@@ -128,8 +126,8 @@ cask "android-studio"
 # cask "julia"
 
 # Virtual Machine
-# cask "virtualbox"
-# cask "vagrant"
+cask "virtualbox"
+cask "vagrant"
 
 # Office
 # cask "microsoft-office"
@@ -162,11 +160,11 @@ brew "git-lfs"
 brew "git-extras"
 
 # GitHub
-brew "gh"
-brew "hub"
+# brew "gh"
+# brew "hub"
 
 # GitLab
-brew "lab"
+# brew "lab"
 
 # Editor
 brew "vim"
@@ -213,12 +211,15 @@ brew "mitmproxy"
 brew "gnupg"
 
 # Containers
-# brew "podman"
-# brew "skopeo"
-# brew "dive"
+brew "podman"
+brew "skopeo"
+brew "dive"
 
 # Kubernets
 brew "kubernetes-cli"
+# brew "minikube"
+# brew "kubectx"
+# brew "kubeseal"
 
 # Ctags
 brew "ctags"

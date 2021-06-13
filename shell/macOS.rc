@@ -126,10 +126,16 @@ PATHS+=(
 )
 
 #=======================================================================#
-# podman + vagrant                                                      #
+# vagrant                                                               #
+#=======================================================================#
+
+export VAGRANT_DEFAULT_BOX="fedora/34-cloud-base"
+
+#=======================================================================#
+# podman                                                                #
 #=======================================================================#
 export CONTAINER_HOST="ssh://vagrant@127.0.0.1:2222/run/podman/podman.sock"
-export CONTAINER_SSHKEY="$DOTFILES_HOME/macOS/podman/.vagrant/machines/default/virtualbox/private_key"
+export CONTAINER_SSHKEY="$HOME/.vagrant/machines/podman/virtualbox/private_key"
 
 #=======================================================================#
 # asdf                                                                  #
@@ -199,14 +205,4 @@ standard-version() {
   VERSION_TAG_PREFIX=$(git config --get --system gitflow.prefix.versionTag || git config --get --global gitflow.prefix.versionTag || echo "v")
 
   "${NODENV_ROOT:-$HOME/.nodenv}/shims/standard-version" -t "$VERSION_TAG_PREFIX" "$@"
-}
-
-podman-up() {
-  export VAGRANT_CWD="$DOTFILES_HOME/macOS/podman"
-  vagrant up
-}
-
-podman-down() {
-  export VAGRANT_CWD="$DOTFILES_HOME/macOS/podman"
-  vagrant halt
 }

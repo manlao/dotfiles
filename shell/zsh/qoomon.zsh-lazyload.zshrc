@@ -1,5 +1,14 @@
 case "$OS_NAME" in
   macOS )
+    # podman
+    load:podman() {
+      if ! vagrant status --machine-readable | grep "podman,state,running" 1>/dev/null 2>&1; then
+        vagrant up podman
+      fi
+    }
+
+    lazyload podman podman-compose -- load:podman
+
     # docker
     load:docker() {
       if ! docker info 1>/dev/null 2>&1; then
@@ -11,7 +20,7 @@ case "$OS_NAME" in
       fi
     }
 
-    lazyload docker docker-compose kubectl minikube kubeadm kubelet -- load:docker
+    lazyload docker docker-compose -- load:docker
 
     # the fuck
     load:fuck() {

@@ -7,6 +7,7 @@ PKGS=(
   "neovim"
   "pynvim"
   "poetry"
+  "podman-compose"
 )
 
 install() {

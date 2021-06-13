@@ -107,7 +107,7 @@ install_or_update_node() {
   local CURRENT
 
   if [ -n "$DEFAULT_NODE_VERSION" ]; then
-    CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
+    CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION" || echo "")
   else
     CURRENT=$(nodenv versions --bare --skip-aliases | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
   fi

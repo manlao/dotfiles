@@ -112,7 +112,7 @@ install_or_update_node() {
     CURRENT=$(nodenv versions --bare --skip-aliases | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
   fi
 
-  nodenv aliases --update --upgrade --uninstall
+  nodenv aliases --update --upgrade
 
   local NEXT
 

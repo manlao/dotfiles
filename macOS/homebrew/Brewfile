@@ -106,6 +106,9 @@ cask "the-unarchiver"
 cask "rectangle"
 # cask "cheatsheet"
 
+# Display
+cask "lunar"
+
 # Settings
 # cask "onyx"
 

@@ -86,6 +86,22 @@ setup() {
 setup_system() {
   message --info "Set up system"
 
+  # https://gitlab.com/gnachman/iterm2/-/issues/7618
+  local LINE_NO
+  LINE_NO=$(sed -n "/^[^#]/=" "/etc/pam.d/sudo" | head -1)
+
+  if ! grep "pam_reattach.so" "/etc/pam.d/sudo" 1>/dev/null 2>&1; then
+    sudo sed -i "" "$LINE_NO i \\
+auth       optional       $(brew --prefix)/lib/pam/pam_reattach.so
+" "/etc/pam.d/sudo"
+  fi
+
+  if ! grep "pam_tid.so" "/etc/pam.d/sudo" 1>/dev/null 2>&1; then
+    sudo sed -i "" "$((LINE_NO + 1)) i \\
+auth       sufficient     pam_tid.so
+" "/etc/pam.d/sudo"
+  fi
+
   sudo ln -sf "$SUDOERS" "/private/etc/sudoers.d/sudoers"
   sudo chown 0 "$SUDOERS" 1>/dev/null 2>&1
 

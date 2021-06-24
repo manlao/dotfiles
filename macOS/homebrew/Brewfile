@@ -145,6 +145,9 @@ cask "font-meslo-lg-nerd-font"
 # Mac App Store
 brew "mas"
 
+# Touch ID
+brew "fabianishere/personal/pam_reattach"
+
 # Shell
 brew "bash"
 brew "zsh"

@@ -50,7 +50,7 @@ setup_iterm2() {
   # Dynamic Profiles
   local FOLDER="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
   mkdir -p "$FOLDER"
-  cp -f "$DOTFILES_HOME/macOS/iterm2/profiles.json" "$FOLDER/profiles.json"
+  ln -sf "$DOTFILES_HOME/macOS/iterm2/profiles.json" "$FOLDER/profiles.json"
 
   # iTerm2 -> Show Tip of the Day -> More Options -> Disable Tips
   defaults write com.googlecode.iterm2 NoSyncTipsDisabled -boolean true

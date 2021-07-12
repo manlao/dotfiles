@@ -59,7 +59,9 @@ setup_git() {
     macOS )
       git config --global credential.helper osxkeychain
 
-      local H SEGMENTS
+      local GIT_HOSTS H SEGMENTS
+
+      read -r -a GIT_HOSTS <<< "$GIT_HOSTS_STRING"
 
       for H in "${GIT_HOSTS[@]}"; do
         IFS="," read -r -a SEGMENTS <<< "$H"
@@ -72,7 +74,14 @@ password=${SEGMENTS[1]}
 EOF
       done
 
-      cp -rf "$DOTFILES_HOME/git/hooks" "$(brew --prefix git)/share/git-core/templates"
+      local DIR
+      DIR="$(brew --prefix git)/share/git-core/templates/hooks"
+      local PATTERN="$DOTFILES_HOME/git/hooks/*"
+      local FILE
+
+      for FILE in $PATTERN; do
+        ln -sf "$FILE" "$DIR/${FILE##*/}"
+      done
       ;;
   esac
 }

@@ -27,7 +27,9 @@ main() {
     HOST=$(get_domain "$(get_url origin)")
 
     if [ -n "$HOST" ]; then
-      local U
+      local GIT_HOSTS_USERS U
+
+      read -r -a GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
 
       for U in "${GIT_HOSTS_USERS[@]}"; do
         if echo "$U" | grep -E "^$HOST," 1>/dev/null 2>&1; then

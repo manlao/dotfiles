@@ -258,6 +258,7 @@ brew "pyenv-pip-migrate"
 # Ruby
 brew "ruby"
 brew "rbenv"
+brew "cocoapods"
 
 # Java
 # brew "openjdk"

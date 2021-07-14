@@ -217,7 +217,6 @@ setopt ZLE
 
 autoload -Uz zmv
 
-# *-magic is known buggy in some versions; disable if so
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz url-quote-magic

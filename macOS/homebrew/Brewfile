@@ -211,6 +211,8 @@ brew "thefuck"
 brew "duti"
 
 # Proxy
+# brew "xray"
+# brew "trojan-gfw/homebrew-trojan/trojan"
 brew "mitmproxy"
 
 # Encryption

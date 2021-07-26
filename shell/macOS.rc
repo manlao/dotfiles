@@ -214,3 +214,23 @@ standard-version() {
 
   "${NODENV_ROOT:-$HOME/.nodenv}/shims/standard-version" -t "$VERSION_TAG_PREFIX" "$@"
 }
+
+podman() {
+  if ! vagrant status --machine-readable | grep "podman,state,running" 1>/dev/null 2>&1; then
+    vagrant up podman
+  fi
+
+  "$HOMEBREW_PREFIX/bin/podman" "$@"
+}
+
+docker() {
+  if ! docker info 1>/dev/null 2>&1; then
+    open -g -a "/Applications/Docker.app"
+
+    while ! docker info 1>/dev/null 2>&1; do
+      sleep 5
+    done
+  fi
+
+  "$HOMEBREW_PREFIX/bin/docker" "$@"
+}

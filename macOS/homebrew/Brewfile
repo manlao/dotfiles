@@ -169,6 +169,7 @@ brew "git-extras"
 # GitHub
 # brew "gh"
 # brew "hub"
+brew "act"
 
 # GitLab
 # brew "lab"

@@ -224,10 +224,10 @@ podman() {
 }
 
 docker() {
-  if ! docker info 1>/dev/null 2>&1; then
+  if ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; then
     open -g -a "/Applications/Docker.app"
 
-    while ! docker info 1>/dev/null 2>&1; do
+    while ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; do
       sleep 5
     done
   fi

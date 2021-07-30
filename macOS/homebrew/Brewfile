@@ -107,8 +107,8 @@ cask "rectangle"
 # cask "cheatsheet"
 
 # Display
-cask "monitorcontrol"
-# cask "lunar"
+# cask "monitorcontrol"
+cask "lunar"
 
 # Settings
 # cask "onyx"

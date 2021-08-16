@@ -220,6 +220,10 @@ brew "mitmproxy"
 # Encryption
 brew "gnupg"
 
+# Infrastructure
+brew "hashicorp/tap/terraform"
+brew "pulumi"
+
 # Containers
 brew "podman"
 brew "skopeo"

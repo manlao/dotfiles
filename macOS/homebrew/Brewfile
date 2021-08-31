@@ -187,6 +187,7 @@ brew "screen"
 brew "httpie"
 brew "curl"
 brew "wget"
+brew "socat"
 
 # Text Finder
 brew "ack"

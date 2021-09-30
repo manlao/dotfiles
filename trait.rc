@@ -1,7 +1,5 @@
 # shellcheck shell=bash
 
-set -e
-
 main() {
   case "$1" in
     install | setup | update | sync )

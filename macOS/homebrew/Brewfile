@@ -256,6 +256,7 @@ brew "nodenv/nodenv/nodenv-nvmrc"
 brew "nodenv/nodenv/nodenv-package-json-engine"
 brew "manlao/tap/node-build-aliases"
 brew "manlao/tap/nodenv-auto-install"
+brew "yarn"
 
 # Deno
 # brew "deno"
@@ -264,6 +265,7 @@ brew "manlao/tap/nodenv-auto-install"
 brew "python"
 brew "pyenv"
 brew "pyenv-pip-migrate"
+brew "poetry"
 
 # Ruby
 brew "ruby"

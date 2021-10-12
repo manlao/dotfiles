@@ -13,7 +13,6 @@ source "$DOTFILES_HOME/trait.rc"
 # prettier-plugin-sh
 PKGS=(
   "nrm"
-  "yarn"
   "yrm"
   "commitizen"
   "cz-conventional-changelog"
@@ -21,11 +20,27 @@ PKGS=(
 )
 
 install() {
+  install_node
+  install_yarn
   install_nodenv
   install_nodenv_plugins
   initialize_nodenv
-  install_node
-  install_packages
+  install_node_versions
+  install_global_packages
+}
+
+install_node() {
+  if ! brew list node 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: node"
+    brew install node
+  fi
+}
+
+install_yarn() {
+  if ! brew list yarn 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: yarn"
+    brew install yarn
+  fi
 }
 
 install_nodenv() {
@@ -62,21 +77,23 @@ install_nodenv_plugins() {
   fi
 }
 
-install_node() {
-  install_or_update_node
+install_node_versions() {
+  install_or_update_node_versions
 }
 
-install_packages() {
-  message --info "Install node packages: ${PKGS[*]}"
+install_global_packages() {
+  message --info "Install global node packages: ${PKGS[*]}"
+
+  nodenv shell system
   npm install -g "${PKGS[@]}"
 }
 
 setup() {
-  setup_packages
+  setup_global_packages
 }
 
-setup_packages() {
-  message --info "Set up node packages"
+setup_global_packages() {
+  message --info "Set up global node packages"
 
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
   ln -sf "$DOTFILES_HOME/macOS/node/.versionrc.js" "$HOME/.versionrc.js"
@@ -84,16 +101,18 @@ setup_packages() {
 
 update() {
   initialize_nodenv
-  update_node
-  update_packages
+  update_node_versions
+  update_global_packages
 }
 
-update_node() {
-  install_or_update_node
+update_node_versions() {
+  install_or_update_node_versions
 }
 
-update_packages() {
-  message --info "Update node packages"
+update_global_packages() {
+  message --info "Update global node packages"
+
+  nodenv shell system
   npm update -g
 }
 
@@ -101,7 +120,7 @@ initialize_nodenv() {
   eval "$(nodenv init -)"
 }
 
-install_or_update_node() {
+install_or_update_node_versions() {
   message --info "Check node versions"
 
   local CURRENT

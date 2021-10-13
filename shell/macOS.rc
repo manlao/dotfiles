@@ -234,3 +234,13 @@ docker() {
 
   "$HOMEBREW_PREFIX/bin/docker" "$@"
 }
+
+npmg() {
+  nodenv shell system
+  npm -g "$@"
+}
+
+pipg() {
+  pyenv shell system
+  pip "$@"
+}

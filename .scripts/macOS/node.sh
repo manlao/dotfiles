@@ -21,7 +21,6 @@ PKGS=(
 
 install() {
   install_node
-  install_yarn
   install_nodenv
   install_nodenv_plugins
   initialize_nodenv
@@ -33,13 +32,7 @@ install_node() {
   if ! brew list node 1>/dev/null 2>&1; then
     message --info "Install homebrew formula: node"
     brew install node
-  fi
-}
-
-install_yarn() {
-  if ! brew list yarn 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: yarn"
-    brew install yarn
+    corepack enable
   fi
 }
 
@@ -146,6 +139,7 @@ install_or_update_node_versions() {
 
     nodenv install -s "$NEXT"
     nodenv global "$NEXT"
+    corepack enable 1>/dev/null 2>&1
 
     if [ -n "$CURRENT" ] && [ "$CURRENT" != "$NEXT" ]; then
       nodenv migrate "$CURRENT" "$NEXT"

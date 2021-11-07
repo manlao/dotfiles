@@ -48,7 +48,7 @@ zplug "romkatv/powerlevel10k", as:theme, use:powerlevel10k.zsh-theme, hook-load:
 
 # syntax highlighting
 # zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zdharma/fast-syntax-highlighting", defer:2
+zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
 
 # Install plugins if there are plugins that have not been installed
 # if ! zplug check; then

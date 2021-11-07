@@ -44,4 +44,4 @@ zinit light "romkatv/powerlevel10k"
 # syntax highlighting
 zinit ice atinit"zsh-compinit"
 # zinit light "zsh-users/zsh-syntax-highlighting"
-zinit light "zdharma/fast-syntax-highlighting"
+zinit light "zdharma-continuum/fast-syntax-highlighting"

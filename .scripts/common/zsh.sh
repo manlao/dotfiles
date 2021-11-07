@@ -27,10 +27,10 @@ install_zinit() {
   local ZINIT_BIN="$HOME/.zinit/bin"
 
   if [ ! -d "$ZINIT_BIN" ]; then
-    message --info "Clone zdharma/zinit"
+    message --info "Clone zdharma-continuum/zinit"
 
     rm -rf "$ZINIT_BIN"
-    git clone "https://github.com/zdharma/zinit.git" "$ZINIT_BIN"
+    git clone "https://github.com/zdharma-continuum/zinit.git" "$ZINIT_BIN"
   fi
 }
 

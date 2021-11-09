@@ -4,6 +4,7 @@
 source "$DOTFILES_HOME/trait.rc"
 
 PKGS=(
+  "poetry"
   "neovim"
   "pynvim"
   "podman-compose"
@@ -11,7 +12,6 @@ PKGS=(
 
 install() {
   install_python
-  install_poetry
   install_pyenv
   install_pyenv_plugins
   initialize_pyenv
@@ -23,13 +23,6 @@ install_python() {
   if ! brew list python 1>/dev/null 2>&1; then
     message --info "Install homebrew formula: python"
     brew install python
-  fi
-}
-
-install_poetry() {
-  if ! brew list poetry 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: poetry"
-    brew install poetry
   fi
 }
 

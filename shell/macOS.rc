@@ -164,7 +164,7 @@ reset-launch-pad() {
   killall Dock
 }
 
-build-image() {
+build-install-image() {
   if [ -z "$1" ]; then
     hdiutil create -o /tmp/macOS -size 20000m -volname macOS -layout SPUD -fs HFS+J
     hdiutil attach /tmp/macOS.dmg -noverify -mountpoint /Volumes/macOS
@@ -243,4 +243,49 @@ npmg() {
 pipg() {
   pyenv shell system
   pip "$@"
+}
+
+gitclone() {
+  setopt local_options BASH_REMATCH
+
+  # https://stackoverflow.com/questions/6174220/parse-url-in-shell-script
+  local URI_REGEX="^(([^:/?#]+):)?(//((([^:/?#]+)@)?([^:/?#]+)(:([0-9]+))?))?(/([^?#]*))(\?([^#]*))?(#(.*))?"
+
+  if [[ "$1" =~ $URI_REGEX ]]; then
+    local DOMAIN="${BASH_REMATCH[8]:l}"
+    local PATHNAME="${BASH_REMATCH[11]}"
+    local OWNER REPO
+    OWNER="${PATHNAME:h:t}"
+    REPO="${PATHNAME%.git}"
+    REPO="${REPO:t}"
+
+    if [ -n "$DOMAIN" ] && [ -n "$OWNER" ] && [ -n "$REPO" ]; then
+      local DIR="$HOME/Repositories/$DOMAIN/$OWNER/$REPO"
+
+      git clone "$1" "$DIR"
+
+      cd "$DIR" || exit 1
+
+      local GIT_HOSTS_USERS U
+
+      read -r -A GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
+
+      for U in "${GIT_HOSTS_USERS[@]}"; do
+        if echo "$U" | grep -E "^$DOMAIN," 1>/dev/null 2>&1; then
+          local SEGMENTS
+          IFS="," read -r -A SEGMENTS <<< "$U"
+
+          if [ -n "${SEGMENTS[1]}" ]; then
+            echo "Set Git User Email: ${SEGMENTS[1]}"
+            git config --local user.email "${SEGMENTS[1]}"
+          fi
+
+          if [ -n "${SEGMENTS[2]}" ]; then
+            echo "Set Git User Name: ${SEGMENTS[2]}"
+            git config --local user.name "${SEGMENTS[2]}"
+          fi
+        fi
+      done
+    fi
+  fi
 }

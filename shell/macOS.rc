@@ -275,14 +275,14 @@ gitclone() {
           local SEGMENTS
           IFS="," read -r -A SEGMENTS <<< "$U"
 
-          if [ -n "${SEGMENTS[1]}" ]; then
-            echo "Set Git User Email: ${SEGMENTS[1]}"
-            git config --local user.email "${SEGMENTS[1]}"
+          if [ -n "${SEGMENTS[2]}" ]; then
+            echo "Set Git User Email: ${SEGMENTS[2]}"
+            git config --local user.email "${SEGMENTS[2]}"
           fi
 
-          if [ -n "${SEGMENTS[2]}" ]; then
-            echo "Set Git User Name: ${SEGMENTS[2]}"
-            git config --local user.name "${SEGMENTS[2]}"
+          if [ -n "${SEGMENTS[3]}" ]; then
+            echo "Set Git User Name: ${SEGMENTS[3]}"
+            git config --local user.name "${SEGMENTS[3]}"
           fi
         fi
       done

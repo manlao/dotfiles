@@ -201,6 +201,10 @@ brew "autojump"
 brew "z"
 brew "fasd"
 
+# Database
+brew "mysql"
+brew "postgresql"
+
 # JSON
 brew "jq"
 

@@ -8,6 +8,7 @@ VIM_PLUGIN_MANAGER="${VIM_PLUGIN_MANAGER:-vim-plug}"
 
 install() {
   install_vim
+  install_vim_dependencies
   install_neovim
   install_neovim_dependencies
   "install_${VIM_PLUGIN_MANAGER//-/_}"
@@ -23,6 +24,11 @@ install_vim() {
       fi
       ;;
   esac
+}
+
+install_vim_dependencies() {
+  message --info "Install vim dependencies"
+  "$(brew --prefix "$(brew deps vim | grep python)")/bin/pip3" install neovim pynvim --no-warn-script-location
 }
 
 install_neovim() {

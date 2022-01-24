@@ -205,7 +205,7 @@ if commit.author_email == old_email:
   commit.author_name = new_name
   commit.author_email = new_email
 EOF
-  git filter-repo --force --commit-callback "$CALLBACK"
+  git filter-repo --commit-callback "$CALLBACK"
 }
 
 standard-version() {

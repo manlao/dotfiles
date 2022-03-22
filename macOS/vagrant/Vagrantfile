@@ -1,10 +1,12 @@
+box = ENV["VAGRANT_DEFAULT_BOX"] || "fedora/35-cloud-base"
+
 Vagrant.configure("2") do |config|
   config.env.enable
   config.timezone.value = :host
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   config.vm.define "podman" do |podman|
-    podman.vm.box = ENV["VAGRANT_DEFAULT_BOX"]
+    podman.vm.box = box
 
     podman.vm.provider "virtualbox" do |vb|
       vb.name = "vagrant-podman"

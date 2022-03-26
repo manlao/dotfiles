@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       vb.memory = "1024"
     end
 
-    podman.vm.network "private_network", ip: "192.168.56.1"
+    podman.vm.network "private_network", ip: "192.168.56.100"
 
     podman.vm.provision "shell", inline: <<-SHELL
       dnf install -y virtualbox-guest-additions

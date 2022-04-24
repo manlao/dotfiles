@@ -135,7 +135,8 @@ PATHS+=(
 # vagrant                                                               #
 #=======================================================================#
 
-export VAGRANT_DEFAULT_BOX="fedora/35-cloud-base"
+export VAGRANT_PODMAN_BOX="fedora/35-cloud-base"
+export VAGRANT_WINDOWS_BOX="gusztavvargadr/windows-11"
 
 #=======================================================================#
 # podman                                                                #

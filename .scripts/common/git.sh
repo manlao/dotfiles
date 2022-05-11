@@ -46,10 +46,10 @@ setup_git() {
     git config --global user.email "$GIT_USER_EMAIL"
   fi
 
-  git config --global core.ignorecase false
+  git config --global core.ignoreCase false
   git config --global core.autocrlf "input"
   git config --global core.editor "vim"
-  git config --global core.excludesfile "$DOTFILES_HOME/git/.gitignore_global"
+  git config --global core.excludesFile "$DOTFILES_HOME/git/.gitignore_global"
   git config --global core.pager "less -FRSX"
   git config --global color.ui "auto"
   git config --global init.defaultBranch "main"

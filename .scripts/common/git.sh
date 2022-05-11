@@ -46,6 +46,7 @@ setup_git() {
     git config --global user.email "$GIT_USER_EMAIL"
   fi
 
+  git config --global core.ignorecase false
   git config --global core.autocrlf "input"
   git config --global core.editor "vim"
   git config --global core.excludesfile "$DOTFILES_HOME/git/.gitignore_global"

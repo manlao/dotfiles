@@ -237,7 +237,7 @@ docker() {
 }
 
 npmg() {
-  nodenv shell system
+  nodenv shell "${DEFAULT_NODE_VERSION:-system}"
   npm -g "$@"
 }
 
@@ -289,4 +289,38 @@ gitclone() {
       done
     fi
   fi
+}
+
+eval "$(declare -f nodenv | sed '1s/.*/_&/')" # backup nodenv to _nodenv
+
+nodenv() {
+  local COMMAND
+  COMMAND="${1:-}"
+
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$COMMAND" in
+    rehash | shell )
+      eval "$(nodenv "sh-$COMMAND" "$@")"
+      ;;
+    uninstall )
+      local ARGS
+      ARGS=()
+
+      for A in "$@"; do
+        if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
+          ARGS+=("$(nodenv aliases --resolve_definition "$A")")
+        else
+          ARGS+=("$A")
+        fi
+      done
+
+      command nodenv "$COMMAND" "${ARGS[@]}"
+      ;;
+    * )
+      command nodenv "$COMMAND" "$@"
+      ;;
+  esac
 }

@@ -101,6 +101,9 @@ export PATHS=(
   "${PATHS[@]}"
 )
 
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
+export RUBY_CONFIGURE_OPTS
+
 #=======================================================================#
 # java                                                                  #
 #=======================================================================#

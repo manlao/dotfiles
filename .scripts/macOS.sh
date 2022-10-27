@@ -150,22 +150,25 @@ update() {
 
   run_directory "$DOTFILES_HOME/.scripts/common" update
   run_directory "$DOTFILES_HOME/.scripts/macOS" update
-
-  if sudo softwareupdate -l | grep "Action: restart" 1>/dev/null 2>&1; then
-    local REBOOT
-    read -r -p "Restart is required to complete installation of some softwares. Restart now?（Y/N）" REBOOT
-
-    if [ "$REBOOT" = "Y" ] || [ "$REBOOT" = "y" ]; then
-      sudo softwareupdate -i -a -R
-    fi
-  fi
 }
 
 update_system() {
   message --info "Update system"
 
   sudo chown 0 "$SUDOERS" 1>/dev/null 2>&1
-  sudo softwareupdate -i -a
+
+  if sudo softwareupdate -l | grep "Action: restart" 1>/dev/null 2>&1; then
+    local REBOOT
+    read -r -p "Restart is required to complete installation of some softwares. Install and restart now?（Y/N）" REBOOT
+
+    if [ "$REBOOT" = "Y" ] || [ "$REBOOT" = "y" ]; then
+      sudo softwareupdate -i -a -R
+    else
+      sudo softwareupdate -d
+    fi
+  else
+    sudo softwareupdate -i -a
+  fi
 }
 
 update_touch_id() {

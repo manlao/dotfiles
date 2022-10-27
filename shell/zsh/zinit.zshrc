@@ -45,3 +45,6 @@ zinit light "romkatv/powerlevel10k"
 zinit ice atinit"zsh-compinit"
 # zinit light "zsh-users/zsh-syntax-highlighting"
 zinit light "zdharma-continuum/fast-syntax-highlighting"
+
+zinit ice wait lucid
+zinit snippet "$DOTFILES_HOME/shell/shell.rc"

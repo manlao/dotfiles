@@ -247,8 +247,6 @@ if [ -f "$DOTFILES_HOME/.env" ]; then
   source "$DOTFILES_HOME/.env"
 fi
 
-source "$DOTFILES_HOME/shell/shell.rc"
-
 alias cp="nocorrect cp"
 alias man="nocorrect man"
 alias mkdir="nocorrect mkdir"

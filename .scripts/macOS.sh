@@ -164,7 +164,7 @@ update_system() {
     if [ "$REBOOT" = "Y" ] || [ "$REBOOT" = "y" ]; then
       sudo softwareupdate -i -a -R
     else
-      sudo softwareupdate -d
+      sudo softwareupdate -d -a
     fi
   else
     sudo softwareupdate -i -a

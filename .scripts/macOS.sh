@@ -246,7 +246,7 @@ configure_dock() {
     "41,企业微信,/Applications/企业微信.app"
     "41,邮件,/System/Applications/Mail.app"
     "41,App Store,/System/Applications/App Store.app"
-    "41,系统偏好设置,/System/Applications/System Preferences.app"
+    "41,系统设置,/System/Applications/System Settings.app"
   )
 
   for I in "${!APPS[@]}"; do

@@ -16,7 +16,6 @@ PKGS=(
   "yrm"
   "commitizen"
   "cz-conventional-changelog"
-  "standard-version"
 )
 
 install() {
@@ -88,8 +87,8 @@ setup() {
 setup_global_packages() {
   message --info "Set up global node packages"
 
+  ln -sf "$DOTFILES_HOME/macOS/node/.npmrc" "$HOME/.npmrc"
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
-  ln -sf "$DOTFILES_HOME/macOS/node/.versionrc.js" "$HOME/.versionrc.js"
 }
 
 update() {

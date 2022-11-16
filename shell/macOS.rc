@@ -223,6 +223,18 @@ docker() {
   "$HOMEBREW_PREFIX/bin/docker" "$@"
 }
 
+podman() {
+  local PODMAN_MACHINE
+  PODMAN_MACHINE=$("$HOMEBREW_PREFIX/bin/podman" machine list -q)
+
+  if [ -z "$PODMAN_MACHINE" ]; then
+    "$HOMEBREW_PREFIX/bin/podman" machine init
+    "$HOMEBREW_PREFIX/bin/podman" machine start
+  fi
+
+  "$HOMEBREW_PREFIX/bin/podman" "$@"
+}
+
 npmg() {
   nodenv shell "${DEFAULT_NODE_VERSION:-system}"
   npm -g "$@"

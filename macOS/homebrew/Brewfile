@@ -66,7 +66,7 @@ cask "neteasemusic"
 
 # Proxy
 cask "lantern"
-# cask "v2rayu"
+cask "v2rayu"
 # cask "shadowsocksx-ng"
 cask "openvpn-connect"
 cask "tunnelblick"
@@ -124,7 +124,7 @@ cask "lunar"
 cask "android-studio"
 
 # Flutter
-# cask "flutter"
+cask "flutter"
 
 # Julia
 # cask "julia"
@@ -200,6 +200,9 @@ brew "fzf"
 brew "autojump"
 brew "z"
 brew "fasd"
+
+# Virtual Machine
+brew "qemu"
 
 # Database
 brew "mysql"
@@ -279,12 +282,11 @@ brew "cocoapods"
 brew "jenv"
 
 # Rust
-# brew "rust"
+brew "rust"
 
 # Go
 brew "go"
-# https://github.com/syndbg/goenv/issues/80
-brew "goenv", args: ["HEAD"]
+brew "goenv"
 
 # PHP
 # brew "php"

@@ -39,31 +39,44 @@ if [ -f "$HOME/.iterm2_shell_integration.${SHELL##*/}" ]; then
 fi
 
 #=======================================================================#
+# rust                                                                  #
+#=======================================================================#
+
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.cargo/bin " ]]; then
+  PATHS+=(
+    "$HOME/.cargo/bin"
+  )
+fi
+
+#=======================================================================#
 # go                                                                    #
 #=======================================================================#
 
 export GOPROXY=https://goproxy.io,direct
+
 # goenv
 export GOENV_GOPATH_PREFIX="$HOME/.go"
 eval "$(goenv init -)"
 
-#=======================================================================#
-# rust                                                                  #
-#=======================================================================#
-
-export PATHS=(
-  "$HOME/.cargo/bin"
-  "${PATHS[@]}"
-)
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.goenv/shims " ]]; then
+  PATHS+=(
+    "$HOME/.goenv/shims"
+  )
+fi
 
 #=======================================================================#
-# php                                                                   #
+# python                                                                #
 #=======================================================================#
 
-export PATHS=(
-  "$HOME/.composer/vendor/bin"
-  "${PATHS[@]}"
-)
+# pyenv
+# https://github.com/pyenv/pyenv/issues/1649
+eval "$(pyenv init -)"
+
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.pyenv/shims " ]]; then
+  PATHS+=(
+    "$HOME/.pyenv/shims"
+  )
+fi
 
 #=======================================================================#
 # node                                                                  #
@@ -73,22 +86,12 @@ export DEFAULT_NODE_VERSION="lts/*"
 
 # nodenv
 eval "$(nodenv init -)"
-export PATHS=(
-  "$HOME/.nodenv/shims"
-  "${PATHS[@]}"
-)
 
-#=======================================================================#
-# python                                                                #
-#=======================================================================#
-
-# pyenv
-# https://github.com/pyenv/pyenv/issues/1649
-eval "$(pyenv init -)"
-export PATHS=(
-  "$HOME/.pyenv/shims"
-  "${PATHS[@]}"
-)
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.nodenv/shims " ]]; then
+  PATHS+=(
+    "$HOME/.nodenv/shims"
+  )
+fi
 
 #=======================================================================#
 # ruby                                                                  #
@@ -96,10 +99,12 @@ export PATHS=(
 
 # rbenv
 eval "$(rbenv init -)"
-export PATHS=(
-  "$HOME/.rbenv/shims"
-  "${PATHS[@]}"
-)
+
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.rbenv/shims " ]]; then
+  PATHS+=(
+    "$HOME/.rbenv/shims"
+  )
+fi
 
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
 export RUBY_CONFIGURE_OPTS
@@ -110,10 +115,22 @@ export RUBY_CONFIGURE_OPTS
 
 # jenv
 eval "$(jenv init -)"
-export PATHS=(
-  "$HOME/.jenv/shims"
-  "${PATHS[@]}"
-)
+
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.jenv/shims " ]]; then
+  PATHS+=(
+    "$HOME/.jenv/shims"
+  )
+fi
+
+#=======================================================================#
+# php                                                                   #
+#=======================================================================#
+
+if [[ ! " ${PATHS[*]} " =~ " $HOME/.composer/vendor/bin " ]]; then
+  PATHS+=(
+    "$HOME/.composer/vendor/bin"
+  )
+fi
 
 #=======================================================================#
 # flutter                                                               #
@@ -204,13 +221,6 @@ EOF
   git filter-repo --commit-callback "$CALLBACK"
 }
 
-standard-version() {
-  local VERSION_TAG_PREFIX
-  VERSION_TAG_PREFIX=$(git config --get --system gitflow.prefix.versionTag || git config --get --global gitflow.prefix.versionTag || echo "v")
-
-  "${NODENV_ROOT:-$HOME/.nodenv}/shims/standard-version" -t "$VERSION_TAG_PREFIX" "$@"
-}
-
 docker() {
   if ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; then
     open -g -a "/Applications/Docker.app"
@@ -233,16 +243,6 @@ podman() {
   fi
 
   "$HOMEBREW_PREFIX/bin/podman" "$@"
-}
-
-npmg() {
-  nodenv shell "${DEFAULT_NODE_VERSION:-system}"
-  npm -g "$@"
-}
-
-pipg() {
-  pyenv shell system
-  pip "$@"
 }
 
 gitclone() {

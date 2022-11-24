@@ -65,7 +65,7 @@ update_global_packages() {
   message --info "Update global python packages"
 
   pyenv shell system
-  pip --disable-pip-version-check list --format freeze | cut -f 1 -d '=' | xargs pip install --upgrade
+  pip --disable-pip-version-check list -o | tail -n +3 | cut -f 1 -d ' ' | xargs pip install --upgrade
 }
 
 initialize_pyenv() {

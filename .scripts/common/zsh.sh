@@ -93,7 +93,7 @@ update() {
 
 update_zinit_plugins() {
   message --info "Update zsh plugins"
-  zsh -i -c "source $DOTZSHRC; zinit self-update; zinit update --all"
+  zsh -i -c "source $DOTZSHRC; zinit cclear; zinit self-update; zinit update --all"
 }
 
 update_zplug_plugins() {

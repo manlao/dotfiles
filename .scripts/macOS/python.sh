@@ -3,15 +3,20 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-PKGS=(
+APPS=(
   "poetry"
+  "podman-compose"
+)
+
+PKGS=(
   "neovim"
   "pynvim"
-  "podman-compose"
 )
 
 install() {
   install_python
+  install_pipx
+  install_pipx_apps
   install_pyenv
   install_pyenv_plugins
   initialize_pyenv
@@ -24,6 +29,18 @@ install_python() {
     message --info "Install homebrew formula: python"
     brew install python
   fi
+}
+
+install_pipx() {
+  if ! brew list pipx 1>/dev/null 2>&1; then
+    message --info "Install homebrew formula: pipx"
+    brew install pipx
+  fi
+}
+
+install_pipx_apps() {
+  message --info "Install pipx packages: ${APPS[*]}"
+  brew install pipx
 }
 
 install_pyenv() {
@@ -47,14 +64,20 @@ install_python_versions() {
 install_global_packages() {
   message --info "Install global python packages: ${PKGS[*]}"
 
-  pyenv shell system
+  pyenv shell "$(pyenv versions --bare | tail -1)"
   pip install "${PKGS[@]}"
 }
 
 update() {
+  update_pipx_apps
   initialize_pyenv
   update_python_versions
   update_global_packages
+}
+
+update_pipx_apps() {
+  message --info "Update pipx packages: ${APPS[*]}"
+  pipx upgrade-all
 }
 
 update_python_versions() {
@@ -64,8 +87,8 @@ update_python_versions() {
 update_global_packages() {
   message --info "Update global python packages"
 
-  pyenv shell system
-  pip --disable-pip-version-check list -o | tail -n +3 | cut -f 1 -d ' ' | xargs pip install --upgrade
+  pyenv shell "$(pyenv versions --bare | tail -1)"
+  pip --disable-pip-version-check list | tail -n +3 | cut -f 1 -d ' ' | xargs pip install --upgrade
 }
 
 initialize_pyenv() {

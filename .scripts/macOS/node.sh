@@ -76,7 +76,7 @@ install_node_versions() {
 install_global_packages() {
   message --info "Install global node packages: ${PKGS[*]}"
 
-  nodenv shell "${DEFAULT_NODE_VERSION:-system}"
+  nodenv shell "${DEFAULT_NODE_VERSION:-node}"
   npm install -g "${PKGS[@]}"
 }
 
@@ -104,7 +104,7 @@ update_node_versions() {
 update_global_packages() {
   message --info "Update global node packages"
 
-  nodenv shell "${DEFAULT_NODE_VERSION:-system}"
+  nodenv shell "${DEFAULT_NODE_VERSION:-node}"
   npm update -g
 }
 

@@ -6,6 +6,11 @@ source "$DOTFILES_HOME/trait.rc"
 DOTVIMRC="$DOTFILES_HOME/vim/.vimrc"
 VIM_PLUGIN_MANAGER="${VIM_PLUGIN_MANAGER:-vim-plug}"
 
+DEPS=(
+  neovim
+  pynvim
+)
+
 install() {
   install_vim
   install_vim_dependencies
@@ -28,7 +33,7 @@ install_vim() {
 
 install_vim_dependencies() {
   message --info "Install vim dependencies"
-  "$(brew --prefix "$(brew deps vim | grep python)")/bin/pip3" install neovim pynvim --no-warn-script-location
+  "$(brew --prefix "$(brew deps vim | grep python)")/bin/pip3" install "${DEPS[@]}" --no-warn-script-location
 }
 
 install_neovim() {
@@ -44,7 +49,7 @@ install_neovim() {
 
 install_neovim_dependencies() {
   message --info "Install neovim dependencies"
-  "$(brew --prefix python)/bin/pip3" install neovim pynvim --no-warn-script-location
+  "$(brew --prefix python)/bin/pip3" install "${DEPS[@]}" --no-warn-script-location
 }
 
 install_vim_plug() {
@@ -95,8 +100,17 @@ setup_vim() {
 }
 
 update() {
+  update_vim_dependencies
   update_neovim_dependencies
   "update_${VIM_PLUGIN_MANAGER//-/_}_plugins"
+}
+
+update_vim_dependencies() {
+  message --info "Update vim dependencies"
+
+  local PIP
+  PIP="$(brew --prefix "$(brew deps vim | grep python)")/bin/pip3"
+  "$PIP" --disable-pip-version-check list | tail -n +3 | cut -f 1 -d ' ' | xargs "$PIP" install --upgrade --no-warn-script-location
 }
 
 update_neovim_dependencies() {
@@ -104,7 +118,7 @@ update_neovim_dependencies() {
 
   local PIP
   PIP="$(brew --prefix python)/bin/pip3"
-  "$PIP" --disable-pip-version-check list -o | tail -n +3 | cut -f 1 -d ' ' | xargs "$PIP" install --upgrade --no-warn-script-location
+  "$PIP" --disable-pip-version-check list | tail -n +3 | cut -f 1 -d ' ' | xargs "$PIP" install --upgrade --no-warn-script-location
 }
 
 update_vim_plug_plugins() {

@@ -147,7 +147,7 @@ cask "font-meslo-lg-nerd-font"
 brew "mas"
 
 # Touch ID
-brew "fabianishere/personal/pam_reattach"
+brew "pam-reattach"
 
 # Shell
 brew "bash"
@@ -269,6 +269,7 @@ brew "manlao/tap/nodenv-auto-install"
 
 # Python
 brew "python"
+brew "pipx"
 brew "pyenv"
 brew "pyenv-pip-migrate"
 

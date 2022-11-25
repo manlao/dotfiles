@@ -40,7 +40,7 @@ install_pipx() {
 
 install_pipx_apps() {
   message --info "Install pipx packages: ${APPS[*]}"
-  brew install pipx
+  pipx install "${APPS[@]}"
 }
 
 install_pyenv() {

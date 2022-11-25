@@ -40,7 +40,10 @@ install_pipx() {
 
 install_pipx_apps() {
   message --info "Install pipx packages: ${APPS[*]}"
-  pipx install "${APPS[@]}"
+
+  for APP in "${APPS[@]}"; do
+    pipx install "$APP"
+  done
 }
 
 install_pyenv() {

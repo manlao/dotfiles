@@ -1,5 +1,23 @@
 # shellcheck shell=bash
 
+prepend_path() {
+  P="$1"
+
+  export PATHS=(
+    "$1"
+    $(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$P")
+  )
+}
+
+append_path() {
+  P="$1"
+
+  export PATHS=(
+    $(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$P")
+    "$1"
+  )
+}
+
 #=======================================================================#
 # homebrew                                                              #
 #=======================================================================#
@@ -42,12 +60,7 @@ fi
 # rust                                                                  #
 #=======================================================================#
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.cargo/bin " ]]; then
-  PATHS=(
-    "$HOME/.cargo/bin"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.cargo/bin"
 
 #=======================================================================#
 # go                                                                    #
@@ -59,35 +72,20 @@ export GOPROXY=https://goproxy.io,direct
 export GOENV_GOPATH_PREFIX="$HOME/.go"
 eval "$(goenv init -)"
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.goenv/shims " ]]; then
-  PATHS=(
-    "$HOME/.goenv/shims"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.goenv/shims"
 
 #=======================================================================#
 # python                                                                #
 #=======================================================================#
 
 # pipx
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.local/bin " ]]; then
-  PATHS=(
-    "$HOME/.local/bin"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.local/bin"
 
 # pyenv
 # https://github.com/pyenv/pyenv/issues/1649
 eval "$(pyenv init -)"
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.pyenv/shims " ]]; then
-  PATHS=(
-    "$HOME/.pyenv/shims"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.pyenv/shims"
 
 #=======================================================================#
 # node                                                                  #
@@ -98,12 +96,7 @@ export DEFAULT_NODE_VERSION="lts/*"
 # nodenv
 eval "$(nodenv init -)"
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.nodenv/shims " ]]; then
-  PATHS=(
-    "$HOME/.nodenv/shims"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.nodenv/shims"
 
 #=======================================================================#
 # ruby                                                                  #
@@ -112,12 +105,7 @@ fi
 # rbenv
 eval "$(rbenv init -)"
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.rbenv/shims " ]]; then
-  PATHS=(
-    "$HOME/.rbenv/shims"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.rbenv/shims"
 
 RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
 export RUBY_CONFIGURE_OPTS
@@ -129,23 +117,13 @@ export RUBY_CONFIGURE_OPTS
 # jenv
 eval "$(jenv init -)"
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.jenv/shims " ]]; then
-  PATHS=(
-    "$HOME/.jenv/shims"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.jenv/shims"
 
 #=======================================================================#
 # php                                                                   #
 #=======================================================================#
 
-if [[ ! " ${PATHS[*]} " =~ " $HOME/.composer/vendor/bin " ]]; then
-  PATHS=(
-    "$HOME/.composer/vendor/bin"
-    "${PATHS[@]}"
-  )
-fi
+prepend_path "$HOME/.composer/vendor/bin"
 
 #=======================================================================#
 # flutter                                                               #
@@ -159,13 +137,11 @@ export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
 #=======================================================================#
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-PATHS=(
-  "$ANDROID_HOME/emulator"
-  "$ANDROID_HOME/tools"
-  "$ANDROID_HOME/tools/bin"
-  "$ANDROID_HOME/platform-tools"
-  "${PATHS[@]}"
-)
+
+prepend_path "$ANDROID_HOME/emulator"
+prepend_path "$ANDROID_HOME/tools"
+prepend_path "$ANDROID_HOME/tools/bin"
+prepend_path "$ANDROID_HOME/platform-tools"
 
 #=======================================================================#
 # vagrant                                                               #

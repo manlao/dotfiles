@@ -43,8 +43,9 @@ fi
 #=======================================================================#
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.cargo/bin " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.cargo/bin"
+    "${PATHS[@]}"
   )
 fi
 
@@ -59,8 +60,9 @@ export GOENV_GOPATH_PREFIX="$HOME/.go"
 eval "$(goenv init -)"
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.goenv/shims " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.goenv/shims"
+    "${PATHS[@]}"
   )
 fi
 
@@ -70,8 +72,9 @@ fi
 
 # pipx
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.local/bin " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.local/bin"
+    "${PATHS[@]}"
   )
 fi
 
@@ -80,8 +83,9 @@ fi
 eval "$(pyenv init -)"
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.pyenv/shims " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.pyenv/shims"
+    "${PATHS[@]}"
   )
 fi
 
@@ -95,8 +99,9 @@ export DEFAULT_NODE_VERSION="lts/*"
 eval "$(nodenv init -)"
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.nodenv/shims " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.nodenv/shims"
+    "${PATHS[@]}"
   )
 fi
 
@@ -108,8 +113,9 @@ fi
 eval "$(rbenv init -)"
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.rbenv/shims " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.rbenv/shims"
+    "${PATHS[@]}"
   )
 fi
 
@@ -124,8 +130,9 @@ export RUBY_CONFIGURE_OPTS
 eval "$(jenv init -)"
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.jenv/shims " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.jenv/shims"
+    "${PATHS[@]}"
   )
 fi
 
@@ -134,8 +141,9 @@ fi
 #=======================================================================#
 
 if [[ ! " ${PATHS[*]} " =~ " $HOME/.composer/vendor/bin " ]]; then
-  PATHS+=(
+  PATHS=(
     "$HOME/.composer/vendor/bin"
+    "${PATHS[@]}"
   )
 fi
 
@@ -151,11 +159,12 @@ export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
 #=======================================================================#
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-PATHS+=(
+PATHS=(
   "$ANDROID_HOME/emulator"
   "$ANDROID_HOME/tools"
   "$ANDROID_HOME/tools/bin"
   "$ANDROID_HOME/platform-tools"
+  "${PATHS[@]}"
 )
 
 #=======================================================================#

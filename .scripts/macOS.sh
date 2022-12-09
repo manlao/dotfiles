@@ -246,21 +246,25 @@ configure_dock() {
     "41,企业微信,/Applications/企业微信.app"
     "41,邮件,/System/Applications/Mail.app"
     "41,App Store,/System/Applications/App Store.app"
+    "41,系统偏好设置,/System/Applications/System Preferences.app"
     "41,系统设置,/System/Applications/System Settings.app"
   )
 
   for I in "${!APPS[@]}"; do
     local SEGMENTS
     IFS="," read -r -a SEGMENTS <<< "${APPS[I]}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:GUID string $(uuidgen)" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-type string file-tile" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-type integer ${SEGMENTS[0]}" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-label string '${SEGMENTS[1]}'" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data dict" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLStringType integer 15" "${PLIST}"
-    /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLString string 'file://${SEGMENTS[2]}/'" "${PLIST}"
+
+    if [ -d "${SEGMENTS[2]}" ]; then
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I dict" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:GUID string $(uuidgen)" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-type string file-tile" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data dict" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-type integer ${SEGMENTS[0]}" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-label string '${SEGMENTS[1]}'" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data dict" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLStringType integer 15" "${PLIST}"
+      /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I:tile-data:file-data:_CFURLString string 'file://${SEGMENTS[2]}/'" "${PLIST}"
+    fi
   done
 
   defaults write com.apple.dock ResetLaunchPad -bool true

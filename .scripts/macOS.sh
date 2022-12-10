@@ -250,8 +250,9 @@ configure_dock() {
     "41,系统设置,/System/Applications/System Settings.app"
   )
 
+  local SEGMENTS
+
   for I in "${!APPS[@]}"; do
-    local SEGMENTS
     IFS="," read -r -a SEGMENTS <<< "${APPS[I]}"
 
     if [ -d "${SEGMENTS[2]}" ]; then

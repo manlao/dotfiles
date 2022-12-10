@@ -1,21 +1,13 @@
 # shellcheck shell=bash
 
 prepend_path() {
-  P="$1"
-
-  export PATHS=(
-    "$1"
-    $(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$P")
-  )
+  # shellcheck disable=SC2207
+  export PATHS=("$1" $(tr "\n" " " <<<"$(tr " " "\n" <<< "${PATHS[*]}" | grep -x -v "$1")"))
 }
 
 append_path() {
-  P="$1"
-
-  export PATHS=(
-    $(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$P")
-    "$1"
-  )
+  # shellcheck disable=SC2207
+  export PATHS=($(tr "\n" " " <<<"$(tr " " "\n" <<< "${PATHS[*]}" | grep -x -v "$1")") "$1")
 }
 
 #=======================================================================#
@@ -107,7 +99,8 @@ eval "$(rbenv init -)"
 
 prepend_path "$HOME/.rbenv/shims"
 
-RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
+# https://github.com/ruby/openssl/issues/369
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export RUBY_CONFIGURE_OPTS
 
 #=======================================================================#
@@ -260,12 +253,14 @@ gitclone() {
 
       local GIT_HOSTS_USERS U
 
-      read -r -A GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
+      # shellcheck disable=SC2229
+      read -r "$READ_ARRAY_OPTION" GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
 
       for U in "${GIT_HOSTS_USERS[@]}"; do
         if echo "$U" | grep -E "^$DOMAIN," 1>/dev/null 2>&1; then
           local SEGMENTS
-          IFS="," read -r -A SEGMENTS <<< "$U"
+          # shellcheck disable=SC2229
+          IFS="," read -r "$READ_ARRAY_OPTION" SEGMENTS <<< "$U"
 
           if [ -n "${SEGMENTS[2]}" ]; then
             echo "Set Git User Email: ${SEGMENTS[2]}"

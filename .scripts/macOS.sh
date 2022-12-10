@@ -189,9 +189,16 @@ update_packages() {
     brew bundle install --verbose
   fi
 
+  # open updated cask
+  open -a Rectangle.app
+  open -a Lunar.app
+
   if mas version 1>/dev/null 2>&1; then
     mas upgrade
   fi
+
+  # open updated app
+  open -a Amphetamine.app
 }
 
 update_dock() {

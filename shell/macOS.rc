@@ -140,6 +140,7 @@ prepend_path "$ANDROID_HOME/platform-tools"
 # vagrant                                                               #
 #=======================================================================#
 
+export VAGRANT_MACOS_BOX="jhcook/macos-sierra"
 export VAGRANT_WINDOWS_BOX="gusztavvargadr/windows-11"
 
 #=======================================================================#

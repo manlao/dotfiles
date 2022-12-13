@@ -61,7 +61,7 @@ install() {
   fi
 
   case "$OS_NAME" in
-    macOS | Mac OS X )
+    macOS )
       set_variable DOTENV_FILE "Location of .env file" "$HOME/Documents/.env"
 
       if [ ! -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then
@@ -86,7 +86,7 @@ get_os_name() {
 
   case "$UNAME" in
     Darwin )
-      sw_vers -productName
+      echo "macOS"
       ;;
   esac
 }

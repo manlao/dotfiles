@@ -56,12 +56,12 @@ install() {
   set_variable DOTFILES_HOME "Dotfiles home" "$HOME/.dotfiles"
 
   if [ -e "$DOTFILES_HOME" ]; then
-    error "$DOTFILES_HOME existed"
+    error "$DOTFILES_HOME exists"
     exit 1
   fi
 
   case "$OS_NAME" in
-    macOS )
+    macOS | Mac OS X )
       set_variable DOTENV_FILE "Location of .env file" "$HOME/Documents/.env"
 
       if [ ! -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then

@@ -89,6 +89,7 @@ setup_global_packages() {
 
   ln -sf "$DOTFILES_HOME/macOS/node/.npmrc" "$HOME/.npmrc"
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
+  ln -sf "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.huskyrc"
 }
 
 update() {

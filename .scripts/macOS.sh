@@ -190,19 +190,25 @@ update_packages() {
   fi
 
   # open updated cask
-  open -a Rectangle.app
-  open -a Lunar.app
+  relanuch_app Rectangle.app
+  relanuch_app Lunar.app
 
   if mas version 1>/dev/null 2>&1; then
     mas upgrade
   fi
 
   # open updated app
-  open -a Amphetamine.app
+  relanuch_app Amphetamine.app
 }
 
 update_dock() {
   configure_dock
+}
+
+relanuch_app() {
+  if ! ps aux | grep -v grep | grep "$1" 1>/dev/null 2>&1; then
+    open -g -a "$1"
+  fi
 }
 
 sync() {

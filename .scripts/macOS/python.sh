@@ -4,6 +4,7 @@
 source "$DOTFILES_HOME/trait.rc"
 
 APPS=(
+  "pdm"
   "poetry"
   "podman-compose"
 )

@@ -10,7 +10,7 @@ install() {
 
 install_asdf() {
   if ! asdf info 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: asdf"
+    message --info "Install asdf"
     brew install asdf
   fi
 }

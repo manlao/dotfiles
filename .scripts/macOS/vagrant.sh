@@ -16,14 +16,14 @@ install() {
 
 install_virtualbox() {
   if ! brew list --cask virtualbox 1>/dev/null 2>&1; then
-    message --info "Install homebrew cask: virtualbox"
+    message --info "Install virtualbox"
     brew install virtualbox
   fi
 }
 
 install_vagrant() {
   if ! brew list --cask vagrant 1>/dev/null 2>&1; then
-    message --info "Install homebrew cask: vagrant"
+    message --info "Install vagrant"
     brew install vagrant
   fi
 }

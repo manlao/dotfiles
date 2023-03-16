@@ -188,25 +188,6 @@ build-install-image() {
   fi
 }
 
-# https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi
-change-git-user() {
-  local CALLBACK
-  read -r -d '' CALLBACK <<EOF || true
-old_email = b"$1"
-new_name = b"$2"
-new_email = b"$3"
-
-if commit.committer_email == old_email:
-  commit.committer_name = new_name
-  commit.committer_email = new_email
-
-if commit.author_email == old_email:
-  commit.author_name = new_name
-  commit.author_email = new_email
-EOF
-  git filter-repo --commit-callback "$CALLBACK"
-}
-
 docker() {
   if ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; then
     open -g -a "/Applications/Docker.app"

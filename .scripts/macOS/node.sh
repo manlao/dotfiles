@@ -23,69 +23,61 @@ install() {
   install_nodenv
   install_nodenv_plugins
   initialize_nodenv
-  install_node_versions
-  install_global_packages
-}
-
-install_node() {
-  if ! brew list node 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: node"
-    brew install node
-    corepack enable
-  fi
+  install_node
+  install_node_packages
 }
 
 install_nodenv() {
   if ! brew list nodenv 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nodenv"
+    message --info "Install nodenv"
     brew install nodenv
   fi
 }
 
 install_nodenv_plugins() {
   if ! brew list nodenv/nodenv/node-build-update-defs 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nodenv/nodenv/node-build-update-defs"
+    message --info "Install nodenv/nodenv/node-build-update-defs"
     brew install nodenv/nodenv/node-build-update-defs
   fi
 
   if ! brew list nodenv/nodenv/nodenv-npm-migrate 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nodenv/nodenv/nodenv-npm-migrate"
+    message --info "Install nodenv/nodenv/nodenv-npm-migrate"
     brew install nodenv/nodenv/nodenv-npm-migrate
   fi
 
   if ! brew list nodenv/nodenv/nodenv-nvmrc 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nodenv/nodenv/nodenv-nvmrc"
+    message --info "Install nodenv/nodenv/nodenv-nvmrc"
     brew install nodenv/nodenv/nodenv-nvmrc
   fi
 
   if ! brew list nodenv/nodenv/nodenv-package-json-engine 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: nodenv/nodenv/nodenv-package-json-engine"
+    message --info "Install nodenv/nodenv/nodenv-package-json-engine"
     brew install nodenv/nodenv/nodenv-package-json-engine
   fi
 
   if ! brew list manlao/tap/node-build-aliases 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: manlao/tap/node-build-aliases"
+    message --info "Install manlao/tap/node-build-aliases"
     brew install manlao/tap/node-build-aliases
   fi
 }
 
-install_node_versions() {
-  install_or_update_node_versions
+install_node() {
+  install_or_update_node
 }
 
-install_global_packages() {
-  message --info "Install global node packages: ${PKGS[*]}"
+install_node_packages() {
+  message --info "Install node packages: ${PKGS[*]}"
 
   nodenv shell "${DEFAULT_NODE_VERSION:-node}"
   npm install -g "${PKGS[@]}"
 }
 
 setup() {
-  setup_global_packages
+  setup_node_packages
 }
 
-setup_global_packages() {
-  message --info "Set up global node packages"
+setup_node_packages() {
+  message --info "Set up node packages"
 
   ln -sf "$DOTFILES_HOME/macOS/node/.npmrc" "$HOME/.npmrc"
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
@@ -94,16 +86,16 @@ setup_global_packages() {
 
 update() {
   initialize_nodenv
-  update_node_versions
-  update_global_packages
+  update_node
+  update_node_packages
 }
 
-update_node_versions() {
-  install_or_update_node_versions
+update_node() {
+  install_or_update_node
 }
 
-update_global_packages() {
-  message --info "Update global node packages"
+update_node_packages() {
+  message --info "Update node packages"
 
   nodenv shell "${DEFAULT_NODE_VERSION:-node}"
   npm update -g
@@ -113,7 +105,7 @@ initialize_nodenv() {
   eval "$(nodenv init -)"
 }
 
-install_or_update_node_versions() {
+install_or_update_node() {
   message --info "Check node versions"
 
   local CURRENT

@@ -14,7 +14,7 @@ install_bash() {
   case "$OS_NAME" in
     macOS )
       if ! brew list bash 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: bash"
+        message --info "Install bash"
         brew install bash
       fi
       ;;
@@ -23,7 +23,7 @@ install_bash() {
 
 install_bash_it() {
   if [ ! -d "$BASH_IT_FOLDER" ]; then
-    message --info "Clone Bash-it/bash-it"
+    message --info "Install Bash-it"
 
     rm -rf "$BASH_IT_FOLDER"
     git clone "https://github.com/Bash-it/bash-it.git" "$BASH_IT_FOLDER"

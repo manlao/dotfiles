@@ -12,7 +12,7 @@ install_git() {
   case "$OS_NAME" in
     macOS )
       if ! brew list git 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: git"
+        message --info "Install git"
         brew install git
       fi
       ;;
@@ -23,7 +23,7 @@ install_git_flow_avh() {
   case "$OS_NAME" in
     macOS )
       if ! brew list git-flow-avh 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: git-flow-avh"
+        message --info "Install git-flow-avh"
         brew install git-flow-avh
       fi
       ;;
@@ -59,17 +59,17 @@ setup_git() {
     macOS )
       git config --global credential.helper osxkeychain
 
-      local GIT_HOSTS H SEGMENTS
+      local GIT_HOSTS_USERS U SEGMENTS
 
-      read -r -a GIT_HOSTS <<< "$GIT_HOSTS_STRING"
+      read -r -a GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
 
-      for H in "${GIT_HOSTS[@]}"; do
-        IFS="," read -r -a SEGMENTS <<< "$H"
+      for U in "${GIT_HOSTS_USERS[@]}"; do
+        IFS="," read -r -a SEGMENTS <<< "$U"
 
         git credential-osxkeychain store <<EOF
 protocol=${SEGMENTS[2]:-https}
 host=${SEGMENTS[0]}
-username=${SEGMENTS[3]:-$GIT_USER}
+username=${SEGMENTS[3]}
 password=${SEGMENTS[1]}
 EOF
       done
@@ -97,7 +97,7 @@ setup_git_flow_avh() {
   git config --global gitflow.prefix.release "release/"
   git config --global gitflow.prefix.hotfix "hotfix/"
   git config --global gitflow.prefix.support "support/"
-  git config --global gitflow.prefix.versiontag ""
+  git config --global gitflow.prefix.versiontag "v"
 }
 
 main "$@"

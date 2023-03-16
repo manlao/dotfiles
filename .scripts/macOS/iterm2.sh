@@ -15,14 +15,14 @@ install() {
 
 install_iterm2() {
   if ! brew list --cask iterm2 1>/dev/null 2>&1; then
-    message --info "Install homebrew cask: iterm2"
+    message --info "Install iTerm2"
     brew install --cask iterm2
   fi
 }
 
 install_iterm2_website() {
   if [ ! -d "$ITERM2_WEBSITE_FOLDER" ]; then
-    message --info "Clone gnachman/iterm2-website"
+    message --info "Install gnachman/iterm2-website"
 
     rm -rf "$ITERM2_WEBSITE_FOLDER"
     git clone "https://github.com/gnachman/iterm2-website.git" "$ITERM2_WEBSITE_FOLDER"
@@ -31,7 +31,7 @@ install_iterm2_website() {
 
 install_iterm2_color_schemes() {
   if [ ! -d "$ITERM2_COLOR_SCHEMES_FOLDER" ]; then
-    message --info "Clone mbadolato/iTerm2-Color-Schemes"
+    message --info "Install mbadolato/iTerm2-Color-Schemes"
 
     rm -rf "$ITERM2_COLOR_SCHEMES_FOLDER"
     git clone "https://github.com/mbadolato/iTerm2-Color-Schemes.git" "$ITERM2_COLOR_SCHEMES_FOLDER"

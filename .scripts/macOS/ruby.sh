@@ -11,7 +11,7 @@ install() {
 
 install_rbenv() {
   if ! brew list rbenv 1>/dev/null 2>&1; then
-    message --info "Install homebrew formula: rbenv"
+    message --info "Install rbenv"
     brew install rbenv
   fi
 }
@@ -34,6 +34,8 @@ initialize_rbenv() {
 }
 
 install_or_update_ruby() {
+  message --info "Check ruby versions"
+
   local NEXT
   NEXT=$(rbenv install --list-all | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 

@@ -17,8 +17,8 @@ install() {
   set_variable HOST_NAME "Host Name" "$(sudo scutil --get LocalHostName)"
 
   install_homebrew
-  install_taps
-  install_packages
+  install_homebrew_taps
+  install_homebrew_packages
 
   run_directory "$DOTFILES_HOME/.scripts/common" install
   run_directory "$DOTFILES_HOME/.scripts/macOS" install
@@ -35,27 +35,15 @@ install_homebrew() {
   CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 }
 
-install_taps() {
-  message --info "Install taps"
+install_homebrew_taps() {
+  message --info "Install homebrew taps"
 
   brew tap homebrew/homebrew-core
   brew tap homebrew/homebrew-cask
-
-  # https://github.com/Homebrew/brew/pull/9383
-  local HOMEBREW_LIBRARY
-  HOMEBREW_LIBRARY="$(brew --prefix)/Homebrew/Library"
-
-  if [ -f "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-core/.git/shallow" ]; then
-    git -C "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-core" fetch --unshallow
-  fi
-
-  if [ -f "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-cask/.git/shallow" ]; then
-    git -C "$HOMEBREW_LIBRARY/Taps/homebrew/homebrew-cask" fetch --unshallow
-  fi
 }
 
-install_packages() {
-  message --info "Install packages"
+install_homebrew_packages() {
+  message --info "Install homebrew packages and mas apps"
 
   brew bundle install --verbose
 
@@ -76,8 +64,6 @@ setup() {
   setup_touch_id
   setup_terminal
   setup_dock
-  setup_finder
-  setup_safari
 
   run_directory "$DOTFILES_HOME/.scripts/common" setup
   run_directory "$DOTFILES_HOME/.scripts/macOS" setup
@@ -133,19 +119,11 @@ setup_dock() {
   configure_dock
 }
 
-setup_finder() {
-  message --info "Set up Finder"
-}
-
-setup_safari() {
-  message --info "Set up Safari"
-}
-
 update() {
   update_system
   update_touch_id
   update_homebrew
-  update_packages
+  update_homebrew_packages
   update_dock
 
   run_directory "$DOTFILES_HOME/.scripts/common" update
@@ -180,8 +158,8 @@ update_homebrew() {
   brew update
 }
 
-update_packages() {
-  message --info "Update packages"
+update_homebrew_packages() {
+  message --info "Update homebrew packages and mas apps"
 
   brew upgrade --greedy
 
@@ -212,20 +190,22 @@ relanuch_app() {
 }
 
 sync() {
-  sync_packages
+  sync_homebrew_packages
 
   run_directory "$DOTFILES_HOME/.scripts/common" sync
   run_directory "$DOTFILES_HOME/.scripts/macOS" sync
 }
 
-sync_packages() {
-  message --info "Sync packages"
+sync_homebrew_packages() {
+  message --info "Sync homebrew packages"
 
   brew bundle cleanup --verbose
   brew autoremove
 }
 
 configure_touch_id() {
+  message --info "Config Touch ID"
+
   # https://gitlab.com/gnachman/iterm2/-/issues/7618
   local LINE_NO
   LINE_NO=$(sed -n "/^[^#]/=" "/etc/pam.d/sudo" | head -1)
@@ -244,6 +224,8 @@ auth       sufficient     pam_tid.so
 }
 
 configure_dock() {
+  message --info "Config Dock"
+
   local PLIST="$HOME/Library/Preferences/com.apple.dock.plist"
 
   /usr/libexec/PlistBuddy -c "Delete :persistent-apps" "${PLIST}"

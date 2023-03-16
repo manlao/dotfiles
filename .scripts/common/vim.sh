@@ -24,7 +24,7 @@ install_vim() {
   case "$OS_NAME" in
     macOS )
       if ! brew list vim 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: vim"
+        message --info "Install vim"
         brew install vim
       fi
       ;;
@@ -40,7 +40,7 @@ install_neovim() {
   case "$OS_NAME" in
     macOS )
       if ! brew list neovim 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: neovim"
+        message --info "Install neovim"
         brew install neovim
       fi
       ;;

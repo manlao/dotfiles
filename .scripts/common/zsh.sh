@@ -16,7 +16,7 @@ install_zsh() {
   case "$OS_NAME" in
     macOS )
       if ! brew list zsh 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: zsh"
+        message --info "Install zsh"
         brew install zsh
       fi
       ;;
@@ -27,7 +27,7 @@ install_zinit() {
   local ZINIT_BIN="$HOME/.zinit/bin"
 
   if [ ! -d "$ZINIT_BIN" ]; then
-    message --info "Clone zdharma-continuum/zinit"
+    message --info "Install zinit"
 
     rm -rf "$ZINIT_BIN"
     git clone "https://github.com/zdharma-continuum/zinit.git" "$ZINIT_BIN"
@@ -43,7 +43,7 @@ install_zplug() {
   case "$OS_NAME" in
     macOS )
       if ! brew list zplug 1>/dev/null 2>&1; then
-        message --info "Install homebrew formula: zplug"
+        message --info "Install zplug"
         brew install zplug
       fi
       ;;

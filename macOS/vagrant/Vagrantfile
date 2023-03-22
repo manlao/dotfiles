@@ -26,7 +26,20 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--vram", "256"]
     end
 
-    windows.vm.network "forwarded_port", guest: 8899, host: 8899
-    windows.vm.network "forwarded_port", guest: 8388, host: 8388
+    # windows.vm.network "forwarded_port", guest: 8899, host: 8899
+    # windows.vm.network "forwarded_port", guest: 8388, host: 8388
+  end
+
+  config.vm.define "windows7" do |windows7|
+    windows7.vm.box = "designerror/windows-7"
+
+    windows7.vm.provider "virtualbox" do |vb|
+      vb.name = "vagrant-windows7"
+      vb.memory = "1024"
+      vb.customize ["modifyvm", :id, "--vram", "256"]
+    end
+
+    windows7.vm.network "forwarded_port", guest: 8899, host: 8899
+    windows7.vm.network "forwarded_port", guest: 8388, host: 8388
   end
 end

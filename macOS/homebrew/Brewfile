@@ -172,6 +172,7 @@ brew "git-extras"
 brew "act"
 
 # GitLab
+# brew "glab"
 # brew "lab"
 
 # Editor

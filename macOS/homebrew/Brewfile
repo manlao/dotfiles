@@ -234,13 +234,14 @@ brew "hashicorp/tap/terraform"
 brew "pulumi"
 
 # Containers
+brew "docker"
 brew "podman"
 brew "skopeo"
 brew "dive"
 
 # Kubernets
 brew "kubernetes-cli"
-# brew "helm"
+brew "helm"
 # brew "minikube"
 # brew "kubectx"
 # brew "kubeseal"

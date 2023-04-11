@@ -73,7 +73,10 @@ update() {
 
 update_pipx_apps() {
   message --info "Update pipx packages: ${APPS[*]}"
-  pipx upgrade-all
+
+  if ! pipx upgrade-all; then
+    pipx reinstall-all
+  fi
 }
 
 update_python() {

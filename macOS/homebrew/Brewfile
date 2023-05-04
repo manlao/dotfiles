@@ -285,7 +285,8 @@ brew "cocoapods"
 brew "jenv"
 
 # Rust
-brew "rust"
+brew "rustup-init"
+# brew "rust"
 
 # Go
 brew "go"

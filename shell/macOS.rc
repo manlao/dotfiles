@@ -144,6 +144,12 @@ export VAGRANT_MACOS_BOX="jhcook/macos-sierra"
 export VAGRANT_WINDOWS_BOX="gusztavvargadr/windows-11"
 
 #=======================================================================#
+# docker                                                                #
+#=======================================================================#
+
+append_path "$HOME/.docker/bin"
+
+#=======================================================================#
 # asdf                                                                  #
 #=======================================================================#
 
@@ -189,15 +195,15 @@ build-install-image() {
 }
 
 docker() {
-  if ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; then
+  if ! "$HOME/.docker/bin/docker" info 1>/dev/null 2>&1; then
     open -g -a "/Applications/Docker.app"
 
-    while ! "$HOMEBREW_PREFIX/bin/docker" info 1>/dev/null 2>&1; do
+    while ! "$HOME/.docker/bin/docker" info 1>/dev/null 2>&1; do
       sleep 5
     done
   fi
 
-  "$HOMEBREW_PREFIX/bin/docker" "$@"
+  "$HOME/.docker/bin/docker" "$@"
 }
 
 podman() {

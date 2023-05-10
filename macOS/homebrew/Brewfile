@@ -234,7 +234,7 @@ brew "hashicorp/tap/terraform"
 brew "pulumi"
 
 # Containers
-brew "docker"
+# brew "docker"
 brew "podman"
 brew "skopeo"
 brew "dive"

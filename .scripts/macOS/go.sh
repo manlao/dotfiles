@@ -13,7 +13,6 @@ install() {
   install_goenv
   initialize_goenv
   install_go
-  install_go_packages
 }
 
 install_goenv() {
@@ -27,27 +26,13 @@ install_go() {
   install_or_update_go
 }
 
-install_go_packages() {
-  message --info "Install go packages"
-
-  for P in "${PKGS[@]}"; do
-    go install "$P@latest"
-  done
-}
-
 update() {
   initialize_goenv
   update_go
-  update_go_packages
 }
 
 update_go() {
   install_or_update_go
-}
-
-update_go_packages() {
-  message --info "Update go packages"
-  gup update
 }
 
 initialize_goenv() {
@@ -60,7 +45,10 @@ install_or_update_go() {
   local NEXT
   NEXT=$(goenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
-  if ! goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+  if goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+    message --info "Update go packages"
+    gup update
+  else
     message --info "Install go $NEXT"
 
     local CURRENT
@@ -68,6 +56,12 @@ install_or_update_go() {
 
     goenv install -s "$NEXT"
     goenv global "$NEXT"
+
+    message --info "Install go packages"
+
+    for P in "${PKGS[@]}"; do
+      go install "$P@latest"
+    done
 
     if [ -n "$CURRENT" ]; then
       # TODO: migrate packages

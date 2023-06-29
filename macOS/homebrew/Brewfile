@@ -200,7 +200,6 @@ brew "fzf"
 # Navigation
 brew "autojump"
 brew "z"
-brew "fasd"
 
 # Virtual Machine
 brew "qemu"

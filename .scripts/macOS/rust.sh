@@ -20,6 +20,7 @@ update() {
 }
 
 update_rust() {
+  message --info "Update rust"
   rustup update
 }
 

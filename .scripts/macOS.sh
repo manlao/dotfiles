@@ -6,7 +6,6 @@ source "$DOTFILES_HOME/trait.rc"
 export XCODE_APP_ID="497799835"
 export HOMEBREW_BUNDLE_FILE="$DOTFILES_HOME/macOS/homebrew/Brewfile"
 export HOMEBREW_BUNDLE_MAS_SKIP="$XCODE_APP_ID"
-export HOMEBREW_NO_AUTO_UPDATE=true
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 SUDOERS="$DOTFILES_HOME/macOS/sudoers"
 

@@ -253,6 +253,7 @@ brew "asdf"
 
 # Shell Script
 brew "shellcheck"
+brew "shfmt"
 brew "bats-core"
 
 # Node

@@ -285,15 +285,13 @@ source "$ZSH_DIR/$ZSH_PLUGIN_MANAGER.zshrc"
 if command -v tmux 1>/dev/null 2>&1; then
   if [[ $- == *i* ]]; then
     if [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ "$TERM_PROGRAM" != "tmux" ]; then
-      NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
+      TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
 
-      if [[ "$(tmux ls -F "#{session_name}" | grep "$NAME")" == "$NAME" ]]; then
-        tmux a -t "$NAME"
+      if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
+        exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
       else
-        tmux new -s "$NAME"
+        exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
       fi
-
-      unset NAME
     fi
   fi
 fi

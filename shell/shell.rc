@@ -85,16 +85,16 @@ alias la="ls -lAh"
 declare -ga GREP_OPTIONS
 
 # Color on GNU and FreeBSD grep
-if grep --color=auto -q "a" <<< "a" 1>/dev/null 2>&1; then
+if grep --color=auto -q "a" <<<"a" 1>/dev/null 2>&1; then
   GREP_OPTIONS+=("--color=auto")
 fi
 
 # ignore VCS folders (if the necessary grep flags are available)
 VCS_FOLDERS="{.bzr,CVS,.git,.hg,.svn}"
 
-if grep --exclude-dir=.cvs -q "a" <<< "a" 1>/dev/null 2>&1; then
+if grep --exclude-dir=.cvs -q "a" <<<"a" 1>/dev/null 2>&1; then
   GREP_OPTIONS+=("--exclude-dir=$VCS_FOLDERS")
-elif grep --exclude=.cvs -q "a" <<< "a" 1>/dev/null 2>&1; then
+elif grep --exclude=.cvs -q "a" <<<"a" 1>/dev/null 2>&1; then
   GREP_OPTIONS+=("--exclude=$VCS_FOLDERS")
 fi
 
@@ -110,18 +110,18 @@ alias grep="grep ${GREP_OPTIONS[*]}"
 READ_ARRAY_OPTION=
 
 case "$SH" in
-  sh | bash )
-    # shellcheck disable=SC2034
-    READ_ARRAY_OPTION="-a"
-    ;;
-  zsh )
-    # shellcheck disable=SC2034
-    READ_ARRAY_OPTION="-A"
-    ;;
-  * )
-    # shellcheck disable=SC2034
-    READ_ARRAY_OPTION=""
-    ;;
+sh | bash)
+  # shellcheck disable=SC2034
+  READ_ARRAY_OPTION="-a"
+  ;;
+zsh)
+  # shellcheck disable=SC2034
+  READ_ARRAY_OPTION="-A"
+  ;;
+*)
+  # shellcheck disable=SC2034
+  READ_ARRAY_OPTION=""
+  ;;
 esac
 
 export READ_ARRAY_OPTION
@@ -164,14 +164,14 @@ suit() {
   caffeinate -u "$DOTFILES_HOME/suit" "$@"
 
   case "$SH" in
-    bash )
-      # shellcheck disable=SC1091
-      source "$HOME/.bashrc"
-      ;;
-    zsh )
-      # shellcheck disable=SC1091
-      source "$HOME/.zshrc"
-      ;;
+  bash)
+    # shellcheck disable=SC1091
+    source "$HOME/.bashrc"
+    ;;
+  zsh)
+    # shellcheck disable=SC1091
+    source "$HOME/.zshrc"
+    ;;
   esac
 }
 
@@ -180,7 +180,7 @@ suit() {
 #=======================================================================#
 
 # shellcheck disable=SC2229
-IFS=":" read -r "$READ_ARRAY_OPTION" PATHS <<< "$PATH"
+IFS=":" read -r "$READ_ARRAY_OPTION" PATHS <<<"$PATH"
 export PATHS
 
 if [ -f "$DOTFILES_HOME/shell/$OS_NAME.rc" ]; then

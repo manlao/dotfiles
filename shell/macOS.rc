@@ -2,12 +2,12 @@
 
 prepend_path() {
   # shellcheck disable=SC2207
-  export PATHS=("$1" $(tr "\n" " " <<<"$(tr " " "\n" <<< "${PATHS[*]}" | grep -x -v "$1")"))
+  export PATHS=("$1" $(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")"))
 }
 
 append_path() {
   # shellcheck disable=SC2207
-  export PATHS=($(tr "\n" " " <<<"$(tr " " "\n" <<< "${PATHS[*]}" | grep -x -v "$1")") "$1")
+  export PATHS=($(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")") "$1")
 }
 
 #=======================================================================#
@@ -241,13 +241,13 @@ gitclone() {
       local GIT_HOSTS_USERS U
 
       # shellcheck disable=SC2229
-      read -r "$READ_ARRAY_OPTION" GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
+      read -r "$READ_ARRAY_OPTION" GIT_HOSTS_USERS <<<"$GIT_HOSTS_USERS_STRING"
 
       for U in "${GIT_HOSTS_USERS[@]}"; do
         if echo "$U" | grep -E "^$DOMAIN," 1>/dev/null 2>&1; then
           local SEGMENTS
           # shellcheck disable=SC2229
-          IFS="," read -r "$READ_ARRAY_OPTION" SEGMENTS <<< "$U"
+          IFS="," read -r "$READ_ARRAY_OPTION" SEGMENTS <<<"$U"
 
           if [ -n "${SEGMENTS[2]}" ]; then
             echo "Set Git User Email: ${SEGMENTS[2]}"
@@ -275,25 +275,54 @@ nodenv() {
   fi
 
   case "$COMMAND" in
-    rehash | shell )
-      eval "$(nodenv "sh-$COMMAND" "$@")"
-      ;;
-    uninstall )
-      local ARGS
-      ARGS=()
+  rehash | shell)
+    eval "$(nodenv "sh-$COMMAND" "$@")"
+    ;;
+  uninstall)
+    local ARGS
+    ARGS=()
 
-      for A in "$@"; do
-        if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
-          ARGS+=("$(nodenv aliases --resolve_definition "$A")")
-        else
-          ARGS+=("$A")
-        fi
-      done
+    for A in "$@"; do
+      if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
+        ARGS+=("$(nodenv aliases --resolve_definition "$A")")
+      else
+        ARGS+=("$A")
+      fi
+    done
 
-      command nodenv "$COMMAND" "${ARGS[@]}"
-      ;;
-    * )
-      command nodenv "$COMMAND" "$@"
-      ;;
+    command nodenv "$COMMAND" "${ARGS[@]}"
+    ;;
+  *)
+    command nodenv "$COMMAND" "$@"
+    ;;
   esac
 }
+
+auto-start-tmux() {
+  if ! command -v tmux 1>/dev/null 2>&1; then
+    return
+  fi
+
+  if ! [[ $- == *i* ]]; then
+    return
+  fi
+
+  if [[ "$TERM" =~ screen ]] || [[ "$TERM" =~ tmux ]]; then
+    return
+  fi
+
+  if [ "$TERM_PROGRAM" != "iTerm.app" ] && [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+    return
+  fi
+
+  # shellcheck disable=SC2001
+  TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
+
+  if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
+    exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
+  else
+    exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
+  fi
+}
+
+auto-start-tmux

@@ -279,24 +279,6 @@ export ZSH_PLUGIN_MANAGER="zinit"
 source "$ZSH_DIR/$ZSH_PLUGIN_MANAGER.zshrc"
 
 #=======================================================================#
-# auto start tmux                                                       #
-#=======================================================================#
-
-if command -v tmux 1>/dev/null 2>&1; then
-  if [[ $- == *i* ]]; then
-    if [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ "$TERM_PROGRAM" != "tmux" ]; then
-      TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
-
-      if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
-        exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
-      else
-        exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
-      fi
-    fi
-  fi
-fi
-
-#=======================================================================#
 # zsh profiling                                                         #
 #=======================================================================#
 

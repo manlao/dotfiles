@@ -3,14 +3,6 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-# prettier plugins
-# @prettier/plugin-php
-# @prettier/plugin-ruby
-# @prettier/plugin-swift
-# @prettier/plugin-xml
-# prettier-plugin-java
-# prettier-plugin-kotlin
-# prettier-plugin-sh
 PKGS=(
   "nrm"
   "yrm"

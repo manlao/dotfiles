@@ -47,7 +47,10 @@ install_or_update_go() {
 
   if goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Update go packages"
-    gup update
+
+    if command -v gup 1>/dev/null 2>&1; then
+      gup update
+    fi
   else
     message --info "Install go $NEXT"
 
@@ -64,8 +67,8 @@ install_or_update_go() {
     done
 
     if [ -n "$CURRENT" ]; then
-      # TODO: migrate packages
       goenv uninstall -f "$CURRENT"
+      rm -rf "$HOME/.go/$CURRENT"
     fi
   fi
 }

@@ -104,14 +104,16 @@ setup_touch_id() {
 setup_terminal() {
   message --info "Set up Terminal"
 
-  # Import profile: macOS
-  open -n -g -a "/System/Applications/Utilities/Terminal.app" "$DOTFILES_HOME/macOS/terminal/macOS.terminal"
+  if ! defaults read com.apple.Terminal | grep "macOS =" 1>/dev/null 2>&1; then
+    # Import profile: macOS
+    open -n -g -a "/System/Applications/Utilities/Terminal.app" "$DOTFILES_HOME/macOS/terminal/macOS.terminal"
 
-  # Terminal -> Preferences -> Profiles -> Default
-  defaults write com.apple.Terminal "Default Window Settings" -string "macOS"
+    # Terminal -> Preferences -> Profiles -> Default
+    defaults write com.apple.Terminal "Default Window Settings" -string "macOS"
 
-  # Terminal -> Preferences -> General -> On startup, open: New window with profile
-  defaults write com.apple.Terminal "Startup Window Settings" -string "macOS"
+    # Terminal -> Preferences -> General -> On startup, open: New window with profile
+    defaults write com.apple.Terminal "Startup Window Settings" -string "macOS"
+  fi
 }
 
 setup_dock() {
@@ -247,7 +249,7 @@ configure_dock() {
   local SEGMENTS
 
   for I in "${!APPS[@]}"; do
-    IFS="," read -r -a SEGMENTS <<< "${APPS[I]}"
+    IFS="," read -r -a SEGMENTS <<<"${APPS[I]}"
 
     if [ -d "${SEGMENTS[2]}" ]; then
       /usr/libexec/PlistBuddy -c "Add :persistent-apps:$I dict" "${PLIST}"

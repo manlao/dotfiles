@@ -28,7 +28,7 @@ mas "Amphetamine", id: 937984704
 #=======================================================================#
 # Casks                                                                 #
 #=======================================================================#
-cask_args no_quarantine: true, greedy: true
+cask_args no_quarantine: true
 
 # Terminal
 cask "iterm2"

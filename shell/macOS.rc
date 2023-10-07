@@ -149,6 +149,11 @@ export VAGRANT_WINDOWS_BOX="gusztavvargadr/windows-11"
 append_path "$HOME/.docker/bin"
 
 #=======================================================================#
+# podman-desktop                                                        #
+#=======================================================================#
+append_path "$HOME/.local/share/containers/podman-desktop/extensions-storage/podman-desktop.compose/bin"
+
+#=======================================================================#
 # asdf                                                                  #
 #=======================================================================#
 

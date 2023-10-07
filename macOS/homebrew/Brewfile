@@ -28,7 +28,7 @@ mas "Amphetamine", id: 937984704
 #=======================================================================#
 # Casks                                                                 #
 #=======================================================================#
-cask_args no_quarantine: true
+cask_args no_quarantine: true, greedy: true
 
 # Terminal
 cask "iterm2"
@@ -65,11 +65,13 @@ cask "qqmusic"
 cask "neteasemusic"
 
 # Proxy
-cask "lantern"
+# cask "lantern"
 cask "v2rayu"
+cask "qv2ray"
+cask "clashx"
 # cask "shadowsocksx-ng"
-cask "openvpn-connect"
-cask "tunnelblick"
+# cask "openvpn-connect"
+# cask "tunnelblick"
 
 # Dev Tools
 # cask "insomnia"
@@ -85,8 +87,9 @@ cask "tunnelblick"
 # cask "itsycal"
 # cask "bitbar"
 
-# Docker
+# Containers & Kubernetes
 cask "docker"
+cask "podman-desktop"
 
 # Video Player
 # cask "mpv"
@@ -104,7 +107,7 @@ cask "the-unarchiver"
 # Productivity
 # cask "alfred"
 cask "rectangle"
-# cask "cheatsheet"
+cask "cheatsheet"
 
 # Display
 # cask "monitorcontrol"
@@ -189,6 +192,7 @@ brew "httpie"
 brew "curl"
 brew "wget"
 brew "socat"
+brew "mtr"
 
 # Text Finder
 brew "ack"
@@ -203,6 +207,7 @@ brew "z"
 
 # Virtual Machine
 brew "qemu"
+brew "lima"
 
 # Database
 brew "mysql"
@@ -232,18 +237,19 @@ brew "gnupg"
 brew "hashicorp/tap/terraform"
 brew "pulumi"
 
-# Containers
+# Containers & Kubernetes
 # brew "docker"
+# brew "docker-compose"
 brew "podman"
 brew "skopeo"
 brew "dive"
-
-# Kubernets
 brew "kubernetes-cli"
 brew "helm"
-# brew "minikube"
+brew "kind"
+brew "minikube"
 # brew "kubectx"
 # brew "kubeseal"
+brew "colima"
 
 # Ctags
 brew "ctags"
@@ -268,6 +274,12 @@ brew "manlao/tap/nodenv-auto-install"
 
 # Deno
 # brew "deno"
+
+# Bun
+brew "oven-sh/bun/bun"
+
+# Dart
+# brew "dart"
 
 # Python
 brew "python"

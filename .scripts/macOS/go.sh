@@ -68,7 +68,7 @@ install_or_update_go() {
 
     if [ -n "$CURRENT" ]; then
       goenv uninstall -f "$CURRENT"
-      rm -rf "$HOME/.go/$CURRENT"
+      sudo rm -rf "$HOME/.go/$CURRENT"
     fi
   fi
 }

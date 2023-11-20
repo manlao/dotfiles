@@ -100,6 +100,7 @@ cask "podman-desktop"
 
 # Others
 # cask "appcleaner"
+# cask "blurred"
 
 # Compression
 cask "the-unarchiver"

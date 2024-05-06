@@ -170,7 +170,7 @@ update_homebrew_packages() {
 
   # open updated cask
   relanuch_app Rectangle.app
-  relanuch_app Lunar.app
+  relanuch_app MonitorControl.app
 
   if mas version 1>/dev/null 2>&1; then
     mas upgrade

@@ -207,20 +207,26 @@ sync_homebrew_packages() {
 configure_touch_id() {
   message --info "Config Touch ID"
 
-  # https://gitlab.com/gnachman/iterm2/-/issues/7618
-  local LINE_NO
-  LINE_NO=$(sed -n "/^[^#]/=" "/etc/pam.d/sudo" | head -1)
-
-  if ! grep "pam_reattach.so" "/etc/pam.d/sudo" 1>/dev/null 2>&1; then
-    sudo sed -i "" "$LINE_NO i \\
-auth       optional       $(brew --prefix)/lib/pam/pam_reattach.so
-" "/etc/pam.d/sudo"
+  # https://support.apple.com/en-hk/109030
+  if [ ! -f "/etc/pam.d/sudo_local" ]; then
+    sudo cp "/etc/pam.d/sudo_local.template" "/etc/pam.d/sudo_local"
+    sudo sed -i "" "s/#auth/auth/" "/etc/pam.d/sudo_local"
   fi
 
-  if ! grep "pam_tid.so" "/etc/pam.d/sudo" 1>/dev/null 2>&1; then
+  # https://gitlab.com/gnachman/iterm2/-/issues/7618
+  local LINE_NO
+  LINE_NO=$(sed -n "/^[^#]/=" "/etc/pam.d/sudo_local" | head -1)
+
+  if ! grep "pam_reattach.so" "/etc/pam.d/sudo_local" 1>/dev/null 2>&1; then
+    sudo sed -i "" "$LINE_NO i \\
+auth       optional       $(brew --prefix)/lib/pam/pam_reattach.so
+" "/etc/pam.d/sudo_local"
+  fi
+
+  if ! grep "pam_tid.so" "/etc/pam.d/sudo_local" 1>/dev/null 2>&1; then
     sudo sed -i "" "$((LINE_NO + 1)) i \\
 auth       sufficient     pam_tid.so
-" "/etc/pam.d/sudo"
+" "/etc/pam.d/sudo_local"
   fi
 }
 

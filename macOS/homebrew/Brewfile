@@ -7,7 +7,6 @@ tap "homebrew/core"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
-tap "homebrew/cask-fonts"
 
 #=======================================================================#
 # App Store                                                             #
@@ -235,6 +234,7 @@ brew "gnupg"
 
 # Infrastructure
 brew "hashicorp/tap/terraform"
+brew "opentofu"
 brew "pulumi"
 
 # Containers & Kubernetes

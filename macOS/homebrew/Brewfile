@@ -192,6 +192,7 @@ brew "curl"
 brew "wget"
 brew "socat"
 brew "mtr"
+brew "wireguard-tools"
 
 # Text Finder
 brew "ack"

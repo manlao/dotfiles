@@ -36,18 +36,18 @@ install() {
 
   for I in "$@"; do
     case "$I" in
-      --retry=* )
+      --retry=*)
         case "${I#*=}" in
-          always )
+          always)
             export RETRY=true
             ;;
-          +([0-9]) )
+          +([0-9]))
             export RETRY=true
             export RETRY_TIMES="${I#*=}"
             ;;
         esac
         ;;
-      --quiet )
+      --quiet)
         export QUIET=true
         ;;
     esac
@@ -88,17 +88,17 @@ selfupdate() {
 
 main() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       case $1 in
-        install | setup | update | sync | selfupdate )
+        install | setup | update | sync | selfupdate)
           "$@"
           ;;
-        * )
+        *)
           help
           ;;
       esac
       ;;
-    * )
+    *)
       message --error "NOT Supported OS System"
       exit 1
       ;;

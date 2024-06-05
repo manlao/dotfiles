@@ -116,18 +116,18 @@ alias grep="grep ${GREP_OPTIONS[*]}"
 READ_ARRAY_OPTION=
 
 case "$SH" in
-sh | bash)
-  # shellcheck disable=SC2034
-  READ_ARRAY_OPTION="-a"
-  ;;
-zsh)
-  # shellcheck disable=SC2034
-  READ_ARRAY_OPTION="-A"
-  ;;
-*)
-  # shellcheck disable=SC2034
-  READ_ARRAY_OPTION=""
-  ;;
+  sh | bash)
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION="-a"
+    ;;
+  zsh)
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION="-A"
+    ;;
+  *)
+    # shellcheck disable=SC2034
+    READ_ARRAY_OPTION=""
+    ;;
 esac
 
 export READ_ARRAY_OPTION
@@ -170,14 +170,14 @@ suit() {
   caffeinate -u "$DOTFILES_HOME/suit" "$@"
 
   case "$SH" in
-  bash)
-    # shellcheck disable=SC1091
-    source "$HOME/.bashrc"
-    ;;
-  zsh)
-    # shellcheck disable=SC1091
-    source "$HOME/.zshrc"
-    ;;
+    bash)
+      # shellcheck disable=SC1091
+      source "$HOME/.bashrc"
+      ;;
+    zsh)
+      # shellcheck disable=SC1091
+      source "$HOME/.zshrc"
+      ;;
   esac
 }
 

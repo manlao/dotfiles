@@ -2,7 +2,7 @@
 
 main() {
   case "$1" in
-    install | setup | update | sync )
+    install | setup | update | sync)
       "$@"
       ;;
   esac

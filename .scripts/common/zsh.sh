@@ -14,7 +14,7 @@ install() {
 
 install_zsh() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if ! brew list zsh 1>/dev/null 2>&1; then
         message --info "Install zsh"
         brew install zsh
@@ -41,7 +41,7 @@ install_zinit_plugins() {
 
 install_zplug() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if ! brew list zplug 1>/dev/null 2>&1; then
         message --info "Install zplug"
         brew install zplug
@@ -65,7 +65,7 @@ setup_zsh() {
   local ZSH_BIN
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       ZSH_BIN="$(brew --prefix)/bin/zsh"
       ;;
   esac
@@ -75,7 +75,7 @@ setup_zsh() {
   fi
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       message --info "Change default shell to: $ZSH_BIN"
 
       chmod g-w "$(brew --prefix)/share/zsh"

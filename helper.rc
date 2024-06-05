@@ -6,30 +6,30 @@ message() {
   local OPTIONS="-e"
 
   case "$1" in
-    --section )
+    --section)
       HEADER="📦 \033[35m"
       ;;
     --info)
       HEADER="🚜 \033[34m"
       ;;
-    --warning )
+    --warning)
       HEADER="📔 \033[33m"
       ;;
-    --waiting )
+    --waiting)
       HEADER="\r📔 \033[33m"
       OPTIONS="-en"
       ;;
-    --success )
+    --success)
       HEADER="🍺 \033[32m"
       ;;
-    --error )
+    --error)
       HEADER="💊 \033[31m"
       ;;
-    --input )
+    --input)
       HEADER="🎨 \033[1;37m"
       OPTIONS="-en"
       ;;
-    * )
+    *)
       HEADER=""
       FOOTER=""
       ;;

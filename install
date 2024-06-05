@@ -30,16 +30,16 @@ set_variable() {
 install() {
   for I in "$@"; do
     case "$I" in
-      --dotfiles-repo=* )
+      --dotfiles-repo=*)
         DOTFILES_REPO="${I#*=}"
         ;;
-      --dotfiles-home=* )
+      --dotfiles-home=*)
         DOTFILES_HOME="${I#*=}"
         ;;
-      --dotenv-file=* )
+      --dotenv-file=*)
         DOTENV_FILE="${I#*=}"
         ;;
-      --quiet )
+      --quiet)
         QUIET=true
         ;;
     esac
@@ -61,7 +61,7 @@ install() {
   fi
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       set_variable DOTENV_FILE "Location of .env file" "$HOME/Documents/.env"
 
       if [ ! -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then
@@ -85,7 +85,7 @@ get_os_name() {
   UNAME=$(uname)
 
   case "$UNAME" in
-    Darwin )
+    Darwin)
       echo "macOS"
       ;;
   esac
@@ -95,7 +95,7 @@ get_os_version() {
   OS_NAME=$(get_os_name)
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       sw_vers -productVersion
       ;;
   esac
@@ -117,7 +117,7 @@ get_os_version_name() {
   OS_NAME=$(get_os_name)
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if [ "$(get_os_major_version)" -ge 11 ]; then
         awk "/SOFTWARE LICENSE AGREEMENT FOR macOS/" "/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf" | awk -F "macOS " '{print $NF}' | awk '{print substr($0, 0, length($0)-1)}'
       fi
@@ -129,7 +129,7 @@ get_architecture() {
   OS_NAME=$(get_os_name)
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       # https://www.ohanaware.com/blog/202032/macOS-CPU-Architecture.html
       uname -m
       ;;
@@ -155,10 +155,10 @@ macos_install_command_line_tools() {
 
 main() {
   case "$1" in
-    install | get_os_name | get_os_version_name | get_os_version | get_architecture | macos_install_command_line_tools )
+    install | get_os_name | get_os_version_name | get_os_version | get_architecture | macos_install_command_line_tools)
       "$@"
       ;;
-    * )
+    *)
       install "$@"
       ;;
   esac

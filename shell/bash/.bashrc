@@ -38,7 +38,7 @@ export BASH_IT="$HOME/.bash_it"
 # Leave empty to disable theming.
 # location /.bash_it/themes/
 case "$OS_NAME" in
-  macOS )
+  macOS)
     export BASH_IT_THEME="powerline-multiline"
     export THEME_CLOCK_FORMAT="%Y-%m-%d %H:%M:%S"
     export POWERLINE_PROMPT_USER_INFO_MODE="sudo"
@@ -47,7 +47,7 @@ case "$OS_NAME" in
     export POWERLINE_LEFT_PROMPT="user_info cwd scm"
     export POWERLINE_RIGHT_PROMPT="last_status"
     ;;
-  * )
+  *)
     export BASH_IT_THEME="sexy"
     ;;
 esac

@@ -22,12 +22,12 @@ install() {
 
 install_vim() {
   case "$OS_NAME" in
-  macOS)
-    if ! brew list vim 1>/dev/null 2>&1; then
-      message --info "Install vim"
-      brew install vim
-    fi
-    ;;
+    macOS)
+      if ! brew list vim 1>/dev/null 2>&1; then
+        message --info "Install vim"
+        brew install vim
+      fi
+      ;;
   esac
 }
 
@@ -38,12 +38,12 @@ install_vim_dependencies() {
 
 install_neovim() {
   case "$OS_NAME" in
-  macOS)
-    if ! brew list neovim 1>/dev/null 2>&1; then
-      message --info "Install neovim"
-      brew install neovim
-    fi
-    ;;
+    macOS)
+      if ! brew list neovim 1>/dev/null 2>&1; then
+        message --info "Install neovim"
+        brew install neovim
+      fi
+      ;;
   esac
 }
 
@@ -56,9 +56,9 @@ install_vim_plug() {
   local VIM_PLUGIN_MANAGER_PATHS=("$HOME/.vim/autoload/plug.vim")
 
   case "$OS_NAME" in
-  macOS)
-    VIM_PLUGIN_MANAGER_PATHS+=("$HOME/.local/share/nvim/site/autoload/plug.vim")
-    ;;
+    macOS)
+      VIM_PLUGIN_MANAGER_PATHS+=("$HOME/.local/share/nvim/site/autoload/plug.vim")
+      ;;
   esac
 
   local P
@@ -79,9 +79,9 @@ install_vim_plug_plugins() {
   vim -u "$DOTVIMRC" +PlugInstall +qall
 
   case "$OS_NAME" in
-  macOS)
-    nvim -u "$DOTVIMRC" +PlugInstall +qall
-    ;;
+    macOS)
+      nvim -u "$DOTVIMRC" +PlugInstall +qall
+      ;;
   esac
 }
 
@@ -127,9 +127,9 @@ update_vim_plug_plugins() {
   vim +PlugUpgrade +PlugUpdate +qall
 
   case "$OS_NAME" in
-  macOS)
-    nvim +PlugUpgrade +PlugUpdate +qall
-    ;;
+    macOS)
+      nvim +PlugUpgrade +PlugUpdate +qall
+      ;;
   esac
 }
 

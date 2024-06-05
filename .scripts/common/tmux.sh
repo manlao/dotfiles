@@ -9,12 +9,12 @@ install() {
 
 install_tmux() {
   case "$OS_NAME" in
-  macOS)
-    if ! brew list tmux 1>/dev/null 2>&1; then
-      message --info "Install tmux"
-      brew install tmux
-    fi
-    ;;
+    macOS)
+      if ! brew list tmux 1>/dev/null 2>&1; then
+        message --info "Install tmux"
+        brew install tmux
+      fi
+      ;;
   esac
 }
 

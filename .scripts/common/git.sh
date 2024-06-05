@@ -10,7 +10,7 @@ install() {
 
 install_git() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if ! brew list git 1>/dev/null 2>&1; then
         message --info "Install git"
         brew install git
@@ -21,7 +21,7 @@ install_git() {
 
 install_git_flow_avh() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if ! brew list git-flow-avh 1>/dev/null 2>&1; then
         message --info "Install git-flow-avh"
         brew install git-flow-avh
@@ -56,15 +56,15 @@ setup_git() {
   git config --global submodule.recurse true
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       git config --global credential.helper osxkeychain
 
       local GIT_HOSTS_USERS U SEGMENTS
 
-      read -r -a GIT_HOSTS_USERS <<< "$GIT_HOSTS_USERS_STRING"
+      read -r -a GIT_HOSTS_USERS <<<"$GIT_HOSTS_USERS_STRING"
 
       for U in "${GIT_HOSTS_USERS[@]}"; do
-        IFS="," read -r -a SEGMENTS <<< "$U"
+        IFS="," read -r -a SEGMENTS <<<"$U"
 
         git credential-osxkeychain store <<EOF
 protocol=${SEGMENTS[2]:-https}

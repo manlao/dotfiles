@@ -280,26 +280,26 @@ nodenv() {
   fi
 
   case "$COMMAND" in
-  rehash | shell)
-    eval "$(nodenv "sh-$COMMAND" "$@")"
-    ;;
-  uninstall)
-    local ARGS
-    ARGS=()
+    rehash | shell)
+      eval "$(nodenv "sh-$COMMAND" "$@")"
+      ;;
+    uninstall)
+      local ARGS
+      ARGS=()
 
-    for A in "$@"; do
-      if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
-        ARGS+=("$(nodenv aliases --resolve_definition "$A")")
-      else
-        ARGS+=("$A")
-      fi
-    done
+      for A in "$@"; do
+        if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
+          ARGS+=("$(nodenv aliases --resolve_definition "$A")")
+        else
+          ARGS+=("$A")
+        fi
+      done
 
-    command nodenv "$COMMAND" "${ARGS[@]}"
-    ;;
-  *)
-    command nodenv "$COMMAND" "$@"
-    ;;
+      command nodenv "$COMMAND" "${ARGS[@]}"
+      ;;
+    *)
+      command nodenv "$COMMAND" "$@"
+      ;;
   esac
 }
 

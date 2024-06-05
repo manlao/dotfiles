@@ -12,7 +12,7 @@ install() {
 
 install_bash() {
   case "$OS_NAME" in
-    macOS )
+    macOS)
       if ! brew list bash 1>/dev/null 2>&1; then
         message --info "Install bash"
         brew install bash
@@ -40,7 +40,7 @@ setup_bash() {
   local BASH_BIN
 
   case "$OS_NAME" in
-    macOS )
+    macOS)
       BASH_BIN="$(brew --prefix)/bin/bash"
       ;;
   esac

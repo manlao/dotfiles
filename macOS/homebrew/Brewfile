@@ -3,10 +3,7 @@
 #=======================================================================#
 
 # Taps
-tap "homebrew/core"
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-versions"
 
 #=======================================================================#
 # App Store                                                             #
@@ -70,6 +67,7 @@ cask "qv2ray"
 # cask "shadowsocksx-ng"
 # cask "openvpn-connect"
 # cask "tunnelblick"
+cask "mitmproxy"
 
 # Dev Tools
 # cask "insomnia"
@@ -228,7 +226,6 @@ brew "duti"
 # Proxy
 # brew "xray"
 # brew "trojan-gfw/homebrew-trojan/trojan"
-brew "mitmproxy"
 
 # Encryption
 brew "gnupg"

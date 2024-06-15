@@ -311,7 +311,8 @@
         "Blue Component": 0.2627450980392157,
         "Red Component": 0.29019607843137257
       },
-      "Title Components": 520
+      "Title Components": 520,
+      "Use Separate Colors for Light and Dark Mode": false
     }
   ]
 }

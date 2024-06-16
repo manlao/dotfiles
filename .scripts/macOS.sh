@@ -16,7 +16,6 @@ install() {
   set_variable HOST_NAME "Host Name" "$(sudo scutil --get LocalHostName)"
 
   install_homebrew
-  install_homebrew_taps
   install_homebrew_packages
 
   run_directory "$DOTFILES_HOME/.scripts/common" install
@@ -32,13 +31,6 @@ install_homebrew() {
 
   # https://brew.sh
   CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-}
-
-install_homebrew_taps() {
-  message --info "Install homebrew taps"
-
-  brew tap homebrew/homebrew-core
-  brew tap homebrew/homebrew-cask
 }
 
 install_homebrew_packages() {

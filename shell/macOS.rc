@@ -193,7 +193,7 @@ build-install-image() {
     hdiutil detach "/Volumes/Install macOS $OS_VERSION_NAME"
     hdiutil convert /tmp/macOS.dmg -format UDTO -o /tmp/macOS.cdr
 
-    mv /tmp/macOS.cdr "$HOME/Downloads/macOS.iso"
+    mv /tmp/macOS.cdr "$HOME/Downloads/macOS $OS_VERSION_NAME.iso"
     rm -rf /tmp/macOS.dmg
   fi
 }

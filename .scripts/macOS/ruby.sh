@@ -5,6 +5,7 @@ source "$DOTFILES_HOME/trait.rc"
 
 PKGS=(
   "rubocop"
+  "cocoapods"
 )
 
 install() {

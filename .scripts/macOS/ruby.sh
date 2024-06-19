@@ -3,10 +3,15 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
+PKGS=(
+  "rubocop"
+)
+
 install() {
   install_rbenv
   initialize_rbenv
   install_ruby
+  install_ruby_packages
 }
 
 install_rbenv() {
@@ -18,6 +23,13 @@ install_rbenv() {
 
 install_ruby() {
   install_or_update_ruby
+}
+
+install_ruby_packages() {
+  message --info "Install ruby packages: ${PKGS[*]}"
+
+  rbenv shell "$(rbenv versions --bare | tail -1)"
+  gem install "${PKGS[@]}"
 }
 
 update() {

@@ -12,7 +12,7 @@ install() {
   install_rbenv
   initialize_rbenv
   install_ruby
-  install_ruby_packages
+  install_ruby_gems
 }
 
 install_rbenv() {
@@ -26,8 +26,8 @@ install_ruby() {
   install_or_update_ruby
 }
 
-install_ruby_packages() {
-  message --info "Install ruby packages: ${PKGS[*]}"
+install_ruby_gems() {
+  message --info "Install ruby gems: ${PKGS[*]}"
 
   rbenv shell "$(rbenv versions --bare | tail -1)"
   gem install "${PKGS[@]}"
@@ -36,10 +36,18 @@ install_ruby_packages() {
 update() {
   initialize_rbenv
   update_ruby
+  update_ruby_gems
 }
 
 update_ruby() {
   install_or_update_ruby
+}
+
+update_ruby_gems() {
+  message --info "Update ruby gems: ${PKGS[*]}"
+
+  rbenv shell "$(rbenv versions --bare | tail -1)"
+  gem update "${PKGS[@]}"
 }
 
 initialize_rbenv() {

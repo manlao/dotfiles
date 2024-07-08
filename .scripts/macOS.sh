@@ -30,7 +30,7 @@ install_homebrew() {
   message --info "Install homebrew"
 
   # https://brew.sh
-  CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
 install_homebrew_packages() {

@@ -31,8 +31,8 @@ cask "iterm2"
 
 # Browser
 cask "google-chrome"
-cask "firefox"
-cask "microsoft-edge"
+# cask "firefox"
+# cask "microsoft-edge"
 # cask "tor-browser"
 
 # Editor
@@ -57,13 +57,13 @@ cask "wechatwork"
 # cask "dingtalk"
 
 # Music
-cask "qqmusic"
-cask "neteasemusic"
+# cask "qqmusic"
+# cask "neteasemusic"
 
 # Proxy
 # cask "lantern"
-cask "v2rayu"
-cask "qv2ray"
+# cask "v2rayu"
+# cask "qv2ray"
 # cask "shadowsocksx-ng"
 # cask "openvpn-connect"
 # cask "tunnelblick"
@@ -85,7 +85,7 @@ cask "mitmproxy"
 
 # Containers & Kubernetes
 cask "docker"
-cask "podman-desktop"
+# cask "podman-desktop"
 
 # Video Player
 # cask "mpv"

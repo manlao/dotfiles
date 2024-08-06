@@ -73,7 +73,9 @@ setup_node_packages() {
 
   ln -sf "$DOTFILES_HOME/macOS/node/.npmrc" "$HOME/.npmrc"
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
-  ln -sf "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.huskyrc"
+
+  mkdir -p "$HOME/.config/husky"
+  ln -sf "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.config/husky/init.sh"
 }
 
 update() {

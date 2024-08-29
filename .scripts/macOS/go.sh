@@ -42,6 +42,8 @@ initialize_goenv() {
 install_or_update_go() {
   message --info "Check go versions"
 
+  export GOENV_GOPATH_PREFIX="$HOME/.go"
+
   local NEXT
   NEXT=$(goenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
@@ -68,7 +70,7 @@ install_or_update_go() {
 
     if [ -n "$CURRENT" ]; then
       goenv uninstall -f "$CURRENT"
-      sudo rm -rf "$HOME/.go/$CURRENT"
+      sudo rm -rf "$GOENV_GOPATH_PREFIX/$CURRENT"
     fi
   fi
 }

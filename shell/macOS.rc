@@ -1,13 +1,13 @@
 # shellcheck shell=bash
 
 prepend_path() {
-  # shellcheck disable=SC2207
-  export PATHS=("$1" $(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")"))
+	# shellcheck disable=SC2207
+	export PATHS=("$1" $(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")"))
 }
 
 append_path() {
-  # shellcheck disable=SC2207
-  export PATHS=($(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")") "$1")
+	# shellcheck disable=SC2207
+	export PATHS=($(tr "\n" " " <<<"$(tr " " "\n" <<<"${PATHS[*]}" | grep -x -v "$1")") "$1")
 }
 
 #=======================================================================#
@@ -30,21 +30,21 @@ source "$HOMEBREW_PREFIX/etc/profile.d/z.sh"
 #=======================================================================#
 
 if [ -f "$HOME/.iterm2_shell_integration.${SHELL##*/}" ]; then
-  # shellcheck disable=SC1090
-  source "$HOME/.iterm2_shell_integration.${SHELL##*/}"
-  alias imgcat="~/.iterm2/imgcat"
-  alias imgls="~/.iterm2/imgls"
-  alias it2attention="~/.iterm2/it2attention"
-  alias it2check="~/.iterm2/it2check"
-  alias it2copy="~/.iterm2/it2copy"
-  alias it2dl="~/.iterm2/it2dl"
-  alias it2getvar="~/.iterm2/it2getvar"
-  alias it2git="~/.iterm2/it2git"
-  alias it2setcolor="~/.iterm2/it2setcolor"
-  alias it2setkeylabel="~/.iterm2/it2setkeylabel"
-  alias it2ul="~/.iterm2/it2ul"
-  alias it2universion="~/.iterm2/it2universion"
-  export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
+	# shellcheck disable=SC1090
+	source "$HOME/.iterm2_shell_integration.${SHELL##*/}"
+	alias imgcat="~/.iterm2/imgcat"
+	alias imgls="~/.iterm2/imgls"
+	alias it2attention="~/.iterm2/it2attention"
+	alias it2check="~/.iterm2/it2check"
+	alias it2copy="~/.iterm2/it2copy"
+	alias it2dl="~/.iterm2/it2dl"
+	alias it2getvar="~/.iterm2/it2getvar"
+	alias it2git="~/.iterm2/it2git"
+	alias it2setcolor="~/.iterm2/it2setcolor"
+	alias it2setkeylabel="~/.iterm2/it2setkeylabel"
+	alias it2ul="~/.iterm2/it2ul"
+	alias it2universion="~/.iterm2/it2universion"
+	export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 fi
 
 #=======================================================================#
@@ -165,169 +165,169 @@ append_path "$HOME/.local/share/containers/podman-desktop/extensions-storage/pod
 #=======================================================================#
 
 install-command-line-tools() {
-  "$DOTFILES_HOME/install" macos_install_command_line_tools
+	"$DOTFILES_HOME/install" macos_install_command_line_tools
 }
 
 reset-launch-pad() {
-  defaults write com.apple.dock ResetLaunchPad -bool true
-  killall Dock
+	defaults write com.apple.dock ResetLaunchPad -bool true
+	killall Dock
 }
 
 build-install-image() {
-  if [ -z "$1" ]; then
-    hdiutil create -o /tmp/macOS -size 20000m -volname macOS -layout SPUD -fs HFS+J
-    hdiutil attach /tmp/macOS.dmg -noverify -mountpoint /Volumes/macOS
-  fi
+	if [ -z "$1" ]; then
+		hdiutil create -o /tmp/macOS -size 20000m -volname macOS -layout SPUD -fs HFS+J
+		hdiutil attach /tmp/macOS.dmg -noverify -mountpoint /Volumes/macOS
+	fi
 
-  local OS_VERSION_NAME
-  OS_VERSION_NAME=$("$DOTFILES_HOME/install" get_os_version_name)
+	local OS_VERSION_NAME
+	OS_VERSION_NAME=$("$DOTFILES_HOME/install" get_os_version_name)
 
-  if [ ! -f "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" ]; then
-    rm -rf "/Applications/Install macOS $OS_VERSION_NAME.app"
-    softwareupdate --fetch-full-installer
-  fi
+	if [ ! -f "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" ]; then
+		rm -rf "/Applications/Install macOS $OS_VERSION_NAME.app"
+		softwareupdate --fetch-full-installer
+	fi
 
-  sudo "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" --volume "/Volumes/${1:-macOS}" --nointeraction
+	sudo "/Applications/Install macOS $OS_VERSION_NAME.app/Contents/Resources/createinstallmedia" --volume "/Volumes/${1:-macOS}" --nointeraction
 
-  if [ -z "$1" ]; then
-    hdiutil detach "/Volumes/Install macOS $OS_VERSION_NAME"
-    hdiutil convert /tmp/macOS.dmg -format UDTO -o /tmp/macOS.cdr
+	if [ -z "$1" ]; then
+		hdiutil detach "/Volumes/Install macOS $OS_VERSION_NAME"
+		hdiutil convert /tmp/macOS.dmg -format UDTO -o /tmp/macOS.cdr
 
-    mv /tmp/macOS.cdr "$HOME/Downloads/macOS $OS_VERSION_NAME.iso"
-    rm -rf /tmp/macOS.dmg
-  fi
+		mv /tmp/macOS.cdr "$HOME/Downloads/macOS $OS_VERSION_NAME.iso"
+		rm -rf /tmp/macOS.dmg
+	fi
 }
 
 docker() {
-  if ! "$HOME/.docker/bin/docker" info 1>/dev/null 2>&1; then
-    open -g -a "/Applications/Docker.app"
+	if ! command docker info 1>/dev/null 2>&1; then
+		open -g -a "/Applications/Docker.app"
 
-    while ! "$HOME/.docker/bin/docker" info 1>/dev/null 2>&1; do
-      sleep 5
-    done
-  fi
+		while ! command docker info 1>/dev/null 2>&1; do
+			sleep 5
+		done
+	fi
 
-  "$HOME/.docker/bin/docker" "$@"
+	command docker "$@"
 }
 
 podman() {
-  local PODMAN_MACHINE
-  PODMAN_MACHINE=$("$HOMEBREW_PREFIX/bin/podman" machine list -q)
+	local PODMAN_MACHINE
+	PODMAN_MACHINE=$("$HOMEBREW_PREFIX/bin/podman" machine list -q)
 
-  if [ -z "$PODMAN_MACHINE" ]; then
-    "$HOMEBREW_PREFIX/bin/podman" machine init
-    "$HOMEBREW_PREFIX/bin/podman" machine start
-  fi
+	if [ -z "$PODMAN_MACHINE" ]; then
+		"$HOMEBREW_PREFIX/bin/podman" machine init
+		"$HOMEBREW_PREFIX/bin/podman" machine start
+	fi
 
-  "$HOMEBREW_PREFIX/bin/podman" "$@"
+	"$HOMEBREW_PREFIX/bin/podman" "$@"
 }
 
 gitclone() {
-  setopt local_options BASH_REMATCH
+	setopt local_options BASH_REMATCH
 
-  # https://stackoverflow.com/questions/6174220/parse-url-in-shell-script
-  local URI_REGEX="^(([^:/?#]+):)?(//((([^:/?#]+)@)?([^:/?#]+)(:([0-9]+))?))?(/([^?#]*))(\?([^#]*))?(#(.*))?"
+	# https://stackoverflow.com/questions/6174220/parse-url-in-shell-script
+	local URI_REGEX="^(([^:/?#]+):)?(//((([^:/?#]+)@)?([^:/?#]+)(:([0-9]+))?))?(/([^?#]*))(\?([^#]*))?(#(.*))?"
 
-  if [[ "$1" =~ $URI_REGEX ]]; then
-    local DOMAIN="${BASH_REMATCH[8]:l}"
-    local PATHNAME="${BASH_REMATCH[11]}"
-    local OWNER REPO
-    OWNER="${PATHNAME:h:t}"
-    REPO="${PATHNAME%.git}"
-    REPO="${REPO:t}"
+	if [[ "$1" =~ $URI_REGEX ]]; then
+		local DOMAIN="${BASH_REMATCH[8]:l}"
+		local PATHNAME="${BASH_REMATCH[11]}"
+		local OWNER REPO
+		OWNER="${PATHNAME:h:t}"
+		REPO="${PATHNAME%.git}"
+		REPO="${REPO:t}"
 
-    if [ -n "$DOMAIN" ] && [ -n "$OWNER" ] && [ -n "$REPO" ]; then
-      local DIR="$HOME/Repositories/$DOMAIN/$OWNER/$REPO"
+		if [ -n "$DOMAIN" ] && [ -n "$OWNER" ] && [ -n "$REPO" ]; then
+			local DIR="$HOME/Repositories/$DOMAIN/$OWNER/$REPO"
 
-      git clone "$1" "$DIR"
+			git clone "$1" "$DIR"
 
-      cd "$DIR" || exit 1
+			cd "$DIR" || exit 1
 
-      local GIT_HOSTS_USERS U
+			local GIT_HOSTS_USERS U
 
-      # shellcheck disable=SC2229
-      read -r "$READ_ARRAY_OPTION" GIT_HOSTS_USERS <<<"$GIT_HOSTS_USERS_STRING"
+			# shellcheck disable=SC2229
+			read -r "$READ_ARRAY_OPTION" GIT_HOSTS_USERS <<<"$GIT_HOSTS_USERS_STRING"
 
-      for U in "${GIT_HOSTS_USERS[@]}"; do
-        if echo "$U" | grep -E "^$DOMAIN," 1>/dev/null 2>&1; then
-          local SEGMENTS
-          # shellcheck disable=SC2229
-          IFS="," read -r "$READ_ARRAY_OPTION" SEGMENTS <<<"$U"
+			for U in "${GIT_HOSTS_USERS[@]}"; do
+				if echo "$U" | grep -E "^$DOMAIN," 1>/dev/null 2>&1; then
+					local SEGMENTS
+					# shellcheck disable=SC2229
+					IFS="," read -r "$READ_ARRAY_OPTION" SEGMENTS <<<"$U"
 
-          if [ -n "${SEGMENTS[2]}" ]; then
-            echo "Set Git User Email: ${SEGMENTS[2]}"
-            git config --local user.email "${SEGMENTS[2]}"
-          fi
+					if [ -n "${SEGMENTS[2]}" ]; then
+						echo "Set Git User Email: ${SEGMENTS[2]}"
+						git config --local user.email "${SEGMENTS[2]}"
+					fi
 
-          if [ -n "${SEGMENTS[3]}" ]; then
-            echo "Set Git User Name: ${SEGMENTS[3]}"
-            git config --local user.name "${SEGMENTS[3]}"
-          fi
-        fi
-      done
-    fi
-  fi
+					if [ -n "${SEGMENTS[3]}" ]; then
+						echo "Set Git User Name: ${SEGMENTS[3]}"
+						git config --local user.name "${SEGMENTS[3]}"
+					fi
+				fi
+			done
+		fi
+	fi
 }
 
 eval "$(declare -f nodenv | sed '1s/.*/_&/')" # backup nodenv to _nodenv
 
 nodenv() {
-  local COMMAND
-  COMMAND="${1:-}"
+	local COMMAND
+	COMMAND="${1:-}"
 
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+	if [ "$#" -gt 0 ]; then
+		shift
+	fi
 
-  case "$COMMAND" in
-    rehash | shell)
-      eval "$(nodenv "sh-$COMMAND" "$@")"
-      ;;
-    uninstall)
-      local ARGS
-      ARGS=()
+	case "$COMMAND" in
+		rehash | shell)
+			eval "$(nodenv "sh-$COMMAND" "$@")"
+			;;
+		uninstall)
+			local ARGS
+			ARGS=()
 
-      for A in "$@"; do
-        if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
-          ARGS+=("$(nodenv aliases --resolve_definition "$A")")
-        else
-          ARGS+=("$A")
-        fi
-      done
+			for A in "$@"; do
+				if [ -f "$(nodenv aliases --aliases_path)/$A" ]; then
+					ARGS+=("$(nodenv aliases --resolve_definition "$A")")
+				else
+					ARGS+=("$A")
+				fi
+			done
 
-      command nodenv "$COMMAND" "${ARGS[@]}"
-      ;;
-    *)
-      command nodenv "$COMMAND" "$@"
-      ;;
-  esac
+			command nodenv "$COMMAND" "${ARGS[@]}"
+			;;
+		*)
+			command nodenv "$COMMAND" "$@"
+			;;
+	esac
 }
 
 auto-start-tmux() {
-  if ! command -v tmux 1>/dev/null 2>&1; then
-    return
-  fi
+	if ! command -v tmux 1>/dev/null 2>&1; then
+		return
+	fi
 
-  if ! [[ $- == *i* ]]; then
-    return
-  fi
+	if ! [[ $- == *i* ]]; then
+		return
+	fi
 
-  if [[ "$TERM" =~ screen ]] || [[ "$TERM" =~ tmux ]]; then
-    return
-  fi
+	if [[ "$TERM" =~ screen ]] || [[ "$TERM" =~ tmux ]]; then
+		return
+	fi
 
-  if [ "$TERM_PROGRAM" != "iTerm.app" ] && [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-    return
-  fi
+	if [ "$TERM_PROGRAM" != "iTerm.app" ] && [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+		return
+	fi
 
-  # shellcheck disable=SC2001
-  TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
+	# shellcheck disable=SC2001
+	TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
 
-  if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
-    exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
-  else
-    exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
-  fi
+	if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
+		exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
+	else
+		exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
+	fi
 }
 
 auto-start-tmux

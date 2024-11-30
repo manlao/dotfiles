@@ -31,13 +31,13 @@ cask "iterm2"
 
 # Browser
 cask "google-chrome"
+cask "arc"
 # cask "firefox"
 # cask "microsoft-edge"
 # cask "tor-browser"
 
 # Editor
 cask "visual-studio-code"
-# cask "atom"
 # cask "boostnote"
 # cask "mathpix-snipping-tool"
 
@@ -61,13 +61,13 @@ cask "wechatwork"
 # cask "neteasemusic"
 
 # Proxy
-# cask "lantern"
 # cask "v2rayu"
 # cask "qv2ray"
 # cask "shadowsocksx-ng"
 # cask "openvpn-connect"
 # cask "tunnelblick"
 cask "mitmproxy"
+cask "clash-verge-rev"
 
 # Dev Tools
 # cask "insomnia"
@@ -86,6 +86,7 @@ cask "mitmproxy"
 # Containers & Kubernetes
 cask "docker"
 # cask "podman-desktop"
+# cask "rancher"
 
 # Video Player
 # cask "mpv"

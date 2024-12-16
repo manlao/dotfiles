@@ -166,6 +166,7 @@ brew "git-filter-repo"
 brew "git-flow-avh"
 brew "git-lfs"
 brew "git-extras"
+brew "git-credential-oauth"
 
 # GitHub
 # brew "gh"

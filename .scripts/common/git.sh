@@ -6,6 +6,7 @@ source "$DOTFILES_HOME/trait.rc"
 setup() {
   setup_git
   setup_git_flow_avh
+  setup_lazygit
 }
 
 setup_git() {
@@ -74,6 +75,16 @@ setup_git_flow_avh() {
   git config --global gitflow.prefix.hotfix "hotfix/"
   git config --global gitflow.prefix.support "support/"
   git config --global gitflow.prefix.versiontag "v"
+}
+
+setup_lazygit() {
+  message --info "Set up lazygit"
+
+  case "$OS_NAME" in
+    macOS)
+      ln -sf "$DOTFILES_HOME/git/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
+      ;;
+  esac
 }
 
 main "$@"

@@ -83,6 +83,7 @@ setup_lazygit() {
 
   case "$OS_NAME" in
     macOS)
+      mkdir -p "$HOME/Library/Application Support/lazygit"
       ln -sf "$DOTFILES_HOME/git/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
       ;;
   esac

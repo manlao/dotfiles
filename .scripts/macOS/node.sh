@@ -35,7 +35,6 @@ setup() {
 setup_node_packages() {
   message --info "Set up node packages"
 
-  ln -sf "$DOTFILES_HOME/macOS/node/.npmrc" "$HOME/.npmrc"
   ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
 
   mkdir -p "$HOME/.config/husky"

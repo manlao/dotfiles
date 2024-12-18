@@ -6,19 +6,7 @@ source "$DOTFILES_HOME/trait.rc"
 BASH_IT_FOLDER="$HOME/.bash_it"
 
 install() {
-  install_bash
   install_bash_it
-}
-
-install_bash() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list bash 1>/dev/null 2>&1; then
-        message --info "Install bash"
-        brew install bash
-      fi
-      ;;
-  esac
 }
 
 install_bash_it() {

@@ -3,18 +3,6 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-install() {
-  install_asdf
-  # install_plugins
-}
-
-install_asdf() {
-  if ! asdf info 1>/dev/null 2>&1; then
-    message --info "Install asdf"
-    brew install asdf
-  fi
-}
-
 install_plugins() {
   message --info "Install asdf plugins"
 

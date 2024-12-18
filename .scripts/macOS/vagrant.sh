@@ -9,23 +9,7 @@ PLUGINS=(
 )
 
 install() {
-  install_virtualbox
-  install_vagrant
   install_vagrant_plugins
-}
-
-install_virtualbox() {
-  if ! brew list --cask virtualbox 1>/dev/null 2>&1; then
-    message --info "Install virtualbox"
-    brew install virtualbox
-  fi
-}
-
-install_vagrant() {
-  if ! brew list --cask vagrant 1>/dev/null 2>&1; then
-    message --info "Install vagrant"
-    brew install vagrant
-  fi
 }
 
 install_vagrant_plugins() {

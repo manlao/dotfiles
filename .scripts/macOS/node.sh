@@ -12,45 +12,9 @@ PKGS=(
 
 install() {
   install_node
-  install_nodenv
-  install_nodenv_plugins
   initialize_nodenv
   install_node
   install_node_packages
-}
-
-install_nodenv() {
-  if ! brew list nodenv 1>/dev/null 2>&1; then
-    message --info "Install nodenv"
-    brew install nodenv
-  fi
-}
-
-install_nodenv_plugins() {
-  if ! brew list nodenv/nodenv/node-build-update-defs 1>/dev/null 2>&1; then
-    message --info "Install nodenv/nodenv/node-build-update-defs"
-    brew install nodenv/nodenv/node-build-update-defs
-  fi
-
-  if ! brew list nodenv/nodenv/nodenv-npm-migrate 1>/dev/null 2>&1; then
-    message --info "Install nodenv/nodenv/nodenv-npm-migrate"
-    brew install nodenv/nodenv/nodenv-npm-migrate
-  fi
-
-  if ! brew list nodenv/nodenv/nodenv-nvmrc 1>/dev/null 2>&1; then
-    message --info "Install nodenv/nodenv/nodenv-nvmrc"
-    brew install nodenv/nodenv/nodenv-nvmrc
-  fi
-
-  if ! brew list nodenv/nodenv/nodenv-package-json-engine 1>/dev/null 2>&1; then
-    message --info "Install nodenv/nodenv/nodenv-package-json-engine"
-    brew install nodenv/nodenv/nodenv-package-json-engine
-  fi
-
-  if ! brew list manlao/tap/node-build-aliases 1>/dev/null 2>&1; then
-    message --info "Install manlao/tap/node-build-aliases"
-    brew install manlao/tap/node-build-aliases
-  fi
 }
 
 install_node() {

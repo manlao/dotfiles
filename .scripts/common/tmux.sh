@@ -3,21 +3,6 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-install() {
-  install_tmux
-}
-
-install_tmux() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list tmux 1>/dev/null 2>&1; then
-        message --info "Install tmux"
-        brew install tmux
-      fi
-      ;;
-  esac
-}
-
 setup() {
   setup_tmux
 }

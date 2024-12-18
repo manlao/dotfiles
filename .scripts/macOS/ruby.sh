@@ -9,17 +9,9 @@ PKGS=(
 )
 
 install() {
-  install_rbenv
   initialize_rbenv
   install_ruby
   install_ruby_gems
-}
-
-install_rbenv() {
-  if ! brew list rbenv 1>/dev/null 2>&1; then
-    message --info "Install rbenv"
-    brew install rbenv
-  fi
 }
 
 install_ruby() {

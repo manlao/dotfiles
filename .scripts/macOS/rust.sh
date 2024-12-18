@@ -8,11 +8,6 @@ install() {
 }
 
 install_rust() {
-  if ! brew list rustup-init 1>/dev/null 2>&1; then
-    message --info "Install rustup"
-    brew install rustup-init
-  fi
-
   if ! rustup 1>/dev/null 2>&1; then
     message --info "Init rustup"
     rustup-init -y --no-modify-path

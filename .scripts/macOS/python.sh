@@ -15,20 +15,10 @@ PKGS=(
 )
 
 install() {
-  install_pipx
   install_pipx_apps
-  install_pyenv
-  install_pyenv_pip_migrate
   initialize_pyenv
   install_python
   install_python_packages
-}
-
-install_pipx() {
-  if ! brew list pipx 1>/dev/null 2>&1; then
-    message --info "Install pipx"
-    brew install pipx
-  fi
 }
 
 install_pipx_apps() {
@@ -37,20 +27,6 @@ install_pipx_apps() {
   for APP in "${APPS[@]}"; do
     pipx install "$APP"
   done
-}
-
-install_pyenv() {
-  if ! brew list pyenv 1>/dev/null 2>&1; then
-    message --info "Install pyenv"
-    brew install pyenv
-  fi
-}
-
-install_pyenv_pip_migrate() {
-  if ! brew list pyenv-pip-migrate 1>/dev/null 2>&1; then
-    message --info "Install pyenv-pip-migrate"
-    brew install pyenv-pip-migrate
-  fi
 }
 
 install_python() {

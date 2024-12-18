@@ -13,39 +13,15 @@ DEPS=(
 )
 
 install() {
-  install_vim
   install_vim_dependencies
-  install_neovim
   install_neovim_dependencies
   "install_${VIM_PLUGIN_MANAGER//-/_}"
   "install_${VIM_PLUGIN_MANAGER//-/_}_plugins"
 }
 
-install_vim() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list vim 1>/dev/null 2>&1; then
-        message --info "Install vim"
-        brew install vim
-      fi
-      ;;
-  esac
-}
-
 install_vim_dependencies() {
   message --info "Install vim dependencies"
   "$(brew --prefix "$(brew deps vim | grep python)")/libexec/bin/pip" install "${DEPS[@]}" --user --break-system-packages --no-warn-script-location
-}
-
-install_neovim() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list neovim 1>/dev/null 2>&1; then
-        message --info "Install neovim"
-        brew install neovim
-      fi
-      ;;
-  esac
 }
 
 install_neovim_dependencies() {

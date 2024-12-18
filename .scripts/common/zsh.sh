@@ -7,20 +7,8 @@ DOTZSHRC="$DOTFILES_HOME/shell/zsh/.zshrc"
 ZSH_PLUGIN_MANAGER="${ZSH_PLUGIN_MANAGER:-zinit}"
 
 install() {
-  install_zsh
   "install_${ZSH_PLUGIN_MANAGER//-/_}"
   "install_${ZSH_PLUGIN_MANAGER//-/_}_plugins"
-}
-
-install_zsh() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list zsh 1>/dev/null 2>&1; then
-        message --info "Install zsh"
-        brew install zsh
-      fi
-      ;;
-  esac
 }
 
 install_zinit() {
@@ -37,17 +25,6 @@ install_zinit() {
 install_zinit_plugins() {
   message --info "Install zsh plugins"
   ZDOTDIR="$DOTFILES_HOME/shell/zsh" zsh -i -c "source $DOTZSHRC; zinit self-update"
-}
-
-install_zplug() {
-  case "$OS_NAME" in
-    macOS)
-      if ! brew list zplug 1>/dev/null 2>&1; then
-        message --info "Install zplug"
-        brew install zplug
-      fi
-      ;;
-  esac
 }
 
 install_zplug_plugins() {

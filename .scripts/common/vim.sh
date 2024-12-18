@@ -4,6 +4,7 @@
 source "$DOTFILES_HOME/trait.rc"
 
 DOTVIMRC="$DOTFILES_HOME/vim/.vimrc"
+LAZYVIM="$DOTFILES_HOME/vim/LazyVim"
 VIM_PLUGIN_MANAGER="${VIM_PLUGIN_MANAGER:-vim-plug}"
 
 DEPS=(
@@ -97,6 +98,7 @@ setup_vim() {
   mkdir -p "$HOME/.vim/.undo"
 
   ln -sf "$DOTVIMRC" "$HOME/.vimrc"
+  ln -sf "$LAZYVIM" "$HOME/.config/nvim"
 }
 
 update() {

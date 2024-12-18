@@ -45,6 +45,7 @@ cask "visual-studio-code"
 # cask "fork"
 # cask "sourcetree"
 # cask "github"
+cask "git-credential-manager"
 
 # IM
 # cask "aliwangwang"

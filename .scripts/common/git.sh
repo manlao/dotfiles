@@ -35,7 +35,7 @@ setup_git() {
       git config --global --add credential.helper osxkeychain
       # git config --global --add credential.helper "cache --timeout 21600" # six hours
       git config --global --add credential.helper oauth
-      git config --global --add credential.helper git-credential-manager
+      git config --global --add credential.helper manager
 
       local GIT_HOSTS_USERS U SEGMENTS
 

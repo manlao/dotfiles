@@ -167,6 +167,7 @@ brew "git-flow-avh"
 brew "git-lfs"
 brew "git-extras"
 brew "git-credential-oauth"
+brew "git-delta"
 brew "jesseduffield/lazygit/lazygit"
 
 # GitHub

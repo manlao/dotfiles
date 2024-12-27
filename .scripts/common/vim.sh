@@ -78,9 +78,14 @@ setup_vim() {
 }
 
 update() {
+  update_lazy_vim
   update_vim_dependencies
   update_neovim_dependencies
   "update_${VIM_PLUGIN_MANAGER//-/_}_plugins"
+}
+
+update_lazy_vim() {
+  nvim --headless "+Lazy! sync" +qa
 }
 
 update_vim_dependencies() {

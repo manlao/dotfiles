@@ -1,5 +1,5 @@
-macOSBox = ENV["VAGRANT_MACOS_BOX"] || "jhcook/macos-sierra"
-windowsBox = ENV["VAGRANT_WINDOWS_BOX"] || "gusztavvargadr/windows-11"
+macOSBox = "jhcook/macos-sierra"
+windowsBox = "gusztavvargadr/windows-11"
 
 Vagrant.configure("2") do |config|
   config.env.enable

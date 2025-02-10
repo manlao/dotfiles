@@ -36,30 +36,6 @@ setup_git() {
       # git config --global --add credential.helper "cache --timeout 21600" # six hours
       git config --global --add credential.helper oauth
       git config --global --add credential.helper manager
-
-      local GIT_HOSTS_USERS U SEGMENTS
-
-      read -r -a GIT_HOSTS_USERS <<<"$GIT_HOSTS_USERS_STRING"
-
-      for U in "${GIT_HOSTS_USERS[@]}"; do
-        IFS="," read -r -a SEGMENTS <<<"$U"
-
-        git credential-osxkeychain store <<EOF
-protocol=${SEGMENTS[2]:-https}
-host=${SEGMENTS[0]}
-username=${SEGMENTS[3]}
-password=${SEGMENTS[1]}
-EOF
-      done
-
-      local DIR
-      DIR="$(brew --prefix git)/share/git-core/templates/hooks"
-      local PATTERN="$DOTFILES_HOME/git/hooks/*"
-      local FILE
-
-      for FILE in $PATTERN; do
-        ln -sf "$FILE" "$DIR/${FILE##*/}"
-      done
       ;;
   esac
 }

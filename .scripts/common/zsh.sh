@@ -27,6 +27,10 @@ install_zinit_plugins() {
   ZDOTDIR="$DOTFILES_HOME/shell/zsh" zsh -i -c "source $DOTZSHRC; zinit self-update"
 }
 
+install_zplug() {
+  return
+}
+
 install_zplug_plugins() {
   message --info "Install zsh plugins"
   ZDOTDIR="$DOTFILES_HOME/shell/zsh" zsh -i -c "source $DOTZSHRC; zplug check || zplug install"

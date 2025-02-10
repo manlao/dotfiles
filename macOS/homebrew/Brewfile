@@ -285,6 +285,7 @@ brew "oven-sh/bun/bun"
 # brew "dart"
 
 # Python
+brew "uv"
 brew "python"
 brew "pipx"
 brew "pyenv"

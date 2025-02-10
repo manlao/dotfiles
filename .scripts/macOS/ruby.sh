@@ -60,9 +60,10 @@ install_or_update_ruby() {
 
     rbenv install -s "$NEXT"
     rbenv global "$NEXT"
+    rbenv shell "$(rbenv versions --bare | tail -1)"
+    gem install "${PKGS[@]}"
 
     if [ -n "$CURRENT" ]; then
-      # TODO: migrate packages
       rbenv uninstall -f "$CURRENT"
     fi
   fi

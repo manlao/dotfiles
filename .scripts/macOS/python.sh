@@ -9,16 +9,10 @@ APPS=(
   "podman-compose"
 )
 
-PKGS=(
-  "neovim"
-  "pynvim"
-)
-
 install() {
   install_pipx_apps
   initialize_pyenv
   install_python
-  install_python_packages
 }
 
 install_pipx_apps() {
@@ -33,18 +27,10 @@ install_python() {
   install_or_update_python
 }
 
-install_python_packages() {
-  message --info "Install python packages: ${PKGS[*]}"
-
-  pyenv shell "$(pyenv versions --bare | tail -1)"
-  pip install "${PKGS[@]}"
-}
-
 update() {
   update_pipx_apps
   initialize_pyenv
   update_python
-  update_python_packages
 }
 
 update_pipx_apps() {
@@ -57,13 +43,6 @@ update_pipx_apps() {
 
 update_python() {
   install_or_update_python
-}
-
-update_python_packages() {
-  message --info "Update python packages"
-
-  pyenv shell "$(pyenv versions --bare | tail -1)"
-  pip --disable-pip-version-check list | tail -n +3 | cut -f 1 -d ' ' | xargs pip install --upgrade
 }
 
 initialize_pyenv() {

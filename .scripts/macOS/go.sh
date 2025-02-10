@@ -3,12 +3,6 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-PKGS=(
-  "github.com/nao1215/gup"
-  "golang.org/x/tools/gopls"
-  "github.com/go-delve/delve/cmd/dlv"
-)
-
 install() {
   initialize_goenv
   install_go
@@ -55,10 +49,6 @@ install_or_update_go() {
     message --info "Install go packages"
 
     export GOENV_GOPATH_PREFIX="$HOME/.go"
-
-    for P in "${PKGS[@]}"; do
-      go install "$P@latest"
-    done
 
     if [ -n "$CURRENT" ]; then
       goenv uninstall -f "$CURRENT"

@@ -3,39 +3,21 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-PKGS=(
-  "nrm"
-  "yrm"
-  "commitizen"
-  "cz-conventional-changelog"
-)
-
 install() {
-  install_node
   initialize_nodenv
   install_node
-  install_node_packages
 }
 
 install_node() {
   install_or_update_node
 }
 
-install_node_packages() {
-  message --info "Install node packages: ${PKGS[*]}"
-
-  nodenv shell "${DEFAULT_NODE_VERSION:-node}"
-  npm install -g "${PKGS[@]}"
-}
-
 setup() {
-  setup_node_packages
+  setup_husky
 }
 
-setup_node_packages() {
-  message --info "Set up node packages"
-
-  ln -sf "$DOTFILES_HOME/macOS/node/.cz.json" "$HOME/.cz.json"
+setup_husky() {
+  message --info "Set up husky"
 
   mkdir -p "$HOME/.config/husky"
   ln -sf "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.config/husky/init.sh"
@@ -44,18 +26,10 @@ setup_node_packages() {
 update() {
   initialize_nodenv
   update_node
-  update_node_packages
 }
 
 update_node() {
   install_or_update_node
-}
-
-update_node_packages() {
-  message --info "Update node packages"
-
-  nodenv shell "${DEFAULT_NODE_VERSION:-node}"
-  npm update -g
 }
 
 initialize_nodenv() {

@@ -62,6 +62,7 @@ install_or_update_node() {
 
     nodenv install -s "$NEXT"
     nodenv global "$NEXT"
+    nodenv shell "$NEXT"
     corepack enable 1>/dev/null 2>&1
 
     if [ -n "$CURRENT" ] && [ "$CURRENT" != "$NEXT" ]; then

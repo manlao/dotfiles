@@ -40,34 +40,44 @@ install_or_update_node() {
   message --info "Check node versions"
 
   local CURRENT
+  local NEXT
 
   if [ -n "$DEFAULT_NODE_VERSION" ]; then
     CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION" || echo "")
-  else
-    CURRENT=$(nodenv versions --bare --skip-aliases | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
   fi
 
   nodenv aliases --update --upgrade
 
-  local NEXT
-
   if [ -n "$DEFAULT_NODE_VERSION" ]; then
     NEXT=$(nodenv aliases --resolve_definition "$DEFAULT_NODE_VERSION")
-  else
-    NEXT=$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
   fi
 
-  if ! nodenv versions --bare --skip-aliases | grep "$NEXT" 1>/dev/null 2>&1; then
-    message --info "Install node $NEXT"
+  if [ -n "$NEXT" ]; then
+    migrate_node "$NEXT" "$CURRENT"
+  fi
 
-    nodenv install -s "$NEXT"
-    nodenv global "$NEXT"
-    nodenv shell "$NEXT"
-    corepack enable 1>/dev/null 2>&1
+  CURRENT=$(nodenv versions --bare --skip-aliases | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
+  NEXT=$(nodenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
-    if [ -n "$CURRENT" ] && [ "$CURRENT" != "$NEXT" ]; then
-      nodenv migrate "$CURRENT" "$NEXT"
-      nodenv uninstall -f "$CURRENT"
+  if [ -n "$NEXT" ]; then
+    migrate_node "$NEXT" "$CURRENT"
+  fi
+
+  nodenv global "${DEFAULT_NODE_VERSION:-node}"
+}
+
+migrate_node() {
+  if ! nodenv versions --bare --skip-aliases | grep "$1" 1>/dev/null 2>&1; then
+    message --info "Install node $1"
+
+    nodenv install -s "$1"
+    nodenv shell "$1"
+    corepack enable
+    nodenv shell --unset
+
+    if [ -n "$2" ] && [ "$2" != "$1" ]; then
+      nodenv migrate "$2" "$1"
+      nodenv uninstall -f "$2"
     fi
   fi
 }

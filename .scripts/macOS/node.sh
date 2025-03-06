@@ -72,7 +72,7 @@ migrate_node() {
 
     nodenv install -s "$1"
     nodenv shell "$1"
-    corepack enable
+    corepack enable npm pnpm yarn
     nodenv shell --unset
 
     if [ -n "$2" ] && [ "$2" != "$1" ]; then

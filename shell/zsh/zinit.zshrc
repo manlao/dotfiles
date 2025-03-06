@@ -12,6 +12,7 @@ zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::extract
 
 # plugins
+zinit ice atload"source $ZSH_DIR/aloxaf.fzf-tab.zshrc"
 zinit light "Aloxaf/fzf-tab"
 zinit light "zsh-users/zsh-completions"
 zinit light "zsh-users/zsh-autosuggestions"

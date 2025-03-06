@@ -19,7 +19,7 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh
 
 # plugins
-zplug "Aloxaf/fzf-tab"
+zplug "Aloxaf/fzf-tab", hook-load:"source $ZSH_DIR/aloxaf.fzf-tab.zshrc"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "djui/alias-tips"

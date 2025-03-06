@@ -157,6 +157,9 @@ brew "zsh"
 brew "zplug"
 # brew "fish"
 
+# File System
+brew "eza"
+
 # Pager
 brew "less"
 

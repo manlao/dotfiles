@@ -18,6 +18,6 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-if [[ "$TERM" =~ tmux ]]; then
+if [ -n "$TMUX" ]; then
   zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 fi

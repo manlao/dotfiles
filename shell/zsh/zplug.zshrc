@@ -1,5 +1,5 @@
 case "$OS_NAME" in
-  macOS )
+  macOS)
     export ZPLUG_HOME="$HOMEBREW_PREFIX/opt/zplug"
     ;;
 esac
@@ -19,20 +19,19 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh
 
 # plugins
-# zplug "Aloxaf/fzf-tab"
+zplug "Aloxaf/fzf-tab"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "djui/alias-tips"
 # zplug "b4b4r07/emoji-cli"
 # zplug "b4b4r07/enhancd"
 # zplug "xav-b/zsh-extend-history"
-# zplug "wfxr/forgit"
+zplug "wfxr/forgit"
 zplug "qoomon/zsh-lazyload", hook-load:"source $ZSH_DIR/qoomon.zsh-lazyload.zshrc"
 # zplug "shihyuho/zsh-jenv-lazy"
 # zplug "supercrabtree/k"
 # zplug "gko/listbox"
-# zplug "iboyperson/zsh-pipenv"
-# zplug "laggardkernel/zsh-thefuck"
+zplug "laggardkernel/zsh-thefuck"
 # zplug "sinetoami/web-search"
 # zplug "agkozak/zsh-z"
 

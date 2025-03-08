@@ -28,6 +28,7 @@ cask_args no_quarantine: true
 
 # Terminal
 cask "iterm2"
+cask "warp"
 
 # Browser
 cask "google-chrome"

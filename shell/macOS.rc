@@ -84,6 +84,15 @@ prepend_path "$HOME/.pyenv/shims"
 
 export DEFAULT_NODE_VERSION="lts/*"
 
+# fnm
+export FNM_VERSION_FILE_STRATEGY="recursive"
+export FNM_COREPACK_ENABLED=true
+export FNM_RESOLVE_ENGINES=true
+
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+prepend_path "$FNM_MULTISHELL_PATH/bin"
+
 # nodenv
 eval "$(nodenv init -)"
 

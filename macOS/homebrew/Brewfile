@@ -160,6 +160,7 @@ brew "zplug"
 
 # File System
 brew "eza"
+brew "yazi"
 
 # Pager
 brew "less"
@@ -271,6 +272,7 @@ brew "bats-core"
 
 # Node
 brew "node"
+brew "fnm"
 brew "nodenv"
 brew "nodenv/nodenv/node-build-update-defs"
 brew "nodenv/nodenv/nodenv-npm-migrate"

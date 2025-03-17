@@ -219,7 +219,7 @@ brew "lima"
 
 # Database
 brew "mysql"
-brew "postgresql"
+brew "postgresql@17"
 
 # JSON
 brew "jq"

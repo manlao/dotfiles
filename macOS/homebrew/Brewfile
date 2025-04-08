@@ -54,7 +54,7 @@ cask "wechat"
 cask "slack"
 
 # Work
-cask "wechatwork"
+# cask "wechatwork"
 # cask "dingtalk"
 
 # Music

@@ -54,6 +54,7 @@ cask "wechat"
 cask "slack"
 cask "telegram"
 cask "discord"
+cask "signal"
 
 # Work
 # cask "wechatwork"

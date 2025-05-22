@@ -1,5 +1,5 @@
 macOSBox = "jhcook/macos-sierra"
-windowsBox = "gusztavvargadr/windows-11"
+windowsBox = "utm/windows-11"
 
 Vagrant.configure("2") do |config|
   config.timezone.value = :host

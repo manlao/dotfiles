@@ -5,6 +5,7 @@ source "$DOTFILES_HOME/trait.rc"
 
 PLUGINS=(
   "vagrant-timezone"
+  "vagrant_utm"
 )
 
 install() {

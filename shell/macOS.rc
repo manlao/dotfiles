@@ -213,10 +213,10 @@ build-install-image() {
 }
 
 docker() {
-  if ! command docker info 1>/dev/null 2>&1; then
-    open -g -a "/Applications/Docker.app"
+  if ! command colima status 1>/dev/null 2>&1; then
+    colima start
 
-    while ! command docker info 1>/dev/null 2>&1; do
+    while ! command colima status 1>/dev/null 2>&1; do
       sleep 5
     done
   fi

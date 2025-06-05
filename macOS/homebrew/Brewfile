@@ -87,7 +87,7 @@ cask "clash-verge-rev"
 # cask "bitbar"
 
 # Containers & Kubernetes
-cask "docker" # https://github.com/docker/for-mac/issues/7339#issuecomment-2196829908
+# cask "docker" # https://github.com/docker/for-mac/issues/7339#issuecomment-2196829908
 # cask "podman-desktop"
 # cask "rancher"
 # cask "orbstack"

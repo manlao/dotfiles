@@ -91,6 +91,7 @@ cask "docker" # https://github.com/docker/for-mac/issues/7339#issuecomment-21968
 # cask "podman-desktop"
 # cask "rancher"
 # cask "orbstack"
+# cask "finch"
 
 # Video Player
 # cask "mpv"

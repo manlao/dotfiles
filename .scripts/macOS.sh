@@ -100,6 +100,9 @@ setup_system() {
   # Avoid creating .DS_Store files on network or USB volumes
   defaults write com.apple.desktopservices DSDontWriteNetworkStores -boolean true
   defaults write com.apple.desktopservices DSDontWriteUSBStores -boolean true
+
+  # colima
+  ln -sf "$HOME/.colima/default/docker.sock" "$HOME/.docker/run/docker.sock"
 }
 
 setup_touch_id() {

@@ -261,6 +261,7 @@ brew "minikube"
 # brew "kubectx"
 # brew "kubeseal"
 brew "colima"
+brew "kubeseal"
 
 # Ctags
 brew "ctags"

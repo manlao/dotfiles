@@ -251,6 +251,7 @@ brew "gnupg"
 brew "hashicorp/tap/terraform"
 brew "opentofu"
 brew "pulumi"
+brew "terragrunt"
 
 # Containers & Kubernetes
 # brew "docker"

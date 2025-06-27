@@ -228,6 +228,9 @@ brew "postgresql@17"
 # JSON
 brew "jq"
 
+# YAML
+brew "yq"
+
 # HTML
 brew "recode"
 

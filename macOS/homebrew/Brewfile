@@ -81,7 +81,7 @@ cask "clash-verge-rev"
 # cask "dash"
 # cask "wechatwebdevtools"
 # cask "switchhosts"
-cask "xtool-org/tap/xtool"
+# cask "xtool-org/tap/xtool"
 
 # Menu Bar
 # cask "itsycal"

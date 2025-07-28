@@ -27,7 +27,7 @@ cask_args no_quarantine: true
 
 # Terminal
 cask "iterm2"
-cask "warp"
+# cask "warp"
 
 # Browser
 cask "google-chrome"
@@ -54,7 +54,7 @@ cask "wechat"
 cask "slack"
 cask "telegram"
 cask "discord"
-cask "signal"
+# cask "signal"
 
 # Work
 # cask "wechatwork"

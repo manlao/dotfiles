@@ -254,8 +254,9 @@ brew "pulumi"
 brew "terragrunt"
 
 # Containers & Kubernetes
-# brew "docker"
-# brew "docker-compose"
+brew "docker"
+brew "docker-compose"
+brew "docker-buildx"
 brew "podman"
 brew "skopeo"
 brew "dive"

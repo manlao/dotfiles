@@ -168,6 +168,12 @@ append_path "$HOME/.docker/bin"
 append_path "$HOME/.local/share/containers/podman-desktop/extensions-storage/podman-desktop.compose/bin"
 
 #=======================================================================#
+# colima                                                                #
+#=======================================================================#
+
+export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+
+#=======================================================================#
 # asdf                                                                  #
 #=======================================================================#
 

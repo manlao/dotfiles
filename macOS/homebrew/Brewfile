@@ -72,6 +72,7 @@ cask "discord"
 # cask "tunnelblick"
 cask "mitmproxy"
 cask "clash-verge-rev"
+# cask "mihomo-party"
 
 # Dev Tools
 # cask "insomnia"

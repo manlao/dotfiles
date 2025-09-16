@@ -247,7 +247,7 @@ configure_dock() {
   /usr/libexec/PlistBuddy -c "Add :persistent-apps array" "${PLIST}"
 
   local I APPS=(
-    "169,启动台,/System/Applications/Launchpad.app"
+    "169,App,/System/Applications/Apps.app"
     "41,iTerm,/Applications/iTerm.app"
     "41,Visual Studio Code,/Applications/Visual Studio Code.app"
     "41,Google Chrome,/Applications/Google Chrome.app"

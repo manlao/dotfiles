@@ -113,7 +113,7 @@ cask "the-unarchiver"
 # cask "alfred"
 cask "rectangle"
 cask "cheatsheet"
-cask "alt-tab"
+# cask "alt-tab"
 
 # Display
 cask "monitorcontrol"

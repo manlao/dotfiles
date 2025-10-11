@@ -3,11 +3,7 @@
 # shellcheck disable=SC1091
 source "$DOTFILES_HOME/trait.rc"
 
-APPS=(
-  "pdm"
-  "poetry"
-  "podman-compose"
-)
+APPS=()
 
 install() {
   install_pipx_apps

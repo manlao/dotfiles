@@ -40,12 +40,14 @@ install_or_update_node() {
   message --info "Check node versions"
 
   local DEFAULT_VERSION="${DEFAULT_NODE_VERSION:-node}"
+
   local CURRENT
   CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_VERSION" || echo "")
-  local NEXT
-  NEXT=$(nodenv aliases --resolve_definition "$DEFAULT_VERSION")
 
   nodenv aliases --update --upgrade
+
+  local NEXT
+  NEXT=$(nodenv aliases --resolve_definition "$DEFAULT_VERSION")
 
   migrate_node "$NEXT" "$CURRENT"
 }

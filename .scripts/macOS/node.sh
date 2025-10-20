@@ -53,16 +53,16 @@ install_or_update_node() {
 }
 
 migrate_node() {
+  # https://github.com/nodenv/nodenv#nodenv-shell
+  export NODENV_VERSION="$1"
+
   if ! nodenv versions --bare --skip-aliases | grep "$1" 1>/dev/null 2>&1; then
     message --info "Install node $1"
 
     nodenv install -s "$1"
+    npm install -g corepack
+    corepack enable npm pnpm yarn
   fi
-
-  # https://github.com/nodenv/nodenv#nodenv-shell
-  export NODENV_VERSION="$1"
-
-  corepack enable npm pnpm yarn
 
   if [ -n "$2" ] && [ "$2" != "$1" ]; then
     nodenv migrate "$2" "$1"

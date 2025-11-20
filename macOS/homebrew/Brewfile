@@ -225,7 +225,7 @@ brew "lima"
 
 # Database
 brew "mysql"
-brew "postgresql@17"
+brew "postgresql@18"
 
 # JSON
 brew "jq"

@@ -60,6 +60,7 @@ migrate_node() {
     message --info "Install node $1"
 
     nodenv install -s "$1"
+    nodenv shell "$1"
     npm install -g corepack
     corepack enable npm pnpm yarn
   fi

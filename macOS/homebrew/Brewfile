@@ -29,6 +29,10 @@ cask_args no_quarantine: true
 cask "iterm2"
 # cask "warp"
 
+# AI
+# cask "codex"
+# cask "claude-code"
+
 # Browser
 cask "google-chrome"
 cask "arc"
@@ -163,6 +167,9 @@ brew "bash"
 brew "zsh"
 brew "zplug"
 # brew "fish"
+
+# AI
+brew "gemini-cli"
 
 # File System
 brew "eza"

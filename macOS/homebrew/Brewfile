@@ -65,8 +65,8 @@ cask "discord"
 # cask "dingtalk"
 
 # Music
-# cask "qqmusic"
-# cask "neteasemusic"
+cask "qqmusic"
+cask "neteasemusic"
 
 # Proxy
 # cask "v2rayu"

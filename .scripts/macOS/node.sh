@@ -39,35 +39,7 @@ initialize_nodenv() {
 install_or_update_node() {
   message --info "Check node versions"
 
-  local DEFAULT_VERSION="${DEFAULT_NODE_VERSION:-node}"
-
-  local CURRENT
-  CURRENT=$(nodenv aliases --resolve_definition "$DEFAULT_VERSION" || echo "")
-
   nodenv aliases --update --upgrade-and-enable-corepack
-
-  migrate_node "$DEFAULT_VERSION" "$CURRENT"
-}
-
-migrate_node() {
-  # https://github.com/nodenv/nodenv#nodenv-shell
-  export NODENV_VERSION="$1"
-
-  local NEXT
-  NEXT=$(nodenv aliases --resolve_definition "$1")
-
-  if ! nodenv versions --bare --skip-aliases | grep "$NEXT" 1>/dev/null 2>&1; then
-    message --info "Install node $1"
-
-    nodenv install -s "$1"
-    npm install -g corepack
-    corepack enable npm pnpm yarn
-  fi
-
-  if [ -n "$2" ] && [ "$2" != "$NEXT" ]; then
-    nodenv migrate "$2" "$NEXT"
-    nodenv uninstall -f "$2"
-  fi
 }
 
 main "$@"

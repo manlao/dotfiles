@@ -30,6 +30,7 @@ cask "iterm2"
 # cask "warp"
 
 # AI
+cask "copilot-cli"
 # cask "codex"
 # cask "claude-code"
 
@@ -170,7 +171,6 @@ brew "zplug"
 
 # AI
 brew "gemini-cli"
-brew "copilot-cli"
 
 
 # File System

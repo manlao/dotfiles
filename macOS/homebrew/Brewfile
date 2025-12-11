@@ -170,6 +170,8 @@ brew "zplug"
 
 # AI
 brew "gemini-cli"
+brew "copilot-cli"
+
 
 # File System
 brew "eza"

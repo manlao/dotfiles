@@ -231,6 +231,7 @@ brew "z"
 # Virtual Machine
 brew "qemu"
 brew "lima"
+brew "lima-additional-guestagents"
 
 # Database
 brew "mysql"

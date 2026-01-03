@@ -101,8 +101,7 @@ cask "clash-verge-rev"
 # cask "finch"
 
 # Video Player
-# cask "mpv"
-# cask "iina"
+cask "iina"
 
 # Audio Player
 # cask "vox"
@@ -172,6 +171,8 @@ brew "zplug"
 # AI
 brew "gemini-cli"
 
+# Video Player
+brew "mpv"
 
 # File System
 brew "eza"

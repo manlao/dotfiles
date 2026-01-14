@@ -31,8 +31,8 @@ cask "iterm2"
 
 # AI
 cask "copilot-cli"
-# cask "codex"
-# cask "claude-code"
+cask "codex"
+cask "claude-code"
 
 # Browser
 cask "google-chrome"

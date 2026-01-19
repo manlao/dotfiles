@@ -33,7 +33,6 @@ cask "iterm2"
 cask "copilot-cli"
 cask "codex"
 cask "claude-code"
-cask "opencode-desktop"
 
 # Browser
 cask "google-chrome"

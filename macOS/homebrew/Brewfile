@@ -170,7 +170,7 @@ brew "zplug"
 
 # AI
 brew "gemini-cli"
-brew "opencode"
+brew "anomalyco/tap/opencode"
 
 # Video Player
 brew "mpv"

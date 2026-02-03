@@ -282,6 +282,7 @@ brew "minikube"
 # brew "kubeseal"
 brew "colima"
 brew "kubeseal"
+brew "derailed/k9s/k9s"
 
 # Ctags
 brew "ctags"

@@ -85,7 +85,6 @@ git/
 ### Brewfile Structure
 
 - Organized with comments: `# Taps`, `# Casks`, `# Formulae`
-- Use `cask_args no_quarantine: true` globally
 - Use `brew "vendor/tap/formula"` for custom taps
 - Xcode is installed separately via `mas` with special handling (`HOMEBREW_BUNDLE_MAS_SKIP`)
 

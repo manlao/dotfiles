@@ -16,7 +16,6 @@ append_path() {
 
 HOMEBREW_PREFIX=$(brew --prefix)
 export HOMEBREW_PREFIX
-export HOMEBREW_CASK_OPTS="--no-quarantine"
 
 #=======================================================================#
 # z                                                                     #

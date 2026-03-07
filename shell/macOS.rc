@@ -17,6 +17,8 @@ append_path() {
 HOMEBREW_PREFIX=$(brew --prefix)
 export HOMEBREW_PREFIX
 
+export HOMEBREW_AUTO_UPDATE_SECS=86400
+
 #=======================================================================#
 # z                                                                     #
 #=======================================================================#

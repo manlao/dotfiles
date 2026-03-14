@@ -158,6 +158,9 @@ cask "font-meslo-lg-nerd-font"
 # Mac App Store
 brew "mas"
 
+# Tools
+brew "mole"
+
 # Touch ID
 brew "pam-reattach"
 

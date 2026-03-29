@@ -1,4 +1,10 @@
 () {
+  function prompt_zmx() {
+    if [[ -n $ZMX_SESSION ]]; then
+      p10k segment -b '%k' -f '%f' -t "[$ZMX_SESSION]"
+    fi
+  }
+
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     os_icon                 # os identifier
@@ -15,6 +21,7 @@
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    zmx                     # zmx session
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs

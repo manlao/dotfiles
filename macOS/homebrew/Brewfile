@@ -19,7 +19,9 @@ mas "Amphetamine", id: 937984704
 
 # Terminal
 cask "iterm2"
-# cask "warp"
+# cask "kitty"
+# cask "wezterm"
+# cask "ghostty"
 
 # AI
 cask "copilot-cli"
@@ -198,6 +200,9 @@ brew "act"
 brew "vim"
 brew "neovim"
 # brew "bat"
+
+# Session Persistence
+brew "neurosnap/tap/zmx"
 
 # Multiplexer
 brew "tmux"

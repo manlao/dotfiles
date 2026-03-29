@@ -284,6 +284,10 @@ gitclone() {
   fi
 }
 
+remove-quarantine() {
+  xattr -d -r com.apple.quarantine "$1"
+}
+
 eval "$(declare -f nodenv | sed '1s/.*/_&/')" # backup nodenv to _nodenv
 
 nodenv() {

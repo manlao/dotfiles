@@ -289,15 +289,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " completion
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  if has('python3')
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-endif
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc.vim'
 Plug 'mattn/emmet-vim'
 " Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 

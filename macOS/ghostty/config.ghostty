@@ -15,6 +15,10 @@ keybind = ctrl+a>down=goto_split:down
 keybind = ctrl+a>left=goto_split:left
 keybind = ctrl+a>right=goto_split:right
 
+keybind = global:cmd+backquote = toggle_quick_terminal
+
+quick-terminal-position = bottom
+
 window-padding-balance = true
 
 quit-after-last-window-closed = true

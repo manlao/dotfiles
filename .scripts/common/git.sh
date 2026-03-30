@@ -21,7 +21,7 @@ setup_git() {
   fi
 
   git config --global core.autocrlf "input"
-  git config --global core.editor "vim"
+  git config --global core.editor "nvim"
   git config --global core.excludesFile "$DOTFILES_HOME/git/.gitignore_global"
   git config --global core.pager "less -FRSX"
   git config --global color.ui "auto"

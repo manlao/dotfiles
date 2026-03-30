@@ -101,7 +101,8 @@ setup_system() {
   defaults write com.apple.desktopservices DSDontWriteUSBStores -boolean true
 
   # colima
-  ln -sf "$HOME/.colima/default/docker.sock" "$HOME/.docker/run/docker.sock"
+  sudo ln -sf "$HOME/.colima/default/docker.sock" "$HOME/.docker/run/docker.sock"
+  sudo ln -sf "$HOME/.colima/default/docker.sock" "/var/run/docker.sock"
 }
 
 setup_touch_id() {

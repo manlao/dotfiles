@@ -8,14 +8,14 @@ shell-integration-features = no-cursor
 
 unfocused-split-opacity = 0.5
 
-split-divider-color = #111111
+split-divider-color = #2a2a2a
 
 keybind = ctrl+a>up=goto_split:up
 keybind = ctrl+a>down=goto_split:down
 keybind = ctrl+a>left=goto_split:left
 keybind = ctrl+a>right=goto_split:right
 
-keybind = global:cmd+backquote = toggle_quick_terminal
+keybind = global:cmd+backquote=toggle_quick_terminal
 
 quick-terminal-position = bottom
 

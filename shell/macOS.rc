@@ -321,32 +321,3 @@ nodenv() {
       ;;
   esac
 }
-
-auto-start-tmux() {
-  if ! command -v tmux 1>/dev/null 2>&1; then
-    return
-  fi
-
-  if ! [[ $- == *i* ]]; then
-    return
-  fi
-
-  if [[ "$TERM" =~ screen ]] || [[ "$TERM" =~ tmux ]]; then
-    return
-  fi
-
-  if [ "$TERM_PROGRAM" != "iTerm.app" ] && [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-    return
-  fi
-
-  # shellcheck disable=SC2001
-  TMUX_CURRENT_SESSION_NAME=$(echo "$TERM_PROGRAM" | sed 's/[^[:alnum:]].*//g')
-
-  if [[ "$(tmux ls -F "#{session_name}" | grep "$TMUX_CURRENT_SESSION_NAME")" == "$TMUX_CURRENT_SESSION_NAME" ]]; then
-    exec tmux a -t "$TMUX_CURRENT_SESSION_NAME"
-  else
-    exec tmux new -s "$TMUX_CURRENT_SESSION_NAME"
-  fi
-}
-
-auto-start-tmux

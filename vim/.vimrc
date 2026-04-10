@@ -260,6 +260,22 @@ if has('nvim')
 endif
 
 " ============================================================================
+" functions
+" ============================================================================
+
+function DarkMode()
+    colorscheme one
+    set background=dark
+    let g:lightline = { 'colorscheme': 'one' }
+endfunction
+
+function LightMode()
+    colorscheme one
+    set background=light
+    let g:lightline = { 'colorscheme': 'one' }
+endfunction
+
+" ============================================================================
 " vim-plug
 " ============================================================================
 
@@ -381,9 +397,11 @@ Plug 'marcweber/vim-addon-mw-utils'
 " Plug 'terryma/vim-multiple-cursors'
 
 " Themes
-Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+" Plug 'joshdick/onedark.vim'
 " Plug 'tomasr/molokai'
 " Plug 'altercation/vim-colors-solarized'
+Plug 'nburns/vim-auto-light-dark'
 
 call plug#end()
 
@@ -529,7 +547,7 @@ let g:snipMate = { 'snippet_version' : 1 }
 " theme
 " ----------------------------------------------------------------------------
 " molokai
-silent! colorscheme molokai
+silent! colorscheme one
 
 " ============================================================================
 " help tags

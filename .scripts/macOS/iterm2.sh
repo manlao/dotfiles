@@ -28,7 +28,7 @@ install_iterm2_color_schemes() {
 setup() {
   setup_iterm2
   # setup_iterm2_website
-  # setup_iterm2_color_schemes
+  setup_iterm2_color_schemes
 }
 
 setup_iterm2() {
@@ -116,7 +116,7 @@ setup_iterm2_color_schemes() {
 update() {
   return
   # update_iterm2_website
-  # update_iterm2_color_schemes
+  update_iterm2_color_schemes
 }
 
 update_iterm2_website() {

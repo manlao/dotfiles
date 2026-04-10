@@ -95,10 +95,6 @@
     # example               # example user-defined segment (see prompt_example function below)
   )
 
-  typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='%016F\uE0B1'
-
-  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='%016F\uE0B3'
-
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
 
   typeset -g POWERLEVEL9K_DISK_USAGE_ONLY_WARNING=true

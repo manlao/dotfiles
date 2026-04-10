@@ -1,7 +1,7 @@
 font-family = MesloLGM Nerd Font
 font-size = 14
 
-theme = 3024 Night
+theme = light:3024 Day,dark:3024 Night
 
 cursor-style = underline
 shell-integration-features = no-cursor

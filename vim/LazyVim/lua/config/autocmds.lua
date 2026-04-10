@@ -18,3 +18,15 @@ vim.api.nvim_create_autocmd("VimLeave", {
     vim.opt.guicursor = "a:hor20-blinkwait175-blinkoff150-blinkon175"
   end,
 })
+
+vim.api.nvim_create_autocmd("OptionSet", {
+  group = augroup("auto_colorscheme"),
+  pattern = "background",
+  callback = function()
+    if vim.o.background == "light" then
+      vim.cmd("colorscheme onelight")
+    else
+      vim.cmd("colorscheme onedark")
+    end
+  end,
+})

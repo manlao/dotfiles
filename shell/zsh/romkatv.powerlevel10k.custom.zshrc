@@ -101,5 +101,9 @@
 
   typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=30
 
+  if [[ "$TERM" == "xterm-kitty" ]]; then
+    typeset -g POWERLEVEL9K_ICON_PADDING=none
+  fi
+
   (( ! $+functions[p10k] )) || p10k reload
 }

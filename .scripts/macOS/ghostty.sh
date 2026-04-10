@@ -10,7 +10,7 @@ setup() {
 setup_ghostty() {
   message --info "Set up ghostty"
 
-  ln -sf "$DOTFILES_HOME/macOS/ghostty" "$HOME/.config/ghostty"
+  ln -sfn "$DOTFILES_HOME/macOS/ghostty" "$HOME/.config/ghostty"
 }
 
 main "$@"

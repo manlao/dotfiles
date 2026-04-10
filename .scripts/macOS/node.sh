@@ -20,7 +20,7 @@ setup_husky() {
   message --info "Set up husky"
 
   mkdir -p "$HOME/.config/husky"
-  ln -sf "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.config/husky/init.sh"
+  ln -sfn "$DOTFILES_HOME/macOS/node/.huskyrc" "$HOME/.config/husky/init.sh"
 }
 
 update() {

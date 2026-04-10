@@ -75,7 +75,7 @@ setup() {
 setup_system() {
   message --info "Set up system"
 
-  sudo ln -sf "$SUDOERS" "/private/etc/sudoers.d/sudoers"
+  sudo ln -sfn "$SUDOERS" "/private/etc/sudoers.d/sudoers"
   sudo chown 0 "$SUDOERS" 1>/dev/null 2>&1
 
   if [ -n "$DEVICE_NAME" ]; then
@@ -101,8 +101,8 @@ setup_system() {
   defaults write com.apple.desktopservices DSDontWriteUSBStores -boolean true
 
   # colima
-  sudo ln -sf "$HOME/.colima/default/docker.sock" "$HOME/.docker/run/docker.sock"
-  sudo ln -sf "$HOME/.colima/default/docker.sock" "/var/run/docker.sock"
+  sudo ln -sfn "$HOME/.colima/default/docker.sock" "$HOME/.docker/run/docker.sock"
+  sudo ln -sfn "$HOME/.colima/default/docker.sock" "/var/run/docker.sock"
 }
 
 setup_touch_id() {

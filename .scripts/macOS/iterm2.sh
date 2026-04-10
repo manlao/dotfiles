@@ -37,7 +37,7 @@ setup_iterm2() {
   # Dynamic Profiles
   local FOLDER="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
   mkdir -p "$FOLDER"
-  ln -sf "$DOTFILES_HOME/macOS/iterm2/profiles.json" "$FOLDER/profiles.json"
+  ln -sfn "$DOTFILES_HOME/macOS/iterm2/profiles.json" "$FOLDER/profiles.json"
 
   # iTerm2 -> Show Tip of the Day -> More Options -> Disable Tips
   defaults write com.googlecode.iterm2 NoSyncTipsDisabled -boolean true
@@ -104,8 +104,8 @@ setup_iterm2() {
 setup_iterm2_website() {
   message --info "Set up iTerm2 shell integration and utilities"
 
-  ln -sf "$ITERM2_WEBSITE_FOLDER/source/shell_integration/$DEFAULT_SHELL" "$HOME/.iterm2_shell_integration.$DEFAULT_SHELL"
-  ln -sf "$ITERM2_WEBSITE_FOLDER/source/utilities" "$HOME/.iterm2"
+  ln -sfn "$ITERM2_WEBSITE_FOLDER/source/shell_integration/$DEFAULT_SHELL" "$HOME/.iterm2_shell_integration.$DEFAULT_SHELL"
+  ln -sfn "$ITERM2_WEBSITE_FOLDER/source/utilities" "$HOME/.iterm2"
 }
 
 setup_iterm2_color_schemes() {

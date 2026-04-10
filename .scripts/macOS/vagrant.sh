@@ -27,7 +27,7 @@ setup() {
 
 setup_vagrant() {
   message --info "Set up Vagrant"
-  ln -sf "$DOTFILES_HOME/macOS/vagrant/Vagrantfile" "$HOME/Vagrantfile"
+  ln -sfn "$DOTFILES_HOME/macOS/vagrant/Vagrantfile" "$HOME/Vagrantfile"
 }
 
 update() {

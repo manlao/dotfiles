@@ -12,8 +12,8 @@ setup_tmux() {
 
   mkdir -p "$HOME/.tmux/hooks"
 
-  ln -sf "$DOTFILES_HOME/tmux/.tmux.conf" "$HOME/.tmux.conf"
-  ln -sf "$DOTFILES_HOME/tmux/hooks/session-closed.sh" "$HOME/.tmux/hooks/session-closed.sh"
+  ln -sfn "$DOTFILES_HOME/tmux/.tmux.conf" "$HOME/.tmux.conf"
+  ln -sfn "$DOTFILES_HOME/tmux/hooks/session-closed.sh" "$HOME/.tmux/hooks/session-closed.sh"
 }
 
 main "$@"

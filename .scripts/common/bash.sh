@@ -37,8 +37,8 @@ setup_bash() {
     echo "$BASH_BIN" | sudo tee -a "/etc/shells"
   fi
 
-  ln -sf "$DOTFILES_HOME/shell/bash/.inputrc" "$HOME/.inputrc"
-  ln -sf "$DOTFILES_HOME/shell/bash/.bashrc" "$HOME/.bashrc"
+  ln -sfn "$DOTFILES_HOME/shell/bash/.inputrc" "$HOME/.inputrc"
+  ln -sfn "$DOTFILES_HOME/shell/bash/.bashrc" "$HOME/.bashrc"
 }
 
 update() {

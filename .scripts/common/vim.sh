@@ -40,7 +40,7 @@ setup_vim() {
   mkdir -p "$HOME/.vim/.swp"
   mkdir -p "$HOME/.vim/.undo"
 
-  ln -sf "$DOTVIMRC" "$HOME/.vimrc"
+  ln -sfn "$DOTVIMRC" "$HOME/.vimrc"
 }
 
 setup_lazyvim() {
@@ -48,7 +48,7 @@ setup_lazyvim() {
 
   mkdir -p "$HOME/.config"
 
-  ln -sf "$LAZYVIM" "$HOME/.config/nvim"
+  ln -sfn "$LAZYVIM" "$HOME/.config/nvim"
 }
 
 update() {

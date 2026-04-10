@@ -65,7 +65,7 @@ setup_zsh() {
       ;;
   esac
 
-  ln -sf "$DOTZSHRC" "$HOME/.zshrc"
+  ln -sfn "$DOTZSHRC" "$HOME/.zshrc"
 }
 
 update() {

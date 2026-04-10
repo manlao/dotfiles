@@ -144,4 +144,4 @@ suit selfupdate
 
 **Symlinking configs**:
 
-- Use pattern in setup functions: `ln -sf "$DOTFILES_HOME/path/to/config" "$HOME/.config/tool/config"`
+- Use pattern in setup functions: `ln -sfn "$DOTFILES_HOME/path/to/config" "$HOME/.config/tool/config"`

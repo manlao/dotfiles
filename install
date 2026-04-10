@@ -75,7 +75,7 @@ install() {
   git clone "$DOTFILES_REPO" "$DOTFILES_HOME"
 
   if [ -f "$DOTENV_FILE" ]; then
-    ln -sf "$DOTENV_FILE" "$DOTFILES_HOME/.env"
+    ln -sfn "$DOTENV_FILE" "$DOTFILES_HOME/.env"
   fi
 
   caffeinate -u "$DOTFILES_HOME/suit" install --retry=5 "$([ "$QUIET" = true ] && echo "--quiet")"

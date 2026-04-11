@@ -78,6 +78,10 @@ setup_iterm2() {
 
   # iTerm2 -> Preferences -> Appearance -> Panes -> Separate status bars per pane
   defaults write com.googlecode.iterm2 SeparateStatusBarsPerPane -boolean true
+  # iTerm2 -> Preferences -> Appearance -> Panes -> Side margins
+  defaults write com.googlecode.iterm2 TerminalMargin -integer 8
+  # iTerm2 -> Preferences -> Appearance -> Panes -> Top & bottom margins
+  defaults write com.googlecode.iterm2 TerminalVMargin -integer 4
 
   # iTerm2 -> Preferences -> Appearance -> Dimming -> Dim background winodws
   defaults write com.googlecode.iterm2 DimBackgroundWindows -boolean true

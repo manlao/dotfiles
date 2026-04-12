@@ -19,7 +19,7 @@ mas "Amphetamine", id: 937984704
 
 # Terminal
 cask "iterm2"
-cask "itermbrowserplugin"
+# cask "itermbrowserplugin"
 cask "kitty"
 cask "ghostty"
 # cask "wezterm"

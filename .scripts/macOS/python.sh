@@ -39,6 +39,10 @@ update_pipx_apps() {
 
 update_python() {
   install_or_update_python
+
+  for VERSION in "${PYTHON_VERSIONS[@]}"; do
+    install_or_update_python "$VERSION"
+  done
 }
 
 initialize_pyenv() {
@@ -46,19 +50,36 @@ initialize_pyenv() {
 }
 
 install_or_update_python() {
-  message --info "Check python versions"
+  if [ -n "$1" ]; then
+    message --info "Check latest python versions for $1"
+  else
+    message --info "Check latest python versions"
+  fi
 
   local NEXT
-  NEXT=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
+
+  if [ -n "$1" ]; then
+    NEXT=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | grep "$1" | tail -1 | sed -E -e 's/[ ]//g')
+  else
+    NEXT=$(pyenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
+  fi
 
   if ! pyenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install python $NEXT"
 
     local CURRENT
-    CURRENT=$(pyenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
+
+    if [ -n "$1" ]; then
+      CURRENT=$(pyenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | grep "$1" | tail -n 1)
+    else
+      CURRENT=$(pyenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
+    fi
 
     pyenv install -s "$NEXT"
-    pyenv global "$NEXT"
+
+    if [ -z "$1" ]; then
+      pyenv global "$NEXT"
+    fi
 
     if [ -n "$CURRENT" ]; then
       pyenv migrate "$CURRENT" "$NEXT"

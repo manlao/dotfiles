@@ -146,8 +146,7 @@ cask "vagrant"
 # cask "microsoft-office"
 
 # Fonts
-cask "font-inconsolata-nerd-font"
-cask "font-m+-nerd-font"
+cask "font-maple-mono-nl-cn"
 cask "font-meslo-lg-nerd-font"
 
 #=======================================================================#

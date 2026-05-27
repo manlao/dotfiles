@@ -43,7 +43,7 @@ update_ruby_gems() {
 }
 
 initialize_rbenv() {
-  eval "$(rbenv init -)"
+  eval "$(rbenv init - bash)"
 }
 
 install_or_update_ruby() {

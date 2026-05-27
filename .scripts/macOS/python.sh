@@ -46,7 +46,7 @@ update_python() {
 }
 
 initialize_pyenv() {
-  eval "$(pyenv init -)"
+  eval "$(pyenv init - bash)"
 }
 
 install_or_update_python() {

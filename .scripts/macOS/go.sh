@@ -22,7 +22,7 @@ update_go() {
 }
 
 initialize_goenv() {
-  eval "$(goenv init -)"
+  eval "$(goenv init - bash)"
 }
 
 install_or_update_go() {

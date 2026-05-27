@@ -33,7 +33,7 @@ update_node() {
 }
 
 initialize_nodenv() {
-  eval "$(nodenv init -)"
+  eval "$(nodenv init - bash)"
 }
 
 install_or_update_node() {

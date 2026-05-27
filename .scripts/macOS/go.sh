@@ -31,19 +31,19 @@ install_or_update_go() {
   local NEXT
   NEXT=$(goenv install --list | grep -v "-" | grep -i -v "[A-Z]" | tail -1 | sed -E -e 's/[ ]//g')
 
-  if ! goenv versions --bare | grep "$NEXT" 1>/dev/null 2>&1; then
+  if ! goenv list --bare | grep "$NEXT" 1>/dev/null 2>&1; then
     message --info "Install go $NEXT"
 
     local CURRENT
-    CURRENT=$(goenv versions --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
+    CURRENT=$(goenv list --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
     goenv install -s "$NEXT"
-    goenv global "$NEXT"
+    goenv use "$NEXT" --global
 
     export GOENV_GOPATH_PREFIX="$HOME/.go"
 
     if [ -n "$CURRENT" ]; then
-      goenv uninstall -f "$CURRENT"
+      goenv uninstall "$CURRENT"
       sudo rm -rf "$GOENV_GOPATH_PREFIX/$CURRENT"
     fi
   fi

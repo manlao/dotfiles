@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(fnm env --use-on-cd)"
 eval "$(nodenv init -)"

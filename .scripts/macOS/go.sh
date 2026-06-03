@@ -37,13 +37,13 @@ install_or_update_go() {
     local CURRENT
     CURRENT=$(goenv list --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
-    goenv install -s "$NEXT"
+    goenv install -y -s "$NEXT"
     goenv use "$NEXT" --global
 
     export GOENV_GOPATH_PREFIX="$HOME/.go"
 
     if [ -n "$CURRENT" ]; then
-      goenv uninstall "$CURRENT"
+      goenv uninstall -y "$CURRENT"
       sudo rm -rf "$GOENV_GOPATH_PREFIX/$CURRENT"
     fi
   fi

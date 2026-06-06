@@ -14,6 +14,24 @@ mas "Pages", id: 409201541
 mas "Amphetamine", id: 937984704
 
 #=======================================================================#
+# Taps                                                                  #
+#=======================================================================#
+
+tap "anomalyco/tap", trusted: true
+tap "antoniorodr/memo", trusted: true
+tap "derailed/k9s", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "jandedobbeleer/oh-my-posh", trusted: true
+tap "jesseduffield/lazygit", trusted: true
+tap "manlao/tap", trusted: true
+tap "neurosnap/tap", trusted: true
+tap "nodenv/nodenv", trusted: true
+tap "oven-sh/bun", trusted: true
+tap "steipete/tap", trusted: true
+tap "theboredteam/boring-notch", trusted: true
+tap "xtool-org/tap", trusted: true
+
+#=======================================================================#
 # Casks                                                                 #
 #=======================================================================#
 

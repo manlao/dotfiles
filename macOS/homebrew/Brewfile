@@ -14,24 +14,6 @@ mas "Pages", id: 409201541
 mas "Amphetamine", id: 937984704
 
 #=======================================================================#
-# Taps                                                                  #
-#=======================================================================#
-
-tap "anomalyco/tap", trusted: true
-tap "antoniorodr/memo", trusted: true
-tap "derailed/k9s", trusted: true
-tap "hashicorp/tap", trusted: true
-tap "jandedobbeleer/oh-my-posh", trusted: true
-tap "jesseduffield/lazygit", trusted: true
-tap "manlao/tap", trusted: true
-tap "neurosnap/tap", trusted: true
-tap "nodenv/nodenv", trusted: true
-tap "oven-sh/bun", trusted: true
-tap "steipete/tap", trusted: true
-tap "theboredteam/boring-notch", trusted: true
-tap "xtool-org/tap", trusted: true
-
-#=======================================================================#
 # Casks                                                                 #
 #=======================================================================#
 
@@ -102,7 +84,7 @@ cask "clash-verge-rev"
 # cask "dash"
 # cask "wechatwebdevtools"
 # cask "switchhosts"
-# cask "xtool-org/tap/xtool"
+# cask "xtool-org/tap/xtool", trusted: true
 
 # Menu Bar
 # cask "itsycal"
@@ -188,7 +170,7 @@ brew "zplug"
 
 # AI
 brew "gemini-cli"
-brew "anomalyco/tap/opencode"
+brew "anomalyco/tap/opencode", trusted: true
 
 # Video Player
 brew "mpv"
@@ -207,7 +189,7 @@ brew "git-lfs"
 brew "git-extras"
 brew "git-credential-oauth"
 brew "git-delta"
-brew "jesseduffield/lazygit/lazygit"
+brew "jesseduffield/lazygit/lazygit", trusted: true
 
 # GitHub
 # brew "gh"
@@ -224,7 +206,7 @@ brew "neovim"
 # brew "bat"
 
 # Session Persistence
-brew "neurosnap/tap/zmx"
+brew "neurosnap/tap/zmx", trusted: true
 
 # Multiplexer
 brew "tmux"
@@ -275,13 +257,13 @@ brew "duti"
 
 # Proxy
 # brew "xray"
-# brew "trojan-gfw/homebrew-trojan/trojan"
+# brew "trojan-gfw/homebrew-trojan/trojan", trusted: true
 
 # Encryption
 brew "gnupg"
 
 # Infrastructure
-brew "hashicorp/tap/terraform"
+brew "hashicorp/tap/terraform", trusted: true
 brew "opentofu"
 brew "pulumi"
 brew "terragrunt"
@@ -300,7 +282,7 @@ brew "kind"
 brew "minikube"
 # brew "kubectx"
 brew "kubeseal"
-brew "derailed/k9s/k9s"
+brew "derailed/k9s/k9s", trusted: true
 
 # Ctags
 brew "ctags"
@@ -317,18 +299,18 @@ brew "bats-core"
 brew "node"
 brew "fnm"
 brew "nodenv"
-brew "nodenv/nodenv/node-build-update-defs"
-brew "nodenv/nodenv/nodenv-npm-migrate"
-brew "nodenv/nodenv/nodenv-nvmrc"
-brew "nodenv/nodenv/nodenv-package-json-engine"
-brew "manlao/tap/node-build-aliases"
-brew "manlao/tap/nodenv-auto-install"
+brew "nodenv/nodenv/node-build-update-defs", trusted: true
+brew "nodenv/nodenv/nodenv-npm-migrate", trusted: true
+brew "nodenv/nodenv/nodenv-nvmrc", trusted: true
+brew "nodenv/nodenv/nodenv-package-json-engine", trusted: true
+brew "manlao/tap/node-build-aliases", trusted: true
+brew "manlao/tap/nodenv-auto-install", trusted: true
 
 # Deno
 # brew "deno"
 
 # Bun
-brew "oven-sh/bun/bun"
+brew "oven-sh/bun/bun", trusted: true
 
 # Dart
 # brew "dart"

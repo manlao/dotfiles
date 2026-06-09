@@ -164,12 +164,16 @@ update_touch_id() {
 
 update_homebrew() {
   message --info "Update homebrew"
+
   brew update
 }
 
 update_homebrew_packages() {
   message --info "Update homebrew packages and mas apps"
 
+  # FIXME:
+  # https://github.com/homebrew/brew/issues/22597
+  # https://github.com/Homebrew/brew/pull/22601
   brew upgrade --greedy
 
   if ! brew bundle check 1>/dev/null 2>&1; then

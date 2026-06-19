@@ -28,7 +28,9 @@ cask "ghostty"
 # AI
 cask "copilot-cli"
 cask "codex"
+cask "codex-app"
 cask "claude-code"
+cask "claude"
 
 # Browser
 cask "google-chrome"

@@ -272,6 +272,7 @@ brew "pulumi"
 brew "terragrunt"
 
 # Containers & Kubernetes
+brew "container"
 brew "colima"
 brew "docker"
 brew "docker-compose"

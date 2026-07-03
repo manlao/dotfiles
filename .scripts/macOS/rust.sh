@@ -8,10 +8,8 @@ install() {
 }
 
 install_rust() {
-  if ! rustup 1>/dev/null 2>&1; then
-    message --info "Init rustup"
-    rustup-init -y --no-modify-path
-  fi
+  message --info "Init stable rust"
+  rustup default stable
 }
 
 update() {

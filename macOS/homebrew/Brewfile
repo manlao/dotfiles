@@ -336,7 +336,7 @@ brew "cocoapods"
 brew "jenv"
 
 # Rust
-brew "rustup-init"
+brew "rustup"
 # brew "rust"
 
 # Go

@@ -22,6 +22,8 @@ update_go() {
 }
 
 initialize_goenv() {
+  export GOENV_GOPATH_PREFIX="$HOME/.go"
+
   eval "$(goenv init - bash)"
 }
 
@@ -39,8 +41,6 @@ install_or_update_go() {
 
     goenv install -y -s "$NEXT"
     goenv use "$NEXT" --global
-
-    export GOENV_GOPATH_PREFIX="$HOME/.go"
 
     if [ -n "$CURRENT" ]; then
       goenv uninstall -y "$CURRENT"

@@ -136,7 +136,7 @@ cask "monitorcontrol"
 cask "android-studio"
 
 # Flutter
-cask "flutter"
+# cask "flutter"
 
 # Julia
 # cask "julia"

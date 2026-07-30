@@ -26,7 +26,7 @@ cask "ghostty"
 # cask "wezterm"
 
 # AI
-cask "copilot-cli"
+# cask "copilot-cli"
 cask "codex"
 # cask "codex-app"
 cask "claude-code"
@@ -172,7 +172,8 @@ brew "zplug"
 # brew "fish"
 
 # AI
-brew "gemini-cli"
+# brew "gemini-cli"
+# brew "hermes-agent"
 brew "anomalyco/tap/opencode", trusted: true
 
 # Video Player

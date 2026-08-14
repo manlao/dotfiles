@@ -40,7 +40,7 @@ install_or_update_go() {
     CURRENT=$(goenv list --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
     goenv install -s "$NEXT"
-    goenv use "$NEXT" --global
+    goenv use "$NEXT" --global --yes
 
     if [ -n "$CURRENT" ]; then
       goenv uninstall -y "$CURRENT"

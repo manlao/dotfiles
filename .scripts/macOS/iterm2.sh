@@ -7,6 +7,11 @@ ITERM2_WEBSITE_FOLDER="$HOME/.iterm2-website"
 ITERM2_COLOR_SCHEMES_FOLDER="$HOME/.iTerm2-Color-Schemes"
 DEFAULT_SHELL="${DEFAULT_SHELL:-zsh}"
 
+install() {
+  install_iterm2_website
+  install_iterm2_color_schemes
+}
+
 install_iterm2_website() {
   if [ ! -d "$ITERM2_WEBSITE_FOLDER" ]; then
     message --info "Install gnachman/iterm2-website"

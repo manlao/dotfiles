@@ -63,7 +63,7 @@ cask "discord"
 # cask "wechatwork"
 # cask "dingtalk"
 # cask "feishu"
-# cask "lark"
+cask "lark"
 
 # Music
 cask "qqmusic"

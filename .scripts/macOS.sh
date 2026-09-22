@@ -256,6 +256,7 @@ configure_dock() {
     "41,Visual Studio Code,/Applications/Visual Studio Code.app"
     "41,Google Chrome,/Applications/Google Chrome.app"
     "41,Google Chrome,/Applications/Arc.app"
+    "41,Lark,/Applications/Lark.app"
     "41,Slack,/Applications/Slack.app"
     "41,微信,/Applications/WeChat.app"
     "41,Google Chrome,/Applications/Windows App.app"

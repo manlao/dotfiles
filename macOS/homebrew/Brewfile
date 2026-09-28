@@ -142,6 +142,7 @@ cask "android-studio"
 # cask "julia"
 
 # Virtual Machine
+cask "utm"
 cask "virtualbox"
 cask "vagrant"
 

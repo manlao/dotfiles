@@ -1,3 +1,18 @@
+# Ruby 3.3.8 bundled with Vagrant can treat refused connections as open on macOS.
+if RUBY_VERSION == "3.3.8" && RUBY_PLATFORM.include?("darwin")
+  require "socket"
+
+  module Vagrant::Util::IsPortOpen
+    def is_port_open?(host, port)
+      TCPSocket.new(host, port).close
+      true
+    rescue Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH,
+           Errno::ENETUNREACH, Errno::EACCES, Errno::ENOTCONN, Errno::EALREADY
+      false
+    end
+  end
+end
+
 macOSBox = "jhcook/macos-sierra"
 windowsBox = "utm/windows-11"
 
@@ -20,11 +35,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "windows" do |windows|
     windows.vm.box = windowsBox
 
-    windows.vm.provider "virtualbox" do |vb|
-      vb.name = "vagrant-windows"
-      vb.memory = "4096"
-      vb.customize ["modifyvm", :id, "--vram", "256"]
-      vb.gui = true
+    windows.vm.provider "utm" do |u|
+      u.name = "vagrant-windows"
+      u.memory = "4096"
+      u.check_guest_additions = false
     end
 
     # windows.vm.network "forwarded_port", guest: 8899, host: 8899

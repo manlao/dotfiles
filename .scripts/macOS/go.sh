@@ -39,7 +39,7 @@ install_or_update_go() {
     local CURRENT
     CURRENT=$(goenv list --bare | grep -v "-" | grep -i -v "[A-Z]" | tail -n 1)
 
-    goenv install -s "$NEXT"
+    goenv install -s "$NEXT" --yes
     goenv use "$NEXT" --global --yes
 
     if [ -n "$CURRENT" ]; then

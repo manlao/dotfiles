@@ -175,7 +175,7 @@ brew "zplug"
 # AI
 # brew "gemini-cli"
 # brew "hermes-agent"
-brew "anomalyco/tap/opencode", trusted: true
+brew "anomalyco/tap/opencode-v2", trusted: true
 
 # Video Player
 brew "mpv"

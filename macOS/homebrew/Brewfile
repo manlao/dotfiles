@@ -34,6 +34,7 @@ cask "claude-code"
 
 # Browser
 cask "google-chrome"
+cask "zen"
 # cask "firefox"
 # cask "microsoft-edge"
 # cask "tor-browser"

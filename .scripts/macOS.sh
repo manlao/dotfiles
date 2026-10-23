@@ -255,7 +255,6 @@ configure_dock() {
     "41,iTerm,/Applications/iTerm.app"
     "41,Visual Studio Code,/Applications/Visual Studio Code.app"
     "41,Google Chrome,/Applications/Google Chrome.app"
-    "41,Arc,/Applications/Arc.app"
     "41,Lark,/Applications/LarkSuite.app"
     "41,Slack,/Applications/Slack.app"
     "41,微信,/Applications/WeChat.app"

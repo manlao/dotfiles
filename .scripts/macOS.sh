@@ -171,10 +171,7 @@ update_homebrew() {
 update_homebrew_packages() {
   message --info "Update homebrew packages and mas apps"
 
-  # FIXME:
-  # https://github.com/homebrew/brew/issues/22597
-  # https://github.com/Homebrew/brew/pull/22601
-  brew upgrade --greedy
+  brew upgrade --greedy --no-ask
 
   if ! brew bundle check 1>/dev/null 2>&1; then
     brew bundle install --verbose

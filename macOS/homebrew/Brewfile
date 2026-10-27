@@ -194,7 +194,7 @@ brew "git-lfs"
 brew "git-extras"
 brew "git-credential-oauth"
 brew "git-delta"
-brew "jesseduffield/lazygit/lazygit", trusted: true
+brew "lazygit"
 
 # GitHub
 # brew "gh"

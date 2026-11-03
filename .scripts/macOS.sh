@@ -171,6 +171,7 @@ update_homebrew() {
 update_homebrew_packages() {
   message --info "Update homebrew packages and mas apps"
 
+  brew upgrade --cask iterm2 --no-quit
   brew upgrade --greedy --no-ask
 
   if ! brew bundle check 1>/dev/null 2>&1; then
@@ -178,22 +179,22 @@ update_homebrew_packages() {
   fi
 
   # open updated cask
-  relanuch_app Rectangle.app
-  relanuch_app MonitorControl.app
+  reopen_app Rectangle.app
+  reopen_app MonitorControl.app
 
   if mas version 1>/dev/null 2>&1; then
     mas upgrade
   fi
 
   # open updated app
-  relanuch_app Amphetamine.app
+  reopen_app Amphetamine.app
 }
 
 update_dock() {
   configure_dock
 }
 
-relanuch_app() {
+reopen_app() {
   if ! ps aux | grep -v grep | grep "$1" 1>/dev/null 2>&1; then
     open -g -a "$1"
   fi

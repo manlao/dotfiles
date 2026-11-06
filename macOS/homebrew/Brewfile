@@ -31,6 +31,8 @@ cask "codex"
 # cask "codex-app"
 cask "claude-code"
 # cask "claude"
+# cask "grok-build"
+# cask "antigravity-cli"
 
 # Browser
 cask "google-chrome"
@@ -81,12 +83,9 @@ cask "clash-verge-rev"
 
 # Dev Tools
 # cask "insomnia"
-# cask "postman"
 # cask "wireshark"
 # cask "beekeeper-studio"
 # cask "dash"
-# cask "wechatwebdevtools"
-# cask "switchhosts"
 # cask "xtool-org/tap/xtool", trusted: true
 
 # Menu Bar

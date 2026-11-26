@@ -290,6 +290,7 @@ brew "minikube"
 # brew "kubectx"
 brew "kubeseal"
 brew "derailed/k9s/k9s", trusted: true
+brew "talosctl"
 
 # Ctags
 brew "ctags"
